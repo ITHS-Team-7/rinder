@@ -5,8 +5,6 @@ import { RouterLink, RouterView } from "vue-router";
 <template>
   <header>
     <div class="wrapper">
-      <h1>Welcome to Rinder, the modern dating app</h1>
-
       <nav>
         <RouterLink to="/">Home</RouterLink>
         <RouterLink to="/chat">Chat</RouterLink>
@@ -19,6 +17,7 @@ import { RouterLink, RouterView } from "vue-router";
 </template>
 
 <style scoped>
+
 header {
   line-height: 1.5;
   max-height: 100vh;
@@ -84,4 +83,5 @@ nav a:first-of-type {
     margin-top: 1rem;
   }
 }
+
 </style>

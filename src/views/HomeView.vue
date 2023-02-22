@@ -1,7 +1,7 @@
-<script setup></script>
+<script setup>
+import HeroSec from "../components/HeroSection.vue";
+</script>
 
 <template>
-  <main>
-    <h2>Hitta din kärlek</h2>
-  </main>
+  <HeroSec></HeroSec>
 </template>
