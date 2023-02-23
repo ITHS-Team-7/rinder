@@ -15,12 +15,14 @@ import moment from "moment";
           type="button"
           value="Start new chat"
           @click="showNewChatSection = true"
+          class="btn btn-primary"
         />
         <div v-else>
           <input
             type="button"
             value="Close"
             @click="showNewChatSection = false"
+            class="btn btn-primary"
           />
           <!-- Filter users to exclude currently logged in user -->
           <div
@@ -73,6 +75,7 @@ import moment from "moment";
             type="button"
             value="X"
             @click.stop="deleteChat(chat.userName)"
+            class="btn btn-danger"
           />
         </div>
       </div>
@@ -81,22 +84,37 @@ import moment from "moment";
       </div>
     </div>
     <div id="activeChatContainer" v-if="activeChatUser !== null">
-      <div
-        v-for="(message, index) in loggedInUser.chats.find(
-          (chat) => chat.userName === activeChatUser?.userName
-        )?.messages"
-        :class="'chatMessage ' + message.type"
-        :key="index"
-      >
-        {{ /*moment.unix(message.time).format("YYYY-MM-DD HH:mm:ss")*/ null }}
-        {{ message.message }}
+      <div id="activeChatNameContainer">
+        <h2>
+          {{ activeChatUser?.firstName }} <span class="chatStatus">🟢</span>
+        </h2>
       </div>
-    </div>
-    <div id="chatInputsContainer" v-if="activeChatUser !== null">
-      <form @submit="sendMessage">
-        <input type="text" v-model="chatMessageInput" />
-        <input type="submit" value="Send" />
-      </form>
+      <div id="activeChatMessagesContainer">
+        <div
+          v-for="(message, index) in loggedInUser.chats.find(
+            (chat) => chat.userName === activeChatUser?.userName
+          )?.messages"
+          :class="'chatMessage ' + message.type"
+          :key="index"
+        >
+          {{
+            /*moment.unix(message.time).format("YYYY-MM-DD HH:mm:ss")*/
+            null
+          }}
+          {{ message.message }}
+        </div>
+      </div>
+      <div id="chatInputsContainer">
+        <form @submit="sendMessage">
+          <input
+            type="text"
+            v-model="chatMessageInput"
+            class="form-control"
+            placeholder="Message..."
+          />
+          <input type="submit" value="Send" class="btn btn-success" />
+        </form>
+      </div>
     </div>
   </div>
 </template>
@@ -130,8 +148,9 @@ export default {
           (chat) => chat.userName === userName
         );
 
+        // using unshift to "push" chat to starty of array
         if (!existingChat) {
-          this.loggedInUser.chats.push({
+          this.loggedInUser.chats.unshift({
             userName: userName,
             messages: [],
           });
@@ -173,7 +192,7 @@ export default {
         );
 
         // add message to current logged in user messages list
-        this.loggedInUser.chats[chatIndex].messages.push({
+        this.loggedInUser.chats[0].messages.push({
           time: moment().unix(),
           message: this.chatMessageInput,
           type: "sent",
@@ -197,6 +216,8 @@ export default {
             receivingUser.chats.splice(receiverChatIndex, 1)[0]
           );
 
+          receivingUserChat = receivingUser.chats[0];
+
           receivingUserChat.messages.push({
             time: moment().unix(),
             message: this.chatMessageInput,
@@ -206,7 +227,7 @@ export default {
           console.log(
             "Chat doesn't exists in receiving users chat list, creating it now"
           );
-          receivingUser.chats.push({
+          receivingUser.chats.unshift({
             userName: this.loggedInUser.userName,
             messages: [
               {
@@ -220,22 +241,29 @@ export default {
 
         this.chatMessageInput = "";
       }
+
+      this.scrollToLastMessage();
     },
     goToProfile(userName) {
       // TODO: redirect to user profile page
       console.log(getUser(userName));
     },
-  },
-  watch: {
-    activeChatUser() {
+    scrollToLastMessage() {
       // Scroll down to last message
       // $nextTick is called after v-for has rendered all chatMessages
       this.$nextTick(() => {
-        const container = document.querySelector("#activeChatContainer");
+        const container = document.querySelector(
+          "#activeChatMessagesContainer"
+        );
         if (container) {
           container.scrollTop = container.scrollHeight;
         }
       });
+    },
+  },
+  watch: {
+    activeChatUser() {
+      this.scrollToLastMessage();
     },
   },
   computed: {
@@ -276,21 +304,26 @@ function getUser(userName) {
   background: #fff;
   color: #000;
   gap: 1rem;
-  justify-content: space-between;
   max-height: 50rem;
 
   max-width: 85rem;
   margin: 0 auto;
 
-  display: grid;
-  grid-template-columns: min-content 1fr;
-  grid-template-rows: 1fr min-content;
-  grid-template-areas:
-    "chatSelectContainer activeChatContainer"
-    "chatSelectContainer chatInputsContainer";
+  display: flex;
 }
 
 #activeChatContainer {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: min-content 1fr min-content;
+  grid-template-areas:
+    "activeChatName"
+    "activeChatMessagesContainer"
+    "chatInputsContainer";
+}
+
+#activeChatMessagesContainer {
   border: 0.1rem solid red;
   border-radius: 10px;
   display: flex;
@@ -299,6 +332,7 @@ function getUser(userName) {
   width: 100%;
   padding: 0.5rem;
   overflow-y: scroll;
+  grid-area: activeChatMessagesContainer;
 }
 
 #chatSelectContainer {
@@ -316,8 +350,9 @@ function getUser(userName) {
   -khtml-user-select: none; /* Konqueror HTML */
   -moz-user-select: none; /* Old versions of Firefox */
   -ms-user-select: none; /* Internet Explorer/Edge */
-  user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome, Edge, Opera and Firefox */
+  user-select: none;
+  /* Non-prefixed version, currently
+                                   supported by Chrome, Edge, Opera and Firefox */
 
   overflow-y: scroll;
 }
@@ -330,6 +365,10 @@ function getUser(userName) {
   align-items: center;
   cursor: pointer;
   padding: 1rem 0.5rem;
+}
+
+.chatSelect:hover {
+  background-color: #d1d1d1;
 }
 
 #chatSelectContainer > div > div {
@@ -389,14 +428,29 @@ function getUser(userName) {
   display: flex;
   width: 100%;
   justify-content: flex-end;
+  padding: 0.5rem 0;
+}
+
+#chatInputsContainer form {
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
 }
 
 .openNewChatUser {
   border: 0.1rem solid red;
   cursor: pointer;
 }
+
 #openNewChat {
   margin: 0 auto;
   padding: 1rem 0;
+}
+
+#activeChatNameContainer {
+}
+
+.chatStatus {
+  font-size: 1rem;
 }
 </style>
