@@ -7,40 +7,80 @@ import moment from "moment";
 
 <template>
   <div id="chat">
-    <div id="chatSelect">
-      <div id="newChatSelect">
-        <input v-if="!showNewChatSection" type="button" value="Start new chat" @click="showNewChatSection = true">
+    <div id="chatSelectContainer">
+      <!-- + 1 needed to compensate for currently logged in user -->
+      <div id="openNewChat" v-if="ableToOpenNewChat">
+        <input
+          v-if="!showNewChatSection"
+          type="button"
+          value="Start new chat"
+          @click="showNewChatSection = true"
+        />
         <div v-else>
-          <input type="button" value="Close" @click="showNewChatSection = false">
-          <div class="newChatSelectUser" v-for="user in users">
+          <input
+            type="button"
+            value="Close"
+            @click="showNewChatSection = false"
+          />
+          <!-- Filter users to exclude currently logged in user -->
+          <div
+            :key="index"
+            class="openNewChatUser"
+            v-for="(user, index) in users.filter(
+              (user) =>
+                user.userName !== loggedInUser.userName &&
+                !openChatsUsernames.includes(user.userName)
+            )"
+            @click="openChat(user.userName)"
+          >
             {{ user.userName }}
           </div>
         </div>
       </div>
+      <!--<div id="openNewChat" v-else>
+        No new users available to add...
+      </div>-->
       <div
         :key="index"
         v-for="(chat, index) in loggedInUser.chats"
         @click="openChat(chat.userName)"
-        :class="chat.userName === activeChatUser?.userName ? 'selected' : ''"
-      ><img class="avatar" :src="getUser(chat.userName).avatar" alt="avatar" @click.stop="goToProfile(chat.userName)"/>
+        :class="
+          chat.userName === activeChatUser?.userName
+            ? 'chatSelect selected'
+            : 'chatSelect'
+        "
+      >
+        <img
+          class="avatar"
+          :src="getUser(chat.userName).avatar"
+          alt="avatar"
+          @click.stop="goToProfile(chat.userName)"
+        />
         <div>
+          <p class="name">
+            {{ getUser(chat.userName).firstName }}
+            {{ getUser(chat.userName).lastName }}
+          </p>
 
-        <p class="name">{{ getUser(chat.userName).firstName }} {{ getUser(chat.userName).lastName }}</p>
-
-        <p class="lastMessage">
-          {{ chat.messages[chat.messages.length - 1].type }}: {{ chat.messages[chat.messages.length - 1].message }}
-        </p>
+          <p class="lastMessage" v-if="chat.messages.length">
+            {{ chat.messages[chat.messages.length - 1].type }}:
+            {{ chat.messages[chat.messages.length - 1].message }}
+          </p>
+          <p class="lastMessage" v-else>...</p>
         </div>
-        <div id="chatSelectOptions">
-          <input type="button" value="X" @click.stop="deleteChat(chat.userName)">
+        <div id="chatSelectContainerOptions">
+          <input
+            type="button"
+            value="X"
+            @click.stop="deleteChat(chat.userName)"
+          />
         </div>
-
       </div>
       <div v-if="!loggedInUser.chats.length">
         <p>You don't have any open chats...</p>
       </div>
     </div>
-    <div id="selectedChatContainer" v-if="activeChatUser !== null">
+    <div id="activeChatContainer" v-if="activeChatUser !== null">
       <div
         v-for="(message, index) in loggedInUser.chats.find(
           (chat) => chat.userName === activeChatUser?.userName
@@ -48,16 +88,15 @@ import moment from "moment";
         :class="'chatMessage ' + message.type"
         :key="index"
       >
-        {{ moment.unix(message.time).format("YYYY-MM-DD HH:mm:ss") }}
+        {{ /*moment.unix(message.time).format("YYYY-MM-DD HH:mm:ss")*/ null }}
         {{ message.message }}
       </div>
-      <div id="chatInputsContainer">
-        <form @submit="sendMessage">
-          <input type="text" v-model="chatMessageInput" />
-          <input type="submit" value="Send" />
-        </form>
-
-      </div>
+    </div>
+    <div id="chatInputsContainer" v-if="activeChatUser !== null">
+      <form @submit="sendMessage">
+        <input type="text" v-model="chatMessageInput" />
+        <input type="submit" value="Send" />
+      </form>
     </div>
   </div>
 </template>
@@ -72,11 +111,12 @@ export default {
       // TODO: replace this with actual logged in user
       loggedInUser: users[0],
       chatMessageInput: "",
-      showNewChatSection: false
+      showNewChatSection: false,
     };
   },
   methods: {
     openChat(userName) {
+      // TODO: disable opening chat with self
 
       this.chatMessageInput = "";
 
@@ -86,15 +126,34 @@ export default {
       if (this.activeChatUser?.userName === userName) {
         this.activeChatUser = null;
       } else {
+        let existingChat = this.loggedInUser.chats.find(
+          (chat) => chat.userName === userName
+        );
+
+        if (!existingChat) {
+          this.loggedInUser.chats.push({
+            userName: userName,
+            messages: [],
+          });
+        }
+
         this.activeChatUser = getUser(userName);
+      }
+
+      if (!this.ableToOpenNewChat) {
+        this.showNewChatSection = false;
       }
     },
     deleteChat(userName) {
       this.chatMessageInput = "";
 
-      console.log('Removing chat with ' + userName)
+      console.log("Deleting chat with " + userName);
 
-      // add message to current logged in user messages list
+      if (this.activeChatUser?.userName === userName) {
+        this.activeChatUser = null;
+      }
+
+      // delete chat from current logged in user
       this.loggedInUser.chats.splice(
         this.loggedInUser.chats.findIndex((chat) => chat.userName === userName),
         1
@@ -104,11 +163,17 @@ export default {
       evt.preventDefault();
 
       if (this.chatMessageInput) {
+        // move chat to index 0 for sender
+        const chatIndex = this.loggedInUser.chats.findIndex(
+          (chat) => chat.userName === this.activeChatUser?.userName
+        );
+
+        this.loggedInUser.chats.unshift(
+          this.loggedInUser.chats.splice(chatIndex, 1)[0]
+        );
 
         // add message to current logged in user messages list
-        this.loggedInUser.chats
-            .find((chat) => chat.userName === this.activeChatUser?.userName)
-            .messages.push({
+        this.loggedInUser.chats[chatIndex].messages.push({
           time: moment().unix(),
           message: this.chatMessageInput,
           type: "sent",
@@ -116,14 +181,22 @@ export default {
 
         // also add message to the receiving user message list
         const receivingUser = users.find(
-            (user) => user.userName === this.activeChatUser?.userName
+          (user) => user.userName === this.activeChatUser?.userName
         );
-        let receivingUserChat = receivingUser.chats.find(
-            (chat) => chat.userName == this.loggedInUser.userName
+
+        const receiverChatIndex = receivingUser.chats.findIndex(
+          (chat) => chat.userName === this.loggedInUser?.userName
         );
+        let receivingUserChat = receivingUser.chats[receiverChatIndex];
 
         if (receivingUserChat) {
           console.log("Chat exists in receiving users chat list");
+
+          // move chat to index 0 for receiver
+          receivingUser.chats.unshift(
+            receivingUser.chats.splice(receiverChatIndex, 1)[0]
+          );
+
           receivingUserChat.messages.push({
             time: moment().unix(),
             message: this.chatMessageInput,
@@ -131,7 +204,7 @@ export default {
           });
         } else {
           console.log(
-              "Chat doesn't exists in receiving users chat list, creating it now"
+            "Chat doesn't exists in receiving users chat list, creating it now"
           );
           receivingUser.chats.push({
             userName: this.loggedInUser.userName,
@@ -147,12 +220,33 @@ export default {
 
         this.chatMessageInput = "";
       }
-
     },
     goToProfile(userName) {
       // TODO: redirect to user profile page
-      console.log(getUser(userName))
-    }
+      console.log(getUser(userName));
+    },
+  },
+  watch: {
+    activeChatUser() {
+      // Scroll down to last message
+      // $nextTick is called after v-for has rendered all chatMessages
+      this.$nextTick(() => {
+        const container = document.querySelector("#activeChatContainer");
+        if (container) {
+          container.scrollTop = container.scrollHeight;
+        }
+      });
+    },
+  },
+  computed: {
+    // get an array of usernames of all open chats
+    openChatsUsernames() {
+      console.log(this.loggedInUser.chats.map((chat) => chat.userName));
+      return this.loggedInUser.chats.map((chat) => chat.userName);
+    },
+    ableToOpenNewChat() {
+      return this.openChatsUsernames.length + 1 !== users.length;
+    },
   },
 };
 
@@ -175,34 +269,47 @@ function getUser(userName) {
 </script>
 
 <style scoped>
-* {
-  box-sizing: border-box;
-}
 #chat {
   border: 0.1rem solid red;
   border-radius: 10px;
   padding: 0.5rem 1rem;
   background: #fff;
   color: #000;
-  display: flex;
   gap: 1rem;
   justify-content: space-between;
+  max-height: 50rem;
+
+  max-width: 85rem;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: min-content 1fr;
+  grid-template-rows: 1fr min-content;
+  grid-template-areas:
+    "chatSelectContainer activeChatContainer"
+    "chatSelectContainer chatInputsContainer";
 }
 
-#selectedChatContainer {
+#activeChatContainer {
+  border: 0.1rem solid red;
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
   width: 100%;
+  padding: 0.5rem;
+  overflow-y: scroll;
 }
 
-#chatSelect {
+#chatSelectContainer {
   display: flex;
   flex-direction: column;
   min-width: fit-content;
   border: 0.1rem solid red;
   border-radius: 10px;
   padding: 0.5rem;
+
+  grid-area: chatSelectContainer;
 
   -webkit-touch-callout: none; /* iOS Safari */
   -webkit-user-select: none; /* Safari */
@@ -211,45 +318,53 @@ function getUser(userName) {
   -ms-user-select: none; /* Internet Explorer/Edge */
   user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
+
+  overflow-y: scroll;
 }
 
-#chatSelect div {
+#chatSelectContainer .chatSelect {
   display: flex;
   gap: 0 1rem;
   border-radius: 10px;
   justify-content: space-between;
-  align-items: center;  cursor: pointer;
+  align-items: center;
+  cursor: pointer;
   padding: 1rem 0.5rem;
 }
 
-#chatSelect > div > div {
+#chatSelectContainer > div > div {
   display: flex;
   justify-content: space-around;
   flex-direction: column;
   align-content: center;
-
 }
 
 .name {
   font-weight: bold;
   color: darkblue;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
-#chatSelect > div.selected {
-  outline: .2rem solid blueviolet ;
+#chatSelectContainer > .chatSelect.selected {
+  outline: 0.2rem solid blueviolet;
 }
 
 .chatMessage {
   background: #3b71ca;
   color: #fff;
-  padding: .4rem .7rem;
+  padding: 0.4rem 0.7rem;
   border-radius: 10px;
-  font-size: .9rem;
+  font-size: 0.9rem;
 }
 
 .lastMessage {
   color: #222222;
-  font-size: .8rem;
+  font-size: 0.8rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .sent {
@@ -269,10 +384,19 @@ function getUser(userName) {
 
 #chatInputsContainer {
   margin: auto 0 0 auto;
+  grid-area: chatInputsContainer;
 
+  display: flex;
+  width: 100%;
+  justify-content: flex-end;
 }
 
-.newChatSelectUser {
-  border: .1rem solid red;
+.openNewChatUser {
+  border: 0.1rem solid red;
+  cursor: pointer;
+}
+#openNewChat {
+  margin: 0 auto;
+  padding: 1rem 0;
 }
 </style>
