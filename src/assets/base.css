@@ -1,13 +1,23 @@
 /* color palette from figma */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto');
+
 :root {
     --purple: #8843e4;
     --black: #252525;
     --darkPink: #ff4779;
     --lightPink: #ffe1e8;
     --white: #ffffff;
+
+
+}
+*, *:before, *:after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 body {
-margin: 0px;
-padding: 0px;
+    font-family: 'Roboto', sans-serif;
+
 overflow-y: hidden
 }
