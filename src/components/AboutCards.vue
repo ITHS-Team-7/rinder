@@ -4,27 +4,24 @@
       <div class="card col-sm-4 border-0 cardtop">
         <div class="card border-0 con">
           <img
-            src="../assets/images/Profil bild.png"
+            src="https://xsgames.co/randomusers/assets/avatars/female/0.jpg"
             class="img-fluid rounded-circle"
-            alt=""
+            alt="Profil bild"
           />
         </div>
         <div class="card-body">
-          <h5 class="card-title">test</h5>
-          <p class="card-text">test</p>
-          <p class="card-text">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati,
-            voluptatibus. Ea sapiente at repudiandae. Ducimus expedita vero
-            perspiciatis, inventore, sapiente a sequi, quidem sunt ab deleniti
-            officia. Unde, quod quas.
-          </p>
+          <h5 class="card-title">username</h5>
+          <p class="card-text">first name / last name</p>
+          <p class="card-text">Gender: </p>
+          <p class="card-text">Age: </p>
+          <p class="card-text">email / sigup date / random</p>
         </div>
       </div>
 
       <div class="card col-sm-4 border-0 cardtop">
         <div class="card border-0 con">
           <img
-            src="../assets/images/Profil bild.png"
+            src="https://xsgames.co/randomusers/assets/avatars/female/1.jpg"
             class="img-fluid rounded-circle"
             alt=""
           />
@@ -44,7 +41,7 @@
       <div class="card col-sm-4 border-0 cardtop">
         <div class="card border-0 con">
           <img
-            src="../assets/images/Profil bild.png"
+            src="https://xsgames.co/randomusers/assets/avatars/male/0.jpg"
             class="img-fluid rounded-circle"
             alt=""
           />
