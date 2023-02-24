@@ -1,13 +1,17 @@
 /* color palette from figma */
+
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
 :root {
-    --purple: #8843e4;
-    --black: #252525;
-    --darkPink: #ff4779;
-    --lightPink: #ffe1e8;
-    --white: #ffffff;
+  --purple: #8843e4;
+  --black: #252525;
+  --darkPink: #ff4779;
+  --lightPink: #ffe1e8;
+  --white: #ffffff;
 }
 body {
-margin: 0px;
-padding: 0px;
-overflow-y: hidden
+  margin: 0px;
+  padding: 0px;
+  overflow-y: hidden;
+  font-family: "Roboto", sans-serif;
 }
