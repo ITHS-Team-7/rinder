@@ -7,7 +7,6 @@ export default {
   },
 };
 </script>
-
 <template>
   <div class="backgroundImg">
     <div class="textContainer">
