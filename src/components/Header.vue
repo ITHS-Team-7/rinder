@@ -22,7 +22,7 @@ import { faBars } from '@fortawesome/free-solid-svg-icons'
         
         <ul class="nav-items">
           <li>
-            <RouterLink class="nav-link active" aria-current="page" to="/about"
+            <RouterLink class="nav-link active" aria-current="page" to="/chat"
               >About
 </RouterLink
             >
