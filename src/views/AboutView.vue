@@ -1,15 +1,10 @@
+<script setup>
+import AboutCards from "../components/AboutCards.vue";
+</script>
+
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-  </div>
+  <AboutCards></AboutCards>
+  <p>t</p>
 </template>
 
-<style>
-@media (min-width: 1024px) {
-  .about {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-  }
-}
-</style>
+<style></style>
