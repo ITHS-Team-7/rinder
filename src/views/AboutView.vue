@@ -1,7 +1,8 @@
+<script setup>
+import AboutCards from "../components/AboutCards.vue";
+</script>
 <template>
-  <div class="about">
-    <h1>This is an about page</h1>
-  </div>
+  <AboutCards></AboutCards>
 </template>
 
 <style>

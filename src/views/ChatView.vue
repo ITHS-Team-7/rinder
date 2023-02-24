@@ -8,7 +8,7 @@ import ChatComponent from "../components/ChatComponent.vue";
 
 <script>
 export default {
-  name: "ChatView"
+  name: "ChatView",
 };
 </script>
 
