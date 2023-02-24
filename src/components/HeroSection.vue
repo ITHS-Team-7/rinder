@@ -7,7 +7,6 @@ export default {
   },
 };
 </script>
-
 <template>
   <div class="backgroundImg">
     <div class="textContainer">
@@ -48,7 +47,6 @@ export default {
 }
 .heroText {
   color: var(--white);
-  font-family: sans-serif;
   font-size: 7vw;
   text-align: center;
   margin-bottom: 0.5em;
