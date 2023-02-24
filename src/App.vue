@@ -1,21 +1,18 @@
 <script setup>
-import { RouterLink, RouterView } from "vue-router";
+//import { RouterLink, RouterView } from "vue-router";
+import Header from './components/Header.vue'
+
 </script>
 
 <template>
-  <header>
+<Header />
+  <!--<header>
     <div class="wrapper">
       <h1>Welcome to Rinder, the modern dating app</h1>
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/chat">Chat</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
     </div>
-  </header>
+  </header> 
 
-  <RouterView />
+  <RouterView /> -->
 </template>
 
 <style scoped>
