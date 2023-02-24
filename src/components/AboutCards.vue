@@ -110,4 +110,21 @@ html {
     padding-bottom: 10vh;
   }
 }
+@media screen and (max-width: 320px) {
+  .cardtop {
+    width: 16rem;
+    margin: auto;
+  }
+  .img-fluid {
+    max-width: 125px;
+    position: absolute;
+    top: -65px;
+    left: 66%;
+    transform: translateX(-50%);
+  }
+  .cardtop {
+    padding-top: 15vh;
+    padding-bottom: 10vh;
+  }
+}
 </style>
