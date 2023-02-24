@@ -6,16 +6,11 @@ import Header from './components/Header.vue'
 
 <template>
 <Header />
-  <!--<header>
-    <div class="wrapper">
-      <h1>Welcome to Rinder, the modern dating app</h1>
-    </div>
-  </header> 
 
-  <RouterView /> -->
 </template>
 
 <style scoped>
+
 header {
   line-height: 1.5;
   max-height: 100vh;
@@ -81,4 +76,5 @@ nav a:first-of-type {
     margin-top: 1rem;
   }
 }
+
 </style>
