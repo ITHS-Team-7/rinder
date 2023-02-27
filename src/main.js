@@ -9,10 +9,10 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 /* import specific icons */
-import { faUserSecret } from "@fortawesome/free-solid-svg-icons";
+import { faUserSecret, faPaperPlane, faFaceSmile, faPhoneVolume, faVideo, faEllipsisVertical, faTrashCan} from "@fortawesome/free-solid-svg-icons";
 
 /* add icons to the library */
-library.add(faUserSecret)
+library.add(faUserSecret, faPaperPlane, faFaceSmile, faPhoneVolume, faVideo, faEllipsisVertical, faTrashCan);
 
 import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";

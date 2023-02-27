@@ -1,22 +1,17 @@
 <script setup>
-import { RouterLink, RouterView } from "vue-router";
+import { RouterView } from "vue-router";
+import Header from './components/Header.vue'
+
 </script>
 
 <template>
-  <header>
-    <div class="wrapper">
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/chat">Chat</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
+<Header />
+  <RouterView></RouterView>
 
-  <RouterView />
 </template>
 
 <style scoped>
+
 header {
   line-height: 1.5;
   max-height: 100vh;
@@ -82,4 +77,5 @@ nav a:first-of-type {
     margin-top: 1rem;
   }
 }
+
 </style>

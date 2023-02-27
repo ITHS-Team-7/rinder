@@ -3,9 +3,11 @@ import users from "../assets/data/users.json";
 import moment from "moment";
 </script>
 
-// TODO: set globally box-sizing property to border-box and margin padding to 0
+
 
 <template>
+  <!-- TODO: divide chatComponent into further components -->
+  <!-- TODO: use em instead of rem where appropriate -->
   <div id="chat">
     <div id="chatSelectContainer">
       <!-- + 1 needed to compensate for currently logged in user -->
@@ -15,17 +17,28 @@ import moment from "moment";
           type="button"
           value="Start new chat"
           @click="showNewChatSection = true"
-          class="btn btn-primary"
+          class="btn btn-success"
         />
-        <div v-else>
+        <template v-else>
           <input
             type="button"
             value="Close"
             @click="showNewChatSection = false"
-            class="btn btn-primary"
+            class="btn btn-danger"
           />
           <!-- Filter users to exclude currently logged in user -->
-          <div
+
+          <ul class="list-group">
+            <li class="list-group-item openNewChatUser" :key="index"
+                v-for="(user, index) in users.filter(
+              (user) =>
+                user.userName !== loggedInUser.userName &&
+                !openChatsUsernames.includes(user.userName)
+            )"
+                @click="openChat(user.userName)"><span style="font-weight: bold">{{ user.firstName }} {{ user.lastName }}</span> ({{ user.userName }})</li>
+          </ul>
+
+          <!--<div
             :key="index"
             class="openNewChatUser"
             v-for="(user, index) in users.filter(
@@ -36,8 +49,8 @@ import moment from "moment";
             @click="openChat(user.userName)"
           >
             {{ user.userName }}
-          </div>
-        </div>
+          </div>-->
+        </template>
       </div>
       <!--<div id="openNewChat" v-else>
         No new users available to add...
@@ -58,37 +71,49 @@ import moment from "moment";
           alt="avatar"
           @click.stop="goToProfile(chat.userName)"
         />
-        <div>
+        <div id="nameAndLastMessageContainer">
           <p class="name">
             {{ getUser(chat.userName).firstName }}
             {{ getUser(chat.userName).lastName }}
           </p>
 
           <p class="lastMessage" v-if="chat.messages.length">
-            {{ chat.messages[chat.messages.length - 1].type }}:
+            {{ chat.messages[chat.messages.length - 1].type === 'sent' ? '-->' : '<--' }}
             {{ chat.messages[chat.messages.length - 1].message }}
           </p>
-          <p class="lastMessage" v-else>...</p>
         </div>
-        <div id="chatSelectContainerOptions">
-          <input
-            type="button"
-            value="X"
-            @click.stop="deleteChat(chat.userName)"
-            class="btn btn-danger"
-          />
-        </div>
+        <!-- <div id="chatSelectContainerOptions">
+        </div> -->
       </div>
       <div v-if="!loggedInUser.chats.length">
         <p>You don't have any open chats...</p>
       </div>
     </div>
+
     <div id="activeChatContainer" v-if="activeChatUser !== null">
-      <div id="activeChatNameContainer">
-        <h2>
-          {{ activeChatUser?.firstName }} <span class="chatStatus">🟢</span>
-        </h2>
+
+
+
+      <div id="activeChatTopContainer">
+        <div id="activeChatNameContainer">
+          <p @click="goToProfile(activeChatUser.userName)">
+          {{ activeChatUser?.firstName }}
+        </p><span class="activeChatStatus">🟢</span></div>
+
+        <div id="callIconsContainer">
+          <div class="clickableIconContainer"><font-awesome-icon icon="fa-solid fa-phone-volume" /></div>
+          <div class="clickableIconContainer"><font-awesome-icon icon="fa-solid fa-video" /></div>
+          <div @click="showActiveChatSettings = !showActiveChatSettings" class="clickableIconContainer"><font-awesome-icon icon="fa-solid fa-ellipsis-vertical" /></div>
+
+        </div>
       </div>
+      <div id="activeChatSettings" v-if="showActiveChatSettings">
+
+      <div >
+        <div style="color: red" @click.stop="deleteChat(activeChatUser.userName)" class="clickableIconContainer"><font-awesome-icon icon="fa-solid fa-trash-can" /></div>
+
+      </div>
+    </div>
       <div id="activeChatMessagesContainer">
         <div
           v-for="(message, index) in loggedInUser.chats.find(
@@ -108,11 +133,18 @@ import moment from "moment";
         <form @submit="sendMessage">
           <input
             type="text"
+            id="messageInput"
             v-model="chatMessageInput"
             class="form-control"
             placeholder="Message..."
           />
-          <input type="submit" value="Send" class="btn btn-success" />
+          <!--<input type="button" id="emojiButton" value="😊">
+          <input type="submit" value="Send" class="btn btn-success">-->
+          <div id="chatInputButtons">
+            <div id="emojiBtn" class="clickableIconContainer"><font-awesome-icon icon="fa-solid fa-face-smile" /></div>
+            <div id="sendBtn" @click="sendMessage" class="clickableIconContainer"><font-awesome-icon icon="fa-solid fa-paper-plane" /></div></div>
+
+
         </form>
       </div>
     </div>
@@ -125,6 +157,7 @@ export default {
   data() {
     return {
       activeChatUser: null,
+      showActiveChatSettings: false,
       loading: true,
       // TODO: replace this with actual logged in user
       loggedInUser: users[0],
@@ -159,9 +192,8 @@ export default {
         this.activeChatUser = getUser(userName);
       }
 
-      if (!this.ableToOpenNewChat) {
-        this.showNewChatSection = false;
-      }
+
+      this.showNewChatSection =false
     },
     deleteChat(userName) {
       this.chatMessageInput = "";
@@ -263,8 +295,12 @@ export default {
   },
   watch: {
     activeChatUser() {
+      this.showActiveChatSettings = false;
       this.scrollToLastMessage();
     },
+    chatMessageInput(msg) {
+      // user is typing...
+    }
   },
   computed: {
     // get an array of usernames of all open chats
@@ -298,9 +334,7 @@ function getUser(userName) {
 
 <style scoped>
 #chat {
-  border: 0.1rem solid red;
   border-radius: 10px;
-  padding: 0.5rem 1rem;
   background: #fff;
   color: #000;
   gap: 1rem;
@@ -310,6 +344,9 @@ function getUser(userName) {
   margin: 0 auto;
 
   display: flex;
+
+  padding: 1rem;
+  box-shadow: 0 0 5px #8843e4;
 }
 
 #activeChatContainer {
@@ -318,28 +355,28 @@ function getUser(userName) {
   grid-template-columns: 1fr;
   grid-template-rows: min-content 1fr min-content;
   grid-template-areas:
-    "activeChatName"
+    "activeChatNameContainer"
+    "activeChatSettings"
     "activeChatMessagesContainer"
     "chatInputsContainer";
 }
 
 #activeChatMessagesContainer {
-  border: 0.1rem solid red;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
   width: 100%;
-  padding: 0.5rem;
   overflow-y: scroll;
   grid-area: activeChatMessagesContainer;
+  padding: 2rem 1rem;
 }
 
 #chatSelectContainer {
   display: flex;
   flex-direction: column;
-  min-width: fit-content;
-  border: 0.1rem solid red;
+  min-width: 25rem;
+  /*border: 0.1rem solid red;*/
   border-radius: 10px;
   padding: 0.5rem;
 
@@ -357,50 +394,55 @@ function getUser(userName) {
   overflow-y: scroll;
 }
 
+#chatSelectContainer::-webkit-scrollbar {
+  display: none;
+}
+
 #chatSelectContainer .chatSelect {
   display: flex;
   gap: 0 1rem;
   border-radius: 10px;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   cursor: pointer;
-  padding: 1rem 0.5rem;
+  padding: 0.8rem 0;
 }
 
 .chatSelect:hover {
-  background-color: #d1d1d1;
+  background-color: #e1e1e1;
 }
 
-#chatSelectContainer > div > div {
+#nameAndLastMessageContainer {
   display: flex;
   justify-content: space-around;
   flex-direction: column;
   align-content: center;
+  max-width: 10rem;
+  width: 100%;
 }
 
 .name {
   font-weight: bold;
-  color: darkblue;
+  font-size: 1.1em;
+  color: #3b71ca;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
 #chatSelectContainer > .chatSelect.selected {
-  outline: 0.2rem solid blueviolet;
+  background-color: #d1d1d1;
 }
 
 .chatMessage {
-  background: #3b71ca;
-  color: #fff;
-  padding: 0.4rem 0.7rem;
+  padding: .9rem 1rem;
   border-radius: 10px;
-  font-size: 0.9rem;
+  font-size: 1.2rem;
 }
 
 .lastMessage {
   color: #222222;
-  font-size: 0.8rem;
+  font-size: .9em;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -408,16 +450,20 @@ function getUser(userName) {
 
 .sent {
   margin-left: auto;
+  background-color: #8843E4;
+  color: #fff;
 }
 
 .received {
   margin-right: auto;
+  background-color: #D9D9D9;
+  color: #000;
 }
 
 .avatar {
   border-radius: 50%;
-  height: 4rem;
-  border: 0.2rem solid green;
+  height: 5rem;
+  border: 0.2rem solid white;
   cursor: pointer;
 }
 
@@ -425,32 +471,101 @@ function getUser(userName) {
   margin: auto 0 0 auto;
   grid-area: chatInputsContainer;
 
-  display: flex;
+
   width: 100%;
-  justify-content: flex-end;
-  padding: 0.5rem 0;
+  padding: 0.5rem 2rem 0.5rem 1rem;
 }
 
 #chatInputsContainer form {
   display: flex;
-  gap: 0.5rem;
+  gap: 2rem;
   width: 100%;
 }
 
 .openNewChatUser {
-  border: 0.1rem solid red;
   cursor: pointer;
+}
+.openNewChatUser:hover {
+  background-color: #606060;
+  color: white;
 }
 
 #openNewChat {
   margin: 0 auto;
   padding: 1rem 0;
+
+}
+
+#openNewChat input {
+  display: block;
+  margin: 0 auto;
+}
+
+#activeChatTopContainer {
+  display: flex;
+
+  justify-content: space-between;
+  padding: 1rem 2rem 1rem 1rem;
+}
+
+.activeChatStatus {
+  font-size: .6em;
+}
+
+.clickableIconContainer {
+  font-size: 2.3rem;
+  margin: auto 0;
+  cursor: pointer;
+  display: inline;
+}
+
+#messageInput {
+  border: 0.15rem solid #252525;
+  border-radius: 10px;
+  font-size: 1.2rem;
+}
+
+#callIconsContainer {
+  display: flex;
+  gap: 3rem;
+
 }
 
 #activeChatNameContainer {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  font-size: 2.5rem;
+
+  grid-area: activeChatNameContainer;
+
+  font-weight: bold;
 }
 
-.chatStatus {
-  font-size: 1rem;
+#activeChatNameContainer p {
+  cursor: pointer;
+}
+
+#chatInputButtons {
+  display: flex;
+  gap: 1.5rem
+}
+
+p {
+  margin: 0
+}
+
+#emojiBtn {
+  color: #ff6a00;
+}
+
+#sendBtn {
+  color: purple;
+}
+
+#activeChatSettings {
+  position: relative;
+  left: 90%;
+  grid-area: activeChatSettings;
 }
 </style>
