@@ -1,60 +1,35 @@
+<script>
+import data from "../assets/data/users.json";
+export default {
+  data() {
+    return {
+      users: data,
+    };
+  },
+};
+</script>
+
 <template>
   <div class="container-fluid">
     <div class="row justify-content-center" style="padding-top: 10vh">
-      <div class="card col-sm-4 border-0 cardtop">
+      <div
+        v-for="(user, index) in users.slice(0, 3)"
+        :key="index"
+        class="card col-sm-4 border-0 cardtop"
+      >
         <div class="card border-0 con">
           <img
-            src="https://xsgames.co/randomusers/assets/avatars/female/0.jpg"
+            :src="user.avatar"
             class="img-fluid rounded-circle"
             alt="Profil bild"
           />
         </div>
         <div class="card-body">
-          <h5 class="card-title">username</h5>
-          <p class="card-text">first name / last name</p>
-          <p class="card-text">Gender: </p>
-          <p class="card-text">Age: </p>
-          <p class="card-text">email / sigup date / random</p>
-        </div>
-      </div>
-
-      <div class="card col-sm-4 border-0 cardtop">
-        <div class="card border-0 con">
-          <img
-            src="https://xsgames.co/randomusers/assets/avatars/female/1.jpg"
-            class="img-fluid rounded-circle"
-            alt=""
-          />
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">test</h5>
-          <p class="card-text">test</p>
-          <p class="card-text">
-            Lorem ipsum dolor, sit amet consectetur adipisicing elit. Earum et
-            saepe aliquid consequatur, neque omnis eius nostrum nesciunt
-            voluptas itaque aliquam adipisci ex molestiae harum dignissimos
-            facere quod ipsum totam.
-          </p>
-        </div>
-      </div>
-
-      <div class="card col-sm-4 border-0 cardtop">
-        <div class="card border-0 con">
-          <img
-            src="https://xsgames.co/randomusers/assets/avatars/male/0.jpg"
-            class="img-fluid rounded-circle"
-            alt=""
-          />
-        </div>
-        <div class="card-body">
-          <h5 class="card-title">test</h5>
-          <p class="card-text">test</p>
-          <p class="card-text">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel sit
-            rerum dolorem reiciendis, dolorum velit, minus voluptates modi
-            possimus expedita nulla soluta quia magnam odio illo hic, debitis
-            nam dolores.
-          </p>
+          <h5 class="card-title">{{ user.userName }}</h5>
+          <p class="card-text">{{ user.firstName }} {{ user.lastName }}</p>
+          <p class="card-text">Gender: {{ user.gender }}</p>
+          <p class="card-text">Age: {{ user.age }}</p>
+          <p class="card-text">Signed up since: {{ user.signupDate }}</p>
         </div>
       </div>
     </div>
@@ -107,7 +82,7 @@ html {
     padding-bottom: 10vh;
   }
 }
-@media screen and (max-width: 320px) {
+@media screen and (max-width: 325px) {
   .cardtop {
     width: 16rem;
     margin: auto;
