@@ -11,3 +11,10 @@ margin: 0px;
 padding: 0px;
 overflow-y: hidden
 }
+
+footer{
+    bottom: 0;
+    position: absolute;
+    width: 100%;
+    height: 80px;
+}
