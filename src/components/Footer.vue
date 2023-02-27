@@ -1,7 +1,3 @@
-<script>
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-</script>
-
 <template>
   <!-- Footer -->
   <footer
@@ -48,7 +44,7 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
   </footer>
 </template>
 
-<style scooped>
+<style scoped>
 @media screen and (max-width: 768px) {
   .text-center,
   .copyright {
