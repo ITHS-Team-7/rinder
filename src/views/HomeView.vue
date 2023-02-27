@@ -5,5 +5,5 @@ import HeroSec from "../components/HeroSection.vue";
 
 <template>
   <HeroSec></HeroSec>
-  <signUp />
+  <signUp></signUp>
 </template>
