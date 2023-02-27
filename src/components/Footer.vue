@@ -13,15 +13,15 @@
              class="d-flex justify-content-between p-4 text-white"
              >
       <!-- Left -->
-      <div class="me-5">
+      <div class="terms me-5">
         <span>Terms & Conditions</span>
       </div>
       <!-- Left -->
-        <div class="text-center">
+        <div class="copyright text-center">
         Copyright © 2023 | ITHS Team 7
         </div>
       <!-- Right -->
-      <div>
+      <div class="social-media">
         <a href="" class="text-white me-2">
          <img src="../assets/images/linkedin_white.svg" width="24" height="24"/>   
         </a>
@@ -37,6 +37,18 @@
     <!-- Section: Social media -->
 
   </footer>
-
-
 </template>
+
+<style scooped>
+
+@media screen and (max-width: 768px) {
+ 
+.text-center,.copyright{
+    display: flex;
+    justify-content: center;
+    }
+.social-media, .terms{
+    display: none;
+    }
+}
+</style>
