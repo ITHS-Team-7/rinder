@@ -32,7 +32,7 @@ export default {
 #chat {
   border: 0.1rem solid red;
   border-radius: 10px;
-  padding: .5rem 1rem;
+  padding: 0.5rem 1rem;
   background: #fff;
   color: #000;
 }
@@ -40,7 +40,7 @@ export default {
 #messagesContainer {
   display: flex;
   flex-direction: column;
-  gap: .2rem;
+  gap: 0.2rem;
 }
 
 .chatMessage {
