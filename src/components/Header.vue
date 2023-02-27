@@ -1,6 +1,5 @@
 <script setup>
 import { RouterLink } from "vue-router";
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 import logoBlack from "../assets/images/logo_black.png";
 import logoPink from "../assets/images/logo.png";
