@@ -1,10 +1,9 @@
 <script setup>
 import signUp from "../components/signUp.vue";
+import HeroSec from "../components/HeroSection.vue";
 </script>
 
 <template>
-  <main>
-    <h2>Hitta din kärlek</h2>
-  </main>
+  <HeroSec></HeroSec>
   <signUp />
 </template>
