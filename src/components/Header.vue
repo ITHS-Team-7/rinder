@@ -26,7 +26,7 @@ import logoPink from '../assets/images/logo.png';
         
         <ul class="nav-items">
           <li>
-            <RouterLink class="nav-link active" aria-current="page" to="/about"
+            <RouterLink class="nav-link active" aria-current="page" to="/chat"
               >About
             </RouterLink
             >
