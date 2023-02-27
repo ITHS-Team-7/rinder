@@ -3,8 +3,6 @@ import users from "../assets/data/users.json";
 import moment from "moment";
 </script>
 
-
-
 <template>
   <!-- TODO: divide chatComponent into further components -->
   <!-- TODO: use em instead of rem where appropriate -->
@@ -29,13 +27,21 @@ import moment from "moment";
           <!-- Filter users to exclude currently logged in user -->
 
           <ul class="list-group">
-            <li class="list-group-item openNewChatUser" :key="index"
-                v-for="(user, index) in users.filter(
-              (user) =>
-                user.userName !== loggedInUser.userName &&
-                !openChatsUsernames.includes(user.userName)
-            )"
-                @click="openChat(user.userName)"><span style="font-weight: bold">{{ user.firstName }} {{ user.lastName }}</span> ({{ user.userName }})</li>
+            <li
+              class="list-group-item openNewChatUser"
+              :key="index"
+              v-for="(user, index) in users.filter(
+                (user) =>
+                  user.userName !== loggedInUser.userName &&
+                  !openChatsUsernames.includes(user.userName)
+              )"
+              @click="openChat(user.userName)"
+            >
+              <span style="font-weight: bold"
+                >{{ user.firstName }} {{ user.lastName }}</span
+              >
+              ({{ user.userName }})
+            </li>
           </ul>
 
           <!--<div
@@ -78,7 +84,11 @@ import moment from "moment";
           </p>
 
           <p class="lastMessage" v-if="chat.messages.length">
-            {{ chat.messages[chat.messages.length - 1].type === 'sent' ? '-->' : '<--' }}
+            {{
+              chat.messages[chat.messages.length - 1].type === "sent"
+                ? "-->"
+                : "<--"
+            }}
             {{ chat.messages[chat.messages.length - 1].message }}
           </p>
         </div>
@@ -91,29 +101,40 @@ import moment from "moment";
     </div>
 
     <div id="activeChatContainer" v-if="activeChatUser !== null">
-
-
-
       <div id="activeChatTopContainer">
         <div id="activeChatNameContainer">
           <p @click="goToProfile(activeChatUser.userName)">
-          {{ activeChatUser?.firstName }}
-        </p><span class="activeChatStatus">🟢</span></div>
+            {{ activeChatUser?.firstName }}
+          </p>
+          <span class="activeChatStatus">🟢</span>
+        </div>
 
         <div id="callIconsContainer">
-          <div class="clickableIconContainer"><font-awesome-icon icon="fa-solid fa-phone-volume" /></div>
-          <div class="clickableIconContainer"><font-awesome-icon icon="fa-solid fa-video" /></div>
-          <div @click="showActiveChatSettings = !showActiveChatSettings" class="clickableIconContainer"><font-awesome-icon icon="fa-solid fa-ellipsis-vertical" /></div>
-
+          <div class="clickableIconContainer">
+            <font-awesome-icon icon="fa-solid fa-phone-volume" />
+          </div>
+          <div class="clickableIconContainer">
+            <font-awesome-icon icon="fa-solid fa-video" />
+          </div>
+          <div
+            @click="showActiveChatSettings = !showActiveChatSettings"
+            class="clickableIconContainer"
+          >
+            <font-awesome-icon icon="fa-solid fa-ellipsis-vertical" />
+          </div>
         </div>
       </div>
       <div id="activeChatSettings" v-if="showActiveChatSettings">
-
-      <div >
-        <div style="color: red" @click.stop="deleteChat(activeChatUser.userName)" class="clickableIconContainer"><font-awesome-icon icon="fa-solid fa-trash-can" /></div>
-
+        <div>
+          <div
+            style="color: red"
+            @click.stop="deleteChat(activeChatUser.userName)"
+            class="clickableIconContainer"
+          >
+            <font-awesome-icon icon="fa-solid fa-trash-can" />
+          </div>
+        </div>
       </div>
-    </div>
       <div id="activeChatMessagesContainer">
         <div
           v-for="(message, index) in loggedInUser.chats.find(
@@ -141,10 +162,17 @@ import moment from "moment";
           <!--<input type="button" id="emojiButton" value="😊">
           <input type="submit" value="Send" class="btn btn-success">-->
           <div id="chatInputButtons">
-            <div id="emojiBtn" class="clickableIconContainer"><font-awesome-icon icon="fa-solid fa-face-smile" /></div>
-            <div id="sendBtn" @click="sendMessage" class="clickableIconContainer"><font-awesome-icon icon="fa-solid fa-paper-plane" /></div></div>
-
-
+            <div id="emojiBtn" class="clickableIconContainer">
+              <font-awesome-icon icon="fa-solid fa-face-smile" />
+            </div>
+            <div
+              id="sendBtn"
+              @click="sendMessage"
+              class="clickableIconContainer"
+            >
+              <font-awesome-icon icon="fa-solid fa-paper-plane" />
+            </div>
+          </div>
         </form>
       </div>
     </div>
@@ -192,8 +220,7 @@ export default {
         this.activeChatUser = getUser(userName);
       }
 
-
-      this.showNewChatSection =false
+      this.showNewChatSection = false;
     },
     deleteChat(userName) {
       this.chatMessageInput = "";
@@ -300,7 +327,7 @@ export default {
     },
     chatMessageInput(msg) {
       // user is typing...
-    }
+    },
   },
   computed: {
     // get an array of usernames of all open chats
@@ -435,14 +462,14 @@ function getUser(userName) {
 }
 
 .chatMessage {
-  padding: .9rem 1rem;
+  padding: 0.9rem 1rem;
   border-radius: 10px;
   font-size: 1.2rem;
 }
 
 .lastMessage {
   color: #222222;
-  font-size: .9em;
+  font-size: 0.9em;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -450,13 +477,13 @@ function getUser(userName) {
 
 .sent {
   margin-left: auto;
-  background-color: #8843E4;
+  background-color: #8843e4;
   color: #fff;
 }
 
 .received {
   margin-right: auto;
-  background-color: #D9D9D9;
+  background-color: #d9d9d9;
   color: #000;
 }
 
@@ -470,7 +497,6 @@ function getUser(userName) {
 #chatInputsContainer {
   margin: auto 0 0 auto;
   grid-area: chatInputsContainer;
-
 
   width: 100%;
   padding: 0.5rem 2rem 0.5rem 1rem;
@@ -493,7 +519,6 @@ function getUser(userName) {
 #openNewChat {
   margin: 0 auto;
   padding: 1rem 0;
-
 }
 
 #openNewChat input {
@@ -509,7 +534,7 @@ function getUser(userName) {
 }
 
 .activeChatStatus {
-  font-size: .6em;
+  font-size: 0.6em;
 }
 
 .clickableIconContainer {
@@ -528,13 +553,12 @@ function getUser(userName) {
 #callIconsContainer {
   display: flex;
   gap: 3rem;
-
 }
 
 #activeChatNameContainer {
   display: flex;
   align-items: center;
-  gap: .5rem;
+  gap: 0.5rem;
   font-size: 2.5rem;
 
   grid-area: activeChatNameContainer;
@@ -548,11 +572,11 @@ function getUser(userName) {
 
 #chatInputButtons {
   display: flex;
-  gap: 1.5rem
+  gap: 1.5rem;
 }
 
 p {
-  margin: 0
+  margin: 0;
 }
 
 #emojiBtn {
