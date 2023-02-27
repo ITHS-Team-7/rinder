@@ -13,7 +13,7 @@ import moment from "moment";
         <input
           v-if="!showNewChatSection"
           type="button"
-          value="Start new chat"
+          value="New Chat"
           @click="showNewChatSection = true"
           class="btn btn-success"
         />
@@ -26,7 +26,7 @@ import moment from "moment";
           />
           <!-- Filter users to exclude currently logged in user -->
 
-          <ul class="list-group">
+          <ul id="openNewChatUsersList" class="list-group">
             <li
               class="list-group-item openNewChatUser"
               :key="index"
@@ -71,31 +71,30 @@ import moment from "moment";
             : 'chatSelect'
         "
       >
-        <img
-          class="avatar"
-          :src="getUser(chat.userName).avatar"
-          alt="avatar"
-          @click.stop="goToProfile(chat.userName)"
-        />
+        <!-- @click.stop="goToProfile(chat.userName)" -->
+        <img class="avatar" :src="getUser(chat.userName).avatar" alt="avatar" />
         <div id="nameAndLastMessageContainer">
           <p class="name">
             {{ getUser(chat.userName).firstName }}
             {{ getUser(chat.userName).lastName }}
           </p>
-
-          <p class="lastMessage" v-if="chat.messages.length">
-            {{
-              chat.messages[chat.messages.length - 1].type === "sent"
-                ? "-->"
-                : "<--"
-            }}
-            {{ chat.messages[chat.messages.length - 1].message }}
-          </p>
+          <div class="lastMessage" v-if="chat.messages.length">
+            <div class="clickableIconContainer">
+              <font-awesome-icon
+                v-if="chat.messages[chat.messages.length - 1].type === 'sent'"
+                icon="fa-regular fa-circle-up"
+              />
+              <font-awesome-icon v-else icon="fa-regular fa-circle-down" />
+            </div>
+            <p>
+              {{ chat.messages[chat.messages.length - 1].message }}
+            </p>
+          </div>
         </div>
         <!-- <div id="chatSelectContainerOptions">
         </div> -->
       </div>
-      <div v-if="!loggedInUser.chats.length">
+      <div id="noOpenChats" v-if="!loggedInUser.chats.length">
         <p>You don't have any open chats...</p>
       </div>
     </div>
@@ -113,6 +112,7 @@ import moment from "moment";
           <div class="clickableIconContainer">
             <font-awesome-icon icon="fa-solid fa-phone-volume" />
           </div>
+
           <div class="clickableIconContainer">
             <font-awesome-icon icon="fa-solid fa-video" />
           </div>
@@ -165,6 +165,7 @@ import moment from "moment";
             <div id="emojiBtn" class="clickableIconContainer">
               <font-awesome-icon icon="fa-solid fa-face-smile" />
             </div>
+
             <div
               id="sendBtn"
               @click="sendMessage"
@@ -175,6 +176,12 @@ import moment from "moment";
           </div>
         </form>
       </div>
+    </div>
+    <div v-else id="emptyActiveChatContainer">
+      <p>
+        <font-awesome-icon icon="fa-solid fa-circle-arrow-left" />
+        Select a chat
+      </p>
     </div>
   </div>
 </template>
@@ -365,14 +372,15 @@ function getUser(userName) {
   background: #fff;
   color: #000;
   gap: 1rem;
-  max-height: 50rem;
-
-  max-width: 85rem;
-  margin: 0 auto;
+  min-height: 60vh;
+  max-height: 70vh;
+  max-width: 80rem;
+  min-width: fit-content;
 
   display: flex;
 
   padding: 1rem;
+  margin: 0 auto;
   box-shadow: 0 0 5px #8843e4;
 }
 
@@ -380,12 +388,13 @@ function getUser(userName) {
   width: 100%;
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: min-content 1fr min-content;
+  grid-template-rows: min-content min-content 1fr min-content;
   grid-template-areas:
     "activeChatNameContainer"
     "activeChatSettings"
     "activeChatMessagesContainer"
     "chatInputsContainer";
+  padding: 0 1rem;
 }
 
 #activeChatMessagesContainer {
@@ -394,18 +403,18 @@ function getUser(userName) {
   flex-direction: column;
   gap: 0.2rem;
   width: 100%;
-  overflow-y: scroll;
+  overflow: auto;
   grid-area: activeChatMessagesContainer;
-  padding: 2rem 1rem;
+  padding: 2rem 0;
+  margin-top: 0.3rem;
 }
 
 #chatSelectContainer {
   display: flex;
   flex-direction: column;
-  min-width: 25rem;
+  min-width: 20rem;
   /*border: 0.1rem solid red;*/
   border-radius: 10px;
-  padding: 0.5rem;
 
   grid-area: chatSelectContainer;
 
@@ -444,6 +453,7 @@ function getUser(userName) {
   justify-content: space-around;
   flex-direction: column;
   align-content: center;
+  text-align: center;
   max-width: 10rem;
   width: 100%;
 }
@@ -451,10 +461,25 @@ function getUser(userName) {
 .name {
   font-weight: bold;
   font-size: 1.1em;
-  color: #3b71ca;
+  color: #0060ff;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+#activeChatMessagesContainer::-webkit-scrollbar {
+  width: 0.3em;
+  border-radius: 10px;
+}
+
+#activeChatMessagesContainer::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(136, 136, 136, 0.9);
+  border-radius: 10px;
+}
+
+#activeChatMessagesContainer::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.9);
+  border-radius: 10px;
 }
 
 #chatSelectContainer > .chatSelect.selected {
@@ -464,19 +489,31 @@ function getUser(userName) {
 .chatMessage {
   padding: 0.9rem 1rem;
   border-radius: 10px;
-  font-size: 1.2rem;
+  font-size: 1.2em;
+  font-weight: 500;
 }
 
 .lastMessage {
-  color: #222222;
-  font-size: 0.9em;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
+.lastMessage .clickableIconContainer {
+  color: #196900;
+  font-size: 1.2em;
+  margin-right: 0.3rem;
+}
+
+.lastMessage p {
+  display: inline;
+  color: #222222;
+  font-size: 1em;
+}
+
 .sent {
   margin-left: auto;
+  margin-right: 0.2rem;
   background-color: #8843e4;
   color: #fff;
 }
@@ -499,7 +536,7 @@ function getUser(userName) {
   grid-area: chatInputsContainer;
 
   width: 100%;
-  padding: 0.5rem 2rem 0.5rem 1rem;
+  padding: 0.5rem 1rem 0.5rem 0;
 }
 
 #chatInputsContainer form {
@@ -511,6 +548,7 @@ function getUser(userName) {
 .openNewChatUser {
   cursor: pointer;
 }
+
 .openNewChatUser:hover {
   background-color: #606060;
   color: white;
@@ -518,7 +556,7 @@ function getUser(userName) {
 
 #openNewChat {
   margin: 0 auto;
-  padding: 1rem 0;
+  padding: 1em 0;
 }
 
 #openNewChat input {
@@ -530,7 +568,7 @@ function getUser(userName) {
   display: flex;
 
   justify-content: space-between;
-  padding: 1rem 2rem 1rem 1rem;
+  padding: 1rem 1rem 1rem 0;
 }
 
 .activeChatStatus {
@@ -538,16 +576,19 @@ function getUser(userName) {
 }
 
 .clickableIconContainer {
-  font-size: 2.3rem;
+  font-size: 2.3em;
   margin: auto 0;
   cursor: pointer;
   display: inline;
+  min-width: 2rem;
+  text-align: center;
 }
 
 #messageInput {
   border: 0.15rem solid #252525;
   border-radius: 10px;
-  font-size: 1.2rem;
+  font-size: 1.2em;
+  font-weight: 500;
 }
 
 #callIconsContainer {
@@ -559,7 +600,7 @@ function getUser(userName) {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  font-size: 2.5rem;
+  font-size: 2.5em;
 
   grid-area: activeChatNameContainer;
 
@@ -588,8 +629,140 @@ p {
 }
 
 #activeChatSettings {
+  width: fit-content;
   position: relative;
-  left: 90%;
+  left: 80%;
   grid-area: activeChatSettings;
+  padding: 1em;
+  border: 0.1rem solid blue;
+  border-radius: 10px;
+}
+
+#openNewChatUsersList {
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.openNewChatUser {
+  padding: 0.5rem 0.2rem;
+}
+
+#emptyActiveChatContainer {
+  border: 0.2rem solid purple;
+  border-radius: 10px;
+  margin: 10rem auto;
+  width: 100%;
+  font-size: 2em;
+  max-width: 25rem;
+}
+
+#emptyActiveChatContainer p {
+  top: 50%;
+  transform: translateY(-50%);
+  position: relative;
+  text-align: center;
+}
+
+#noOpenChats {
+  text-align: center;
+}
+
+@media (max-width: 1000px) {
+  #chat {
+    font-size: 0.8rem;
+    gap: 1rem;
+    min-height: 50vh;
+    max-height: 70vh;
+
+    max-width: 80rem;
+
+    padding: 1rem;
+    margin: 0 1rem;
+  }
+
+  #chatSelectContainer .chatSelect {
+    gap: 0 1rem;
+    padding: 0.8rem 0;
+    flex-direction: column;
+  }
+
+  #chatSelectContainer {
+    min-width: 10rem;
+    /*border: 0.1rem solid red;*/
+    border-radius: 10px;
+  }
+
+  #callIconsContainer {
+    gap: 2rem;
+  }
+
+  #chatInputsContainer form {
+    gap: 1rem;
+  }
+
+  #chatInputButtons {
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 700px) {
+  #chat {
+    gap: 0.25rem;
+    min-height: 50vh;
+    max-height: 50vh;
+    max-width: 80rem;
+
+    margin: 0 0.5rem;
+
+    padding: 0.2rem;
+    font-size: clamp(0.5rem, 1.5vw, 0.8rem);
+  }
+
+  #chatSelectContainer {
+    min-width: 7rem;
+  }
+
+  #callIconsContainer {
+    gap: 0.5rem;
+  }
+
+  #activeChatContainer {
+    padding: 0 0.5rem;
+  }
+
+  #emptyActiveChatContainer {
+    width: 100%;
+    font-size: 2em;
+  }
+
+  #activeChatTopContainer {
+    padding-right: 0;
+  }
+
+  #chatInputsContainer {
+    padding: 1rem 0 0.5rem 0.5rem;
+  }
+
+  #chatInputsContainer form {
+    gap: 0.5rem;
+  }
+
+  #chatInputButtons {
+    gap: 0rem;
+  }
+
+  .chatMessage {
+    padding: 0.6rem 0.5rem;
+    border-radius: 10px;
+    font-size: 1.2em;
+  }
+
+  #openNewChat input {
+    font-size: 0.8rem;
+  }
+
+  .avatar {
+    height: 4rem;
+  }
 }
 </style>
