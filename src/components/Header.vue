@@ -1,5 +1,5 @@
 <script setup>
-import { RouterLink, RouterView } from "vue-router";
+import { RouterLink } from "vue-router";
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 
@@ -46,7 +46,6 @@ import logoPink from "../assets/images/logo.png";
       </div>
     </div>
   </div>
-  <RouterView />
 </template>
 
 <script>
