@@ -3,7 +3,11 @@ import { RouterLink, RouterView } from "vue-router";
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 
+import logoBlack from '../assets/images/logo_black.png';
+import logoPink from '../assets/images/logo.png';
+
 </script>
+
 
 <template>
   <div>
@@ -11,7 +15,7 @@ import { faBars } from '@fortawesome/free-solid-svg-icons'
         <font-awesome-icon icon="fa-solid fa-bars" @click="showMenu()" />
     <div class="logo">
           <RouterLink to="/"
-            ><img src="../assets/images/logo.png" width="238" alt="Rinder"
+            ><img :src="logoFileName" width="238" alt="Rinder"
           /></RouterLink>
         </div>
     <!--<i class="fas fa-bars" @click="showMenu()"> </i> -->
@@ -24,7 +28,13 @@ import { faBars } from '@fortawesome/free-solid-svg-icons'
           <li>
             <RouterLink class="nav-link active" aria-current="page" to="/chat"
               >About
-</RouterLink
+            </RouterLink
+            >
+          </li>
+          <li>
+            <RouterLink class="nav-link active" aria-current="page" to="/chat"
+              >Chat
+            </RouterLink
             >
           </li>
           <li><RouterLink class="nav-link" to="/login">Log in <img class="arrow" src="../assets/images/arrow-right.svg" width="41"/> </RouterLink></li>
@@ -32,6 +42,8 @@ import { faBars } from '@fortawesome/free-solid-svg-icons'
       </div>
     </div>
   </div>
+      <RouterView />
+
 </template>
 
 <script>
@@ -46,20 +58,22 @@ export default {
       this.showMobileMenu = !this.showMobileMenu;
     },
   },
+  computed: {
+    logoFileName() {
+      // Check the route and return the appropriate logo file name
+    return this.$route.name === 'about' || this.$route.name === 'chat' ? logoBlack : logoPink;    },
+  },
 };
 </script>
 
 <style scoped>
 .nav-menu {
   background: rgb(37, 37, 37);
-  background: linear-gradient(
-    180deg,
-    rgba(37, 37, 37, 1) 3%,
-    rgba(255, 255, 255, 1) 60%
-  );
+  background: linear-gradient(180deg, #252525 0%, rgba(0, 0, 0, 0) 100%);
+
 }
 .logo img{
-display: block;
+  display: block;
   float: left;
   font-size: 2em;
   padding: 10px 20px;
@@ -109,7 +123,7 @@ display: block;
 @media screen and (max-width: 768px) {
   .nav-menu {
     padding-top: 10px;
-    position: absolute;
+    position: relative;
     width: 100%;
     text-align: right;
     padding-right: 2rem;
@@ -147,6 +161,7 @@ display: block;
 .nav-items li a{
     color: #fff;
     font-size: 24px;
+    padding:20px 0;
 }
   .logo img{
     width: 139px;
