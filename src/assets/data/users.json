@@ -1,121 +1,233 @@
-[{"userName":"olivercarlsson443","firstName":"Oliver","lastName":"Carlsson","email":"olivercarlsson443@cnet.com","gender":"Male","age":35,"avatar":"https://xsgames.co/randomusers/assets/avatars/male/62.jpg","signupDate":"2022-08-24","description":"Pellentesque ultrices mattis odio. Donec vitae nisi. Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla.","chats":[
+[
   {
-    "userName": "anjaaa505",
-    "messages": [
+    "userName": "olivercarlsson443",
+    "firstName": "Oliver",
+    "lastName": "Carlsson",
+    "email": "olivercarlsson443@cnet.com",
+    "gender": "Male",
+    "age": 35,
+    "avatar": "https://xsgames.co/randomusers/assets/avatars/male/62.jpg",
+    "signupDate": "2022-08-24",
+    "description": "Pellentesque ultrices mattis odio. Donec vitae nisi. Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla.",
+    "chats": [
       {
-        "time": "1677101537",
-        "message": "Hej Anja! \uD83D\uDE04",
-        "type": "received"
+        "userName": "anjaaa505",
+        "messages": [
+          {
+            "time": "1677101537",
+            "message": "Hej Anja! \uD83D\uDE04",
+            "type": "received"
+          },
+          {
+            "time": "1677101538",
+            "message": "Hejjj, hur går det?",
+            "type": "sent"
+          },
+          {
+            "time": "1677101539",
+            "message": "Det går bra tack",
+            "type": "received"
+          },
+          {
+            "time": "1677101539",
+            "message": "Vad nice",
+            "type": "sent"
+          },
+          {
+            "time": "1677101539",
+            "message": "Ok, vi ses sen \uD83D\uDE0A",
+            "type": "sent"
+          },
+          {
+            "time": "1677101539",
+            "message": "Ok ⭐",
+            "type": "received"
+          }
+        ]
       },
       {
-        "time": "1677101538",
-        "message": "Hejjj, hur går det?",
-        "type": "sent"
+        "userName": "hassanila977",
+        "messages": [
+          {
+            "time": "1677101537",
+            "message": "Hej :)",
+            "type": "sent"
+          },
+          {
+            "time": "1677101538",
+            "message": "Tjena, sup?",
+            "type": "received"
+          },
+          {
+            "time": "1677101538",
+            "message": "Not much, just chillin and eating some popcorn \uD83D\uDE0B",
+            "type": "sent"
+          },
+          {
+            "time": "1677101538",
+            "message": "\uD83D\uDE0B\uD83D\uDE0B\uD83D\uDE0B",
+            "type": "received"
+          },
+          {
+            "time": "1677101538",
+            "message": "smaklig måltid",
+            "type": "received"
+          },
+          {
+            "time": "1677101539",
+            "message": "thx",
+            "type": "sent"
+          }
+        ]
       },
       {
-        "time": "1677101539",
-        "message": "Det går bra tack",
-        "type": "received"
+        "userName": "gerrileepunter700",
+        "messages": [
+          {
+            "time": "1677101538",
+            "message": "Hej :)",
+            "type": "sent"
+          },
+          {
+            "time": "1677101539",
+            "message": "Hej hej",
+            "type": "received"
+          },
+          {
+            "time": "1677101540",
+            "message": "godnatt ❤️",
+            "type": "sent"
+          }
+        ]
       },
       {
-        "time": "1677101539",
-        "message": "Vad nice",
-        "type": "sent"
-      },
-      {
-        "time": "1677101539",
-        "message": "Ok, vi ses sen \uD83D\uDE0A",
-        "type": "sent"
-      },
-      {
-        "time": "1677101539",
-        "message": "Ok ⭐",
-        "type": "received"
+        "userName": "sabrablatherwick533",
+        "messages": [
+          {
+            "time": "1677101538",
+            "message": "Hej :)",
+            "type": "sent"
+          },
+          {
+            "time": "1677101539",
+            "message": "Hej hej",
+            "type": "received"
+          },
+          {
+            "time": "1677101540",
+            "message": "godnatt ❤️",
+            "type": "sent"
+          }
+        ]
       }
     ]
+  },
+  {
+    "userName": "anjaaa505",
+    "firstName": "Anja",
+    "lastName": "Bryant",
+    "email": "anjabryant@anja.com",
+    "gender": "Female",
+    "age": 22,
+    "avatar": "https://xsgames.co/randomusers/assets/avatars/female/61.jpg",
+    "signupDate": "2022-07-30",
+    "description": "Hello! My name is Anja and I love playing ice hockey :)",
+    "chats": []
   },
   {
     "userName": "hassanila977",
-    "messages": [
-      {
-        "time": "1677101537",
-        "message": "Hej :)",
-        "type": "sent"
-      },
-      {
-        "time": "1677101538",
-        "message": "Tjena, sup?",
-        "type": "received"
-      },
-      {
-        "time": "1677101538",
-        "message": "Not much, just chillin and eating some popcorn \uD83D\uDE0B",
-        "type": "sent"
-      },
-      {
-        "time": "1677101538",
-        "message": "\uD83D\uDE0B\uD83D\uDE0B\uD83D\uDE0B",
-        "type": "received"
-      },
-      {
-        "time": "1677101538",
-        "message": "smaklig måltid",
-        "type": "received"
-      },
-      {
-        "time": "1677101539",
-        "message": "thx",
-        "type": "sent"
-      }
-    ]
+    "firstName": "Hassan",
+    "lastName": "Ila",
+    "email": "hassanila977@hassan.com",
+    "gender": "Male",
+    "age": 25,
+    "avatar": "https://xsgames.co/randomusers/assets/avatars/male/7.jpg",
+    "signupDate": "2022-12-08",
+    "description": "Hello there :D",
+    "chats": []
   },
   {
     "userName": "gerrileepunter700",
-    "messages": [
-      {
-        "time": "1677101538",
-        "message": "Hej :)",
-        "type": "sent"
-      },
-      {
-        "time": "1677101539",
-        "message": "Hej hej",
-        "type": "received"
-      },
-      {
-        "time": "1677101540",
-        "message": "godnatt ❤️",
-        "type": "sent"
-      }
-    ]
+    "firstName": "Gerrilee",
+    "lastName": "Punter",
+    "email": "gpunter3@smh.com.au",
+    "gender": "Female",
+    "age": 18,
+    "avatar": "https://xsgames.co/randomusers/assets/avatars/female/30.jpg",
+    "signupDate": "2022-07-05",
+    "description": "Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis. Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.",
+    "chats": []
+  },
+  {
+    "userName": "validaatchly718",
+    "firstName": "Valida",
+    "lastName": "Atchly",
+    "email": "vatchly4@youtu.be",
+    "gender": "Female",
+    "age": 27,
+    "avatar": "https://xsgames.co/randomusers/assets/avatars/female/50.jpg",
+    "signupDate": "2022-09-25",
+    "description": "Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.",
+    "chats": []
+  },
+  {
+    "userName": "grethelpringell838",
+    "firstName": "Grethel",
+    "lastName": "Pringell",
+    "email": "gpringell5@imgur.com",
+    "gender": "Female",
+    "age": 59,
+    "avatar": "https://xsgames.co/randomusers/assets/avatars/female/49.jpg",
+    "signupDate": "2022-11-30",
+    "description": "Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.",
+    "chats": []
+  },
+  {
+    "userName": "bryonlafrentz971",
+    "firstName": "Bryon",
+    "lastName": "Lafrentz",
+    "email": "blafrentz6@forbes.com",
+    "gender": "Male",
+    "age": 42,
+    "avatar": "https://xsgames.co/randomusers/assets/avatars/male/10.jpg",
+    "signupDate": "2022-11-11",
+    "description": "Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat. In congue. Etiam justo.",
+    "chats": []
+  },
+  {
+    "userName": "eileendenington726",
+    "firstName": "Eileen",
+    "lastName": "Denington",
+    "email": "edenington7@auda.org.au",
+    "gender": "Female",
+    "age": 38,
+    "avatar": "https://xsgames.co/randomusers/assets/avatars/female/28.jpg",
+    "signupDate": "2022-12-11",
+    "description": "Nulla suscipit ligula in lacus. Curabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla.",
+    "chats": []
+  },
+  {
+    "userName": "nickiealcott987",
+    "firstName": "Nickie",
+    "lastName": "Alcott",
+    "email": "nalcott8@dedecms.com",
+    "gender": "Female",
+    "age": 36,
+    "avatar": "https://xsgames.co/randomusers/assets/avatars/female/51.jpg",
+    "signupDate": "2021-12-14",
+    "description": "Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin interdum mauris non ligula pellentesque ultrices.",
+    "chats": []
   },
   {
     "userName": "sabrablatherwick533",
-    "messages": [
-      {
-        "time": "1677101538",
-        "message": "Hej :)",
-        "type": "sent"
-      },
-      {
-        "time": "1677101539",
-        "message": "Hej hej",
-        "type": "received"
-      },
-      {
-        "time": "1677101540",
-        "message": "godnatt ❤️",
-        "type": "sent"
-      }
-    ]
+    "firstName": "Sabra",
+    "lastName": "Blatherwick",
+    "email": "sblatherwick9@yahoo.co.jp",
+    "gender": "Female",
+    "age": 25,
+    "avatar": "https://xsgames.co/randomusers/assets/avatars/female/40.jpg",
+    "signupDate": "2022-01-04",
+    "description": "Sed ante. Vivamus tortor.",
+    "chats": []
   }
-]},
-{"userName":"anjaaa505","firstName":"Anja","lastName":"Bryant","email":"anjabryant@anja.com","gender":"Female","age":22,"avatar":"https://xsgames.co/randomusers/assets/avatars/female/61.jpg","signupDate":"2022-07-30","description":"Hello! My name is Anja and I love playing ice hockey :)","chats":[]},
-{"userName":"hassanila977","firstName":"Hassan","lastName":"Ila","email":"hassanila977@hassan.com","gender":"Male","age":25,"avatar":"https://xsgames.co/randomusers/assets/avatars/male/7.jpg","signupDate":"2022-12-08","description":"Hello there :D","chats":[]},
-{"userName":"gerrileepunter700","firstName":"Gerrilee","lastName":"Punter","email":"gpunter3@smh.com.au","gender":"Female","age":18,"avatar":"https://xsgames.co/randomusers/assets/avatars/female/30.jpg","signupDate":"2022-07-05","description":"Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Duis faucibus accumsan odio. Curabitur convallis. Duis consequat dui nec nisi volutpat eleifend. Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.","chats":[]},
-{"userName":"validaatchly718","firstName":"Valida","lastName":"Atchly","email":"vatchly4@youtu.be","gender":"Female","age":27,"avatar":"https://xsgames.co/randomusers/assets/avatars/female/50.jpg","signupDate":"2022-09-25","description":"Donec ut dolor. Morbi vel lectus in quam fringilla rhoncus.","chats":[]},
-{"userName":"grethelpringell838","firstName":"Grethel","lastName":"Pringell","email":"gpringell5@imgur.com","gender":"Female","age":59,"avatar":"https://xsgames.co/randomusers/assets/avatars/female/49.jpg","signupDate":"2022-11-30","description":"Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat.","chats":[]},
-{"userName":"bryonlafrentz971","firstName":"Bryon","lastName":"Lafrentz","email":"blafrentz6@forbes.com","gender":"Male","age":42,"avatar":"https://xsgames.co/randomusers/assets/avatars/male/10.jpg","signupDate":"2022-11-11","description":"Fusce congue, diam id ornare imperdiet, sapien urna pretium nisl, ut volutpat sapien arcu sed augue. Aliquam erat volutpat. In congue. Etiam justo.","chats":[]},
-{"userName":"eileendenington726","firstName":"Eileen","lastName":"Denington","email":"edenington7@auda.org.au","gender":"Female","age":38,"avatar":"https://xsgames.co/randomusers/assets/avatars/female/28.jpg","signupDate":"2022-12-11","description":"Nulla suscipit ligula in lacus. Curabitur at ipsum ac tellus semper interdum. Mauris ullamcorper purus sit amet nulla.","chats":[]},
-{"userName":"nickiealcott987","firstName":"Nickie","lastName":"Alcott","email":"nalcott8@dedecms.com","gender":"Female","age":36,"avatar":"https://xsgames.co/randomusers/assets/avatars/female/51.jpg","signupDate":"2021-12-14","description":"Cras mi pede, malesuada in, imperdiet et, commodo vulputate, justo. In blandit ultrices enim. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Proin interdum mauris non ligula pellentesque ultrices.","chats":[]},
-{"userName":"sabrablatherwick533","firstName":"Sabra","lastName":"Blatherwick","email":"sblatherwick9@yahoo.co.jp","gender":"Female","age":25,"avatar":"https://xsgames.co/randomusers/assets/avatars/female/40.jpg","signupDate":"2022-01-04","description":"Sed ante. Vivamus tortor.","chats":[]}]
+]
