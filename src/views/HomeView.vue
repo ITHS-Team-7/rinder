@@ -7,3 +7,5 @@ import HeroSec from "../components/HeroSection.vue";
   <HeroSec></HeroSec>
   <signUp></signUp>
 </template>
+
+<style scoped></style>
