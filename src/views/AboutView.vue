@@ -4,6 +4,8 @@ import AboutCards from "../components/AboutCards.vue";
 <template>
   <AboutCards></AboutCards>
 </template>
+
+<style scoped>
 <style>
 body {
   background-image: none;

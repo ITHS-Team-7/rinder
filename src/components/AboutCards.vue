@@ -35,7 +35,7 @@ export default {
     </div>
   </div>
 </template>
-<style>
+<style scoped>
 html {
   overflow-y: scroll;
 }
