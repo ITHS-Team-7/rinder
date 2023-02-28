@@ -5,6 +5,13 @@ import AboutCards from "../components/AboutCards.vue";
   <AboutCards></AboutCards>
 </template>
 
+<style>
+body {
+  background-image: none;
+  background-color: #ffe1e8;
+}
+</style>
+
 <style scoped>
 @media (min-width: 1024px) {
   .about {
