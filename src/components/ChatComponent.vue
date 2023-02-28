@@ -339,7 +339,6 @@ export default {
   computed: {
     // get an array of usernames of all open chats
     openChatsUsernames() {
-      console.log(this.loggedInUser.chats.map((chat) => chat.userName));
       return this.loggedInUser.chats.map((chat) => chat.userName);
     },
     ableToOpenNewChat() {
