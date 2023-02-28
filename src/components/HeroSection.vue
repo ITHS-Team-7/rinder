@@ -13,7 +13,13 @@ export default {
       <h1 class="heroText">
         {{ heroHeader }}
       </h1>
-      <input class="signupBtn" type="button" name="" value="Sign up" />
+      <input
+        class="signupBtn"
+        to="./components/signUp.vue"
+        type="button"
+        name=""
+        value="Sign up"
+      />
     </div>
   </div>
 </template>
@@ -26,19 +32,20 @@ export default {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  position: fixed;
-  width: 100%;
-  height: 100%;
+  position: relative;
+height: 100%;
+width: 100%;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
 }
 
 .textContainer {
-  position: absolute;
-  top: 35%;
+  position: fixed;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+
 }
 
 .textContainer .signupBtn {
@@ -47,9 +54,9 @@ export default {
 }
 .heroText {
   color: var(--white);
-  font-size: 7vw;
+  font-size: 6.5vw;
   text-align: center;
-  margin-bottom: 0.5em;
+  margin-bottom: 0.25em;
 }
 .signupBtn {
   background-color: var(--purple);
