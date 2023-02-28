@@ -17,7 +17,7 @@ import logoPink from "../assets/images/logo.png";
       <!--<i class="fas fa-bars" @click="showMenu()"> </i> -->
       <div
         class="nav-content"
-        :class="this.showMobileMenu ? 'open-menu' : 'closed-menu'"
+        :class="showMobileMenu ? 'open-menu' : 'closed-menu'"
       >
         <ul class="nav-items">
           <li>
