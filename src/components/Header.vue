@@ -8,18 +8,17 @@ import logoPink from "../assets/images/logo.png";
 <template>
   <div>
     <div class="nav-menu">
-        <font-awesome-icon icon="fa-solid fa-bars" @click="showMenu()" />
-    <div class="logo">
-          <RouterLink to="/"
-            ><img :src="logoFileName" width="238" alt="Rinder"
-          /></RouterLink>
-        </div>
-    <!--<i class="fas fa-bars" @click="showMenu()"> </i> -->
+      <font-awesome-icon icon="fa-solid fa-bars" @click="showMenu()" />
+      <div class="logo">
+        <RouterLink to="/"
+          ><img :src="logoFileName" width="238" alt="Rinder"
+        /></RouterLink>
+      </div>
+      <!--<i class="fas fa-bars" @click="showMenu()"> </i> -->
       <div
         class="nav-content"
         :class="showMobileMenu ? 'open-menu' : 'closed-menu'"
       >
-
         <ul class="nav-items">
           <li>
             <RouterLink class="nav-link active" aria-current="page" to="/about"
