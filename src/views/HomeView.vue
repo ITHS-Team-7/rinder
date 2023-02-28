@@ -4,8 +4,5 @@ import HeroSec from "../components/HeroSection.vue";
 </script>
 
 <template>
-  <HeroSec></HeroSec>
-  <signUp></signUp>
+    <HeroSec></HeroSec>
 </template>
-
-<style scoped></style>
