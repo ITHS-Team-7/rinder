@@ -1,49 +1,52 @@
 <script setup>
 import { RouterLink, RouterView } from "vue-router";
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faBars } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 
-import logoBlack from '../assets/images/logo_black.png';
-import logoPink from '../assets/images/logo.png';
-
+import logoBlack from "../assets/images/logo_black.png";
+import logoPink from "../assets/images/logo.png";
 </script>
-
 
 <template>
   <div>
-    <div class="nav-menu"> 
-        <font-awesome-icon icon="fa-solid fa-bars" @click="showMenu()" />
-    <div class="logo">
-          <RouterLink to="/"
-            ><img :src="logoFileName" width="238" alt="Rinder"
-          /></RouterLink>
-        </div>
-    <!--<i class="fas fa-bars" @click="showMenu()"> </i> -->
+    <div class="nav-menu">
+      <font-awesome-icon icon="fa-solid fa-bars" @click="showMenu()" />
+      <div class="logo">
+        <RouterLink to="/"
+          ><img :src="logoFileName" width="238" alt="Rinder"
+        /></RouterLink>
+      </div>
+      <!--<i class="fas fa-bars" @click="showMenu()"> </i> -->
       <div
         class="nav-content"
         :class="this.showMobileMenu ? 'open-menu' : 'closed-menu'"
       >
-        
         <ul class="nav-items">
           <li>
-            <RouterLink class="nav-link active" aria-current="page" to="/chat"
+            <RouterLink class="nav-link active" aria-current="page" to="/about"
               >About
-            </RouterLink
-            >
+            </RouterLink>
           </li>
           <li>
             <RouterLink class="nav-link active" aria-current="page" to="/chat"
               >Chat
-            </RouterLink
-            >
+            </RouterLink>
           </li>
-          <li><RouterLink class="nav-link" to="/login">Log in <img class="arrow" src="../assets/images/arrow-right.svg" width="41"/> </RouterLink></li>
+          <li>
+            <RouterLink class="nav-link" to="/login"
+              >Log in
+              <img
+                class="arrow"
+                src="../assets/images/arrow-right.svg"
+                width="41"
+              />
+            </RouterLink>
+          </li>
         </ul>
       </div>
     </div>
   </div>
-      <RouterView />
-
+  <RouterView />
 </template>
 
 <script>
@@ -61,7 +64,10 @@ export default {
   computed: {
     logoFileName() {
       // Check the route and return the appropriate logo file name
-    return this.$route.name === 'about' || this.$route.name === 'chat' ? logoBlack : logoPink;    },
+      return this.$route.name === "about" || this.$route.name === "chat"
+        ? logoBlack
+        : logoPink;
+    },
   },
 };
 </script>
@@ -70,9 +76,8 @@ export default {
 .nav-menu {
   background: rgb(37, 37, 37);
   background: linear-gradient(180deg, #252525 0%, rgba(0, 0, 0, 0) 100%);
-
 }
-.logo img{
+.logo img {
   display: block;
   float: left;
   font-size: 2em;
@@ -80,9 +85,9 @@ export default {
   text-decoration: none;
 }
 
-.arrow{
-    vertical-align: middle;
-    padding-bottom:10px;
+.arrow {
+  vertical-align: middle;
+  padding-bottom: 10px;
 }
 
 .nav-content {
@@ -100,14 +105,13 @@ export default {
   list-style: none;
   margin: 0;
   padding: 0;
-
 }
 
 .nav-items li {
   padding: 0 10px;
 }
 
-.nav-items li a{
+.nav-items li a {
   display: block;
   padding: 20px 20px;
   text-decoration: none;
@@ -146,8 +150,8 @@ export default {
     z-index: 100;
     position: relative;
     transition: all 0.2s ease-out;
-    padding:0;
-    bottom:5vh;
+    padding: 0;
+    bottom: 5vh;
   }
 
   .nav-items {
@@ -158,12 +162,12 @@ export default {
     margin: 0;
     padding: 0;
   }
-.nav-items li a{
+  .nav-items li a {
     color: #fff;
     font-size: 24px;
-    padding:20px 0;
-}
-  .logo img{
+    padding: 20px 0;
+  }
+  .logo img {
     width: 139px;
     position: relative;
     bottom: 5vh;
@@ -173,9 +177,9 @@ export default {
     display: inline;
     text-align: right;
     padding: 0 10px 10px 0;
-}
-.arrow{
+  }
+  .arrow {
     width: 30px;
-}
+  }
 }
 </style>

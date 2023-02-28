@@ -39,6 +39,9 @@ export default {
 html {
   overflow-y: scroll;
 }
+.card {
+  background-color: #ffe1e8;
+}
 .con {
   max-width: 175px;
 }

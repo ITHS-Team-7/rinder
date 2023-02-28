@@ -5,4 +5,3 @@ import HeroSec from "../components/HeroSection.vue";
 <template>
   <HeroSec></HeroSec>
 </template>
-

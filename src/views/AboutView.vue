@@ -4,8 +4,14 @@ import AboutCards from "../components/AboutCards.vue";
 <template>
   <AboutCards></AboutCards>
 </template>
-
 <style>
+body {
+  background-image: none;
+  background-color: #ffe1e8;
+}
+</style>
+
+<style scoped>
 @media (min-width: 1024px) {
   .about {
     min-height: 100vh;
