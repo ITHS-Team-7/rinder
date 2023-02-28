@@ -1,7 +1,5 @@
 <script setup>
-import { RouterLink, RouterView } from "vue-router";
-import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { RouterLink } from "vue-router";
 
 import logoBlack from "../assets/images/logo_black.png";
 import logoPink from "../assets/images/logo.png";
@@ -19,11 +17,11 @@ import logoPink from "../assets/images/logo.png";
       <!--<i class="fas fa-bars" @click="showMenu()"> </i> -->
       <div
         class="nav-content"
-        :class="this.showMobileMenu ? 'open-menu' : 'closed-menu'"
+        :class="showMobileMenu ? 'open-menu' : 'closed-menu'"
       >
         <ul class="nav-items">
           <li>
-            <RouterLink class="nav-link active" aria-current="page" to="/chat"
+            <RouterLink class="nav-link active" aria-current="page" to="/about"
               >About
             </RouterLink>
           </li>
@@ -46,7 +44,6 @@ import logoPink from "../assets/images/logo.png";
       </div>
     </div>
   </div>
-  <RouterView />
 </template>
 
 <script>
