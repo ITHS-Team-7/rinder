@@ -79,7 +79,7 @@ import moment from "moment";
         @click="openChat(chat.userName)"
       >
         <!-- @click.stop="openUserProfile(chat.userName)" -->
-        <img :src="getUser(chat.userName).avatar" alt="avatar" class="avatar" />
+        <img :src="getUser(chat.userName).avatar" alt="avatar" class="avatar" draggable="false"/>
         <div id="nameAndLastMessageContainer">
           <p class="name">
             {{ getUserShortName(chat.userName) }}
@@ -199,6 +199,7 @@ import moment from "moment";
             :src="getUser(activeChatUser.userName).avatar"
             alt="avatar"
             class="avatar"
+            draggable="false"
           />
           <p class="name">
             {{ activeChatUser.firstName }} {{ activeChatUser.lastName }}
@@ -500,8 +501,9 @@ function getUser(userName) {
   box-shadow: 0 0 20px 3px #ffffff;;
 }
 
-#activeChatTopContainer,
-#chatSelectContainer {
+/*#activeChatTopContainer,
+#chatSelectContainer*/
+#chat {
   /* prevent unwanted dragging and text selection */
 
   -webkit-touch-callout: none; /* iOS Safari */
