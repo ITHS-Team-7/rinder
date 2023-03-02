@@ -392,10 +392,6 @@ export default {
     },
   },
   watch: {
-    darkMode(status) {
-      const body = document.querySelector('body')
-      body.style.background = this.darkMode ? this.bodyDarkModeBgColor : this.bodyBgColor;
-    },
     activeChatUser() {
       this.showActiveChatSettings = false;
       this.scrollToLastMessage();
@@ -403,18 +399,10 @@ export default {
     chatMessageInput(msg) {
       // user is typing...
     },
-    /*darkMode(status) {
-
-      const container = document.querySelector('#chat');
-      console.log(container.classList);
-
-      if (status && !container.classList.contains('dark')) {
-          container.classList.add('dark');
-          container.className
-      } else if (!status && container.classList.contains('dark')) {
-        container.classList.remove('dark');
-      }
-    }*/
+    darkMode(status) {
+      const body = document.querySelector('body')
+      body.style.background = this.darkMode ? this.bodyDarkModeBgColor : this.bodyBgColor;
+    },
   },
   computed: {
     // get an array of usernames of all open chats
