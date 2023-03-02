@@ -1,0 +1,176 @@
+<script setup>
+import { RouterLink } from "vue-router";
+</script>
+
+<script>
+export default {
+  data() {
+    return {
+      submitted: false,
+    };
+  },
+  methods: {
+    onClick() {
+      this.submitted = true;
+    },
+  },
+};
+</script>
+
+<template>
+  <div class="info-container">
+    <div id="ett" class="infoClass">
+      <h1>GET IN TOUCH</h1>
+      <p>
+        Write to us with whatever you have in mind <br />
+        and we will get back to you as soon as possible :)
+      </p>
+      <br />
+
+      <h2>Contact</h2>
+      <p><a href="mailto: info@rinder.com">info@rinder.com</a></p>
+      <br />
+
+      <h2>Based in</h2>
+      <p>
+        IT-högskolan, <br />
+        Stockholm
+      </p>
+    </div>
+    <div id="tva" class="contact-form">
+      <form @submit.prevent>
+        <div class="inside-form">
+          <h1 class="hi-form">Hi.</h1>
+          <input class="inputs" type="text" name="" placeholder="name" /><br />
+          <input
+            class="inputs"
+            type="email"
+            name=""
+            placeholder="email"
+          /><br />
+          <textarea placeholder="message" class="inputs" rows="4"> </textarea
+          ><br />
+          <input
+            @click="onClick"
+            class="form-button"
+            type="submit"
+            name=""
+            value="submit"
+          />
+          <p class="p-form" v-if="submitted">
+            Thank you for your email. We have received it and will get back to
+            you soon!
+          </p>
+          <p v-else></p>
+        </div>
+      </form>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+.infoClass {
+  color: #252525;
+  margin-top: 1em;
+}
+form {
+  background-color: #8843e4;
+  text-align: center;
+  border-radius: 10px;
+  align-items: center;
+  padding: 3em;
+  padding-bottom: 5em;
+  width: 25em;
+}
+.hi-form {
+  color: white;
+}
+.inputs {
+  border: none;
+  margin-top: 8px;
+  width: 15em;
+  border-radius: 2px;
+}
+.inside-form {
+  width: 15em;
+
+  margin: auto;
+}
+
+.infoClass a {
+  color: #8843e4;
+}
+.inside-form .form-button {
+  float: right;
+}
+.form-button {
+  background-color: var(--darkPink);
+  color: var(--white);
+  padding: 10px;
+  padding-left: 35px;
+  padding-right: 35px;
+  font-size: 1vw;
+  border: none;
+  border-radius: 10px;
+}
+.p-form {
+  margin-top: 4em;
+  color: white;
+}
+
+.info-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr;
+  gap: 2em;
+  grid-template-areas: "ett tva";
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 50em;
+  margin-top: 15em;
+}
+
+#ett {
+  grid-area: ett;
+}
+#tva {
+  grid-area: tva;
+}
+
+@media screen and (max-width: 823px) {
+  .info-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 2em;
+    grid-template-areas:
+      "ett"
+      "tva";
+    margin-top: 1em;
+  }
+
+  #ett {
+    grid-area: ett;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+  #tva {
+    grid-area: tva;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+@media screen and (max-width: 1350px) {
+  .form-button {
+    background-color: var(--darkPink);
+    color: var(--white);
+    padding: 10px;
+    padding-left: 35px;
+    padding-right: 35px;
+    font-size: 15px;
+    border: none;
+    border-radius: 10px;
+  }
+}
+</style>
