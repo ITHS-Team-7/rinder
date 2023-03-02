@@ -6,30 +6,52 @@ import moment from "moment";
 <template>
   <!-- TODO: divide chatComponent into further components -->
   <!-- TODO: use em instead of rem where appropriate -->
-  <div id="chat">
+  <!-- TODO: find better icons cuz fontawesome icons suck-->
+  <div
+    id="chat"
+    :class="darkMode ? 'dark' : ''"
+    @toggleDarkMode="toggleDarkMode"
+  >
     <div id="chatSelectContainer">
       <!-- + 1 needed to compensate for currently logged in user -->
-      <div id="openNewChat" v-if="ableToOpenNewChat">
+      <div v-if="ableToOpenNewChat" id="openNewChat">
         <input
           v-if="!showNewChatSection"
+          class="btn btn-success"
           type="button"
           value="New Chat"
           @click="showNewChatSection = true"
-          class="btn btn-success"
         />
         <template v-else>
           <input
+            class="btn btn-danger"
             type="button"
             value="Close"
             @click="showNewChatSection = false"
-            class="btn btn-danger"
           />
           <!-- Filter users to exclude currently logged in user -->
 
-          <ul id="openNewChatUsersList" class="list-group">
+          <ul id="openNewChatUsersList" class="list-group" data-bs-theme="dark">
             <li
-              class="list-group-item openNewChatUser"
+              v-for="(user, index) in users.filter(
+                (user) =>
+                  user.userName !== loggedInUser.userName &&
+                  !openChatsUsernames.includes(user.userName)
+              )"
               :key="index"
+              class="list-group-item openNewChatUser"
+              @click="openChat(user.userName)"
+            >
+              <span style="font-weight: bold">{{
+                getUserShortName(user.userName)
+              }}</span>
+              ({{ user.userName }})
+            </li>
+          </ul>
+
+          <!--<div
+              :key="index"
+              class="openNewChatUser"
               v-for="(user, index) in users.filter(
                 (user) =>
                   user.userName !== loggedInUser.userName &&
@@ -37,72 +59,54 @@ import moment from "moment";
               )"
               @click="openChat(user.userName)"
             >
-              <span style="font-weight: bold"
-                >{{ user.firstName }} {{ user.lastName }}</span
-              >
-              ({{ user.userName }})
-            </li>
-          </ul>
-
-          <!--<div
-            :key="index"
-            class="openNewChatUser"
-            v-for="(user, index) in users.filter(
-              (user) =>
-                user.userName !== loggedInUser.userName &&
-                !openChatsUsernames.includes(user.userName)
-            )"
-            @click="openChat(user.userName)"
-          >
-            {{ user.userName }}
-          </div>-->
+              {{ user.userName }}
+            </div>-->
         </template>
       </div>
       <!--<div id="openNewChat" v-else>
-        No new users available to add...
-      </div>-->
+          No new users available to add...
+        </div>-->
       <div
-        :key="index"
         v-for="(chat, index) in loggedInUser.chats"
-        @click="openChat(chat.userName)"
+        :key="index"
         :class="
           chat.userName === activeChatUser?.userName
             ? 'chatSelect selected'
             : 'chatSelect'
         "
+        :style="index === 0 ? 'margin-top: 0.2rem;' : ''"
+        @click="openChat(chat.userName)"
       >
-        <!-- @click.stop="goToProfile(chat.userName)" -->
-        <img class="avatar" :src="getUser(chat.userName).avatar" alt="avatar" />
+        <!-- @click.stop="openUserProfile(chat.userName)" -->
+        <img :src="getUser(chat.userName).avatar" alt="avatar" class="avatar" />
         <div id="nameAndLastMessageContainer">
           <p class="name">
-            {{ getUser(chat.userName).firstName }}
-            {{ getUser(chat.userName).lastName }}
+            {{ getUserShortName(chat.userName) }}
           </p>
-          <div class="lastMessage" v-if="chat.messages.length">
-            <div class="clickableIconContainer">
+          <div v-if="chat.messages.length" class="lastMessage">
               <font-awesome-icon
                 v-if="chat.messages[chat.messages.length - 1].type === 'sent'"
                 icon="fa-regular fa-circle-up"
               />
               <font-awesome-icon v-else icon="fa-regular fa-circle-down" />
-            </div>
+
             <p>
               {{ chat.messages[chat.messages.length - 1].message }}
             </p>
           </div>
         </div>
         <!-- <div id="chatSelectContainerOptions">
-        </div> -->
+          </div> -->
       </div>
-      <div id="noOpenChats" v-if="!loggedInUser.chats.length">
+      <div v-if="!loggedInUser.chats.length" id="noOpenChats">
         <p>You don't have any open chats...</p>
       </div>
     </div>
 
-    <div id="activeChatContainer" v-if="activeChatUser !== null">
+    <div v-if="activeChatUser !== null" id="activeChatContainer">
       <div id="activeChatTopContainer">
         <div id="activeChatNameContainer">
-          <p @click="goToProfile(activeChatUser.userName)">
+          <p @click="openUserProfile(activeChatUser.userName)">
             {{ activeChatUser?.firstName }}
           </p>
           <span class="activeChatStatus">🟢</span>
@@ -117,22 +121,31 @@ import moment from "moment";
             <font-awesome-icon icon="fa-solid fa-video" />
           </div>
           <div
-            @click="showActiveChatSettings = !showActiveChatSettings"
             class="clickableIconContainer"
+            @click="showActiveChatSettings = !showActiveChatSettings"
           >
             <font-awesome-icon icon="fa-solid fa-ellipsis-vertical" />
           </div>
         </div>
       </div>
-      <div id="activeChatSettings" v-if="showActiveChatSettings">
-        <div>
-          <div
-            style="color: red"
-            @click.stop="deleteChat(activeChatUser.userName)"
-            class="clickableIconContainer"
-          >
-            <font-awesome-icon icon="fa-solid fa-trash-can" />
-          </div>
+      <div v-if="showActiveChatSettings" id="activeChatSettings">
+        <div
+          class="clickableIconContainer"
+          @click.stop="openUserProfile(activeChatUser.userName)"
+        >
+          <font-awesome-icon icon="fa-regular fa-user" />
+        </div>
+
+        <div
+          class="clickableIconContainer"
+          style="color: red"
+          @click.stop="deleteChat(activeChatUser.userName)"
+        >
+          <font-awesome-icon icon="fa-solid fa-trash-can" />
+        </div>
+
+        <div class="clickableIconContainer" @click.stop="toggleDarkMode">
+          <font-awesome-icon icon="fa-solid fa-sun" />
         </div>
       </div>
       <div id="activeChatMessagesContainer">
@@ -140,8 +153,8 @@ import moment from "moment";
           v-for="(message, index) in loggedInUser.chats.find(
             (chat) => chat.userName === activeChatUser?.userName
           )?.messages"
-          :class="'chatMessage ' + message.type"
           :key="index"
+          :class="'chatMessage ' + message.type"
         >
           {{
             /*moment.unix(message.time).format("YYYY-MM-DD HH:mm:ss")*/
@@ -153,14 +166,14 @@ import moment from "moment";
       <div id="chatInputsContainer">
         <form @submit="sendMessage">
           <input
-            type="text"
             id="messageInput"
             v-model="chatMessageInput"
             class="form-control"
             placeholder="Message..."
+            type="text"
           />
           <!--<input type="button" id="emojiButton" value="😊">
-          <input type="submit" value="Send" class="btn btn-success">-->
+            <input type="submit" value="Send" class="btn btn-success">-->
           <div id="chatInputButtons">
             <div id="emojiBtn" class="clickableIconContainer">
               <font-awesome-icon icon="fa-solid fa-face-smile" />
@@ -168,14 +181,39 @@ import moment from "moment";
 
             <div
               id="sendBtn"
-              @click="sendMessage"
               class="clickableIconContainer"
+              @click="sendMessage"
             >
               <font-awesome-icon icon="fa-solid fa-paper-plane" />
             </div>
           </div>
         </form>
       </div>
+      <div
+        id="activeChatProfileInfo"
+        v-if="showActiveChatProfileInfo && activeChatUser !== null"
+      >
+        <div>
+          <img
+            :src="getUser(activeChatUser.userName).avatar"
+            alt="avatar"
+            class="avatar"
+          />
+          <p class="name">
+            {{ activeChatUser.firstName }} {{ activeChatUser.lastName }}
+          </p>
+        </div>
+
+        <ul>
+          <li><span class="">Age:</span> {{ activeChatUser.age }}</li>
+          <li>Gender: {{ activeChatUser.gender }}</li>
+          <li>About: {{ activeChatUser.description }}</li>
+        </ul>
+        <div class="clickableIconContainer" id="activeChatProfileInfoCloseBtn" @click="openUserProfile(activeChatUser.userName)">
+        <font-awesome-icon icon="fa-regular fa-circle-xmark" />
+      </div>
+      </div>
+
     </div>
     <div v-else id="emptyActiveChatContainer">
       <p>
@@ -194,10 +232,16 @@ export default {
       activeChatUser: null,
       showActiveChatSettings: false,
       loading: true,
-      // TODO: replace this with actual logged in user
+      // TODO: replace this with actual logged in user, get it from vue store
       loggedInUser: users[0],
       chatMessageInput: "",
       showNewChatSection: false,
+      showActiveChatProfileInfo: false,
+      // TODO: replace this with colors from from vue store
+      bodyBgColor: "#ffe1e8",
+      bodyDarkModeBgColor: "#8843e4",
+      // TODO: replace this with actual dark mode status from from vue store
+      darkMode: true,
     };
   },
   methods: {
@@ -228,6 +272,7 @@ export default {
       }
 
       this.showNewChatSection = false;
+      this.showActiveChatProfileInfo = false;
     },
     deleteChat(userName) {
       this.chatMessageInput = "";
@@ -306,13 +351,15 @@ export default {
         }
 
         this.chatMessageInput = "";
+        this.scrollToLastMessage();
+        this.scrollToFirstChatSelectUser();
       }
-
-      this.scrollToLastMessage();
     },
-    goToProfile(userName) {
+    openUserProfile(userName) {
       // TODO: redirect to user profile page
-      console.log(getUser(userName));
+      // toggle
+      this.showActiveChatProfileInfo = !this.showActiveChatProfileInfo;
+      this.showActiveChatSettings = false;
     },
     scrollToLastMessage() {
       // Scroll down to last message
@@ -326,8 +373,29 @@ export default {
         }
       });
     },
+    scrollToFirstChatSelectUser() {
+      // Scroll down to last message
+      // $nextTick is called after v-for has rendered all chatMessages
+      this.$nextTick(() => {
+        const container = document.querySelector("#chatSelectContainer");
+        if (container) {
+          container.scrollTop = 0;
+        }
+      });
+    },
+    toggleDarkMode() {
+      this.darkMode = !this.darkMode;
+    },
+    getUserShortName(userName) {
+      const user = getUser(userName);
+      return `${user.firstName} ${user.lastName.charAt(0)}.`;
+    },
   },
   watch: {
+    darkMode(status) {
+      const body = document.querySelector('body')
+      body.style.background = this.darkMode ? this.bodyDarkModeBgColor : this.bodyBgColor;
+    },
     activeChatUser() {
       this.showActiveChatSettings = false;
       this.scrollToLastMessage();
@@ -335,6 +403,18 @@ export default {
     chatMessageInput(msg) {
       // user is typing...
     },
+    /*darkMode(status) {
+
+      const container = document.querySelector('#chat');
+      console.log(container.classList);
+
+      if (status && !container.classList.contains('dark')) {
+          container.classList.add('dark');
+          container.className
+      } else if (!status && container.classList.contains('dark')) {
+        container.classList.remove('dark');
+      }
+    }*/
   },
   computed: {
     // get an array of usernames of all open chats
@@ -345,6 +425,10 @@ export default {
       return this.openChatsUsernames.length + 1 !== users.length;
     },
   },
+  created() {
+    const body = document.querySelector('body')
+    body.style.background = this.darkMode ? this.bodyDarkModeBgColor : this.bodyBgColor;
+  }
 };
 
 /*
@@ -367,9 +451,20 @@ function getUser(userName) {
 
 <style scoped>
 #chat {
+  --textColor: #000;
+  --bgColor: #fff;
+  --iconHoverColor: #3c008d;
+  --scrollBarColor: rgba(0, 0, 0, 0.9);
+  --scrollBarTrackColor: inset 0 0 6px rgba(136, 136, 136, 0.9);
+  --lastMessageColor: #282828;
+  --messageInputBg: #fff;
+  --messageInputColor: #000;
+  --messageInputPlaceholderColor: #555;
+  --lastMessageIconColor: #1b7200;
+
   border-radius: 10px;
-  background: #fff;
-  color: #000;
+  background: var(--bgColor);
+  color: var(--textColor);
   gap: 1rem;
   min-height: 60vh;
   max-height: 70vh;
@@ -380,11 +475,44 @@ function getUser(userName) {
 
   padding: 1rem;
   margin: 0 auto;
-  box-shadow: 0 0 5px #8843e4;
+  box-shadow: 0 0 20px 0px #858585;
+}
+
+#chat.dark {
+  --textColor: #fff;
+  --bgColor: #000;
+  --iconHoverColor: #b37aff;
+  --scrollBarColor: rgba(255, 255, 255, 0.4);
+  --scrollBarTrackColor: inset 0 0 6px rgba(148, 103, 103, 0.9);
+  --lastMessageColor: #d5d5d5;
+  --messageInputBg: #323232;
+  --messageInputColor: #fff;
+  --messageInputPlaceholderColor: #d7d7d7;
+  --lastMessageIconColor: #2bb302;
+}
+
+#activeChatTopContainer,
+#chatSelectContainer {
+  /* prevent unwanted dragging and text selection */
+
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
 }
 
 #activeChatContainer {
   width: 100%;
+  /* SEPARATOR */
+  /*
+  background-image: linear-gradient(#80008070, #80008070);
+background-repeat: no-repeat;
+  background-size: 1px 70%, calc(100% - 4px) 100%;
+  background-position: left center, 4px 0;
+
+   */
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: min-content min-content 1fr min-content;
@@ -404,8 +532,8 @@ function getUser(userName) {
   width: 100%;
   overflow: auto;
   grid-area: activeChatMessagesContainer;
-  padding: 2rem 0;
-  margin-top: 0.3rem;
+  padding: 0 0 2rem 0;
+  margin-top: 0.5rem;
 }
 
 #chatSelectContainer {
@@ -415,18 +543,13 @@ function getUser(userName) {
   /*border: 0.1rem solid red;*/
   border-radius: 10px;
 
+  box-shadow: 0rem 0rem 8px 0px #9b9b9b;
+
   grid-area: chatSelectContainer;
 
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Old versions of Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
-  user-select: none;
-  /* Non-prefixed version, currently
-                                   supported by Chrome, Edge, Opera and Firefox */
+  overflow-y: auto;
 
-  overflow-y: scroll;
+  padding: 0 0.2rem;
 }
 
 #chatSelectContainer::-webkit-scrollbar {
@@ -441,10 +564,13 @@ function getUser(userName) {
   align-items: center;
   cursor: pointer;
   padding: 0.8rem 0;
+  /* to prevent elements from moving on hover */
+  border: 0.1rem solid transparent;
+  /*transition: .1s;*/
 }
 
 .chatSelect:hover {
-  background-color: #e1e1e1;
+  background-color: #32323269;
 }
 
 #nameAndLastMessageContainer {
@@ -459,11 +585,16 @@ function getUser(userName) {
 
 .name {
   font-weight: bold;
-  font-size: 1.1em;
-  color: #0060ff;
+  text-align: center;
+  font-size: 1.3em;
+  color: #230038;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+}
+
+#chat.dark .name {
+  color: #ffffff;
 }
 
 #activeChatMessagesContainer::-webkit-scrollbar {
@@ -472,17 +603,18 @@ function getUser(userName) {
 }
 
 #activeChatMessagesContainer::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 6px rgba(136, 136, 136, 0.9);
+  box-shadow: var(--scrollBarTrackColor);
   border-radius: 10px;
 }
 
 #activeChatMessagesContainer::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.9);
+  background-color: var(--scrollBarColor);
   border-radius: 10px;
 }
 
 #chatSelectContainer > .chatSelect.selected {
-  background-color: #d1d1d1;
+  border: 0.1rem solid #8843e4;
+  background: rgb(136 67 228 / 50%);
 }
 
 .chatMessage {
@@ -498,16 +630,16 @@ function getUser(userName) {
   text-overflow: ellipsis;
 }
 
-.lastMessage .clickableIconContainer {
-  color: #196900;
+.lastMessage {
+  color: var(--lastMessageIconColor);
   font-size: 1.2em;
-  margin-right: 0.3rem;
 }
 
 .lastMessage p {
   display: inline;
-  color: #222222;
+  color: var(--lastMessageColor);
   font-size: 1em;
+  margin-left: 0.3rem;
 }
 
 .sent {
@@ -523,10 +655,10 @@ function getUser(userName) {
   color: #000;
 }
 
-.avatar {
+.chatSelect .avatar {
   border-radius: 50%;
   height: 5rem;
-  border: 0.2rem solid white;
+  border: 0.15rem solid rgb(255 134 134);
   cursor: pointer;
 }
 
@@ -545,17 +677,19 @@ function getUser(userName) {
 }
 
 .openNewChatUser {
+  padding: 0.5rem 1rem;
   cursor: pointer;
+  background-color: var(--bgColor);
+  color: var(--textColor);
 }
 
 .openNewChatUser:hover {
-  background-color: #606060;
-  color: white;
+  background-color: #32323269;
 }
 
 #openNewChat {
   margin: 0 auto;
-  padding: 1em 0;
+  padding: 1em 0 0.8em 0;
 }
 
 #openNewChat input {
@@ -583,11 +717,21 @@ function getUser(userName) {
   text-align: center;
 }
 
+.clickableIconContainer:hover {
+  color: var(--iconHoverColor);
+}
+
 #messageInput {
-  border: 0.15rem solid #252525;
+  border: 0.15rem solid #8b8b8b;
   border-radius: 10px;
+  background: var(--messageInputBg);
   font-size: 1.2em;
   font-weight: 500;
+  color: var(--messageInputColor);
+}
+
+#messageInput::placeholder {
+  color: var(--messageInputPlaceholderColor);
 }
 
 #callIconsContainer {
@@ -628,12 +772,14 @@ p {
 }
 
 #activeChatSettings {
+  display: flex;
+  gap: 2rem;
   width: fit-content;
-  position: relative;
-  left: 80%;
+  margin-left: auto;
+  margin-bottom: 1rem;
   grid-area: activeChatSettings;
-  padding: 1em;
-  border: 0.1rem solid blue;
+  padding: 1em 2em;
+  border: 0.1rem solid var(--textColor);
   border-radius: 10px;
 }
 
@@ -642,29 +788,73 @@ p {
   text-align: center;
 }
 
-.openNewChatUser {
-  padding: 0.5rem 0.2rem;
-}
-
 #emptyActiveChatContainer {
   border: 0.2rem solid purple;
   border-radius: 10px;
-  margin: 10rem auto;
-  width: 100%;
+  margin: auto;
   font-size: 2em;
-  max-width: 25rem;
 }
 
 #emptyActiveChatContainer p {
-  top: 50%;
-  transform: translateY(-50%);
   position: relative;
+  padding: 2rem;
   text-align: center;
 }
 
 #noOpenChats {
   text-align: center;
 }
+
+#activeChatProfileInfo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem 2rem;
+  padding: 1rem;
+  background: rgb(128 0 128 / 10%);
+  backdrop-filter: blur(40px);
+  border-radius: 10px;
+  box-shadow: inset 0px 0px 5px 0px magenta;
+  grid-area: activeChatMessagesContainer;
+
+  /* needed to hide activeChatMessagesContainer scrollbar */
+  width: 102%;
+  transform: translateX(-1%);
+
+  font-weight: 500;
+  font-size: 1.1em;
+}
+
+#activeChatProfileInfo .avatar {
+  border-radius: 50%;
+  margin-bottom: 1rem;
+  height: 10em;
+  border: 0.2rem solid rgb(0 0 0);
+}
+
+#activeChatProfileInfo .name {
+  font-weight: bold;
+  font-size: 1.6em;
+}
+
+#activeChatProfileInfo ul {
+  list-style: none;
+  padding: 0;
+  max-width: 30rem;
+}
+#activeChatProfileInfo li {
+  border: 0.1rem solid red;
+  border-radius: 10px;
+  width: fit-content;
+  padding: .7em;
+}
+
+#activeChatProfileInfoCloseBtn {
+  position: absolute;
+  right: 1.5rem;
+  top: 1rem;
+}
+
 
 @media (max-width: 1000px) {
   #chat {
@@ -702,13 +892,17 @@ p {
   #chatInputButtons {
     gap: 1rem;
   }
+
+  #activeChatProfileInfo {
+    flex-direction: column;
+  }
 }
 
 @media (max-width: 700px) {
   #chat {
     gap: 0.25rem;
     min-height: 50vh;
-    max-height: 50vh;
+    max-height: 60vh;
     max-width: 80rem;
 
     margin: 0 0.5rem;
@@ -730,8 +924,11 @@ p {
   }
 
   #emptyActiveChatContainer {
-    width: 100%;
     font-size: 2em;
+  }
+
+  #emptyActiveChatContainer p {
+    padding: 1rem;
   }
 
   #activeChatTopContainer {
@@ -762,6 +959,15 @@ p {
 
   .avatar {
     height: 4rem;
+  }
+
+  #activeChatSettings {
+    gap: 0.2rem;
+    padding: 0.8em 0.8em;
+  }
+
+  #activeChatProfileInfo ul{
+    max-width: 20rem;
   }
 }
 </style>
