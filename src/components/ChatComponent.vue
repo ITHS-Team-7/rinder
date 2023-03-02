@@ -6,11 +6,12 @@ import moment from "moment";
 <template>
   <!-- TODO: divide chatComponent into further components -->
   <!-- TODO: use em instead of rem where appropriate -->
-  <!-- TODO: find better icons cuz fontawesome icons suck-->
+  <!-- TODO: find better icons cuz fontawesome icons suck -->
+  <!-- TODO: listen/emit some event -->
   <div
     id="chat"
     :class="darkMode ? 'dark' : ''"
-    @toggleDarkMode="toggleDarkMode"
+    @someEvent="actionForSomeEvent"
   >
     <div id="chatSelectContainer">
       <!-- + 1 needed to compensate for currently logged in user -->
@@ -205,9 +206,11 @@ import moment from "moment";
         </div>
 
         <ul>
-          <li><span class="">Age:</span> {{ activeChatUser.age }}</li>
-          <li>Gender: {{ activeChatUser.gender }}</li>
-          <li>About: {{ activeChatUser.description }}</li>
+          <li><span class="infoType">Username:</span> {{ activeChatUser.userName }}</li>
+          <li><span class="infoType">Age:</span> {{ activeChatUser.age }}</li>
+          <li><span class="infoType">Gender:</span> {{ activeChatUser.gender }}</li>
+          <li><span class="infoType">About:</span> {{ activeChatUser.description }}</li>
+          <li><span class="infoType">Member since</span> {{ activeChatUser.signupDate }}</li>
         </ul>
         <div class="clickableIconContainer" id="activeChatProfileInfoCloseBtn" @click="openUserProfile(activeChatUser.userName)">
         <font-awesome-icon icon="fa-regular fa-circle-xmark" />
@@ -240,7 +243,7 @@ export default {
       // TODO: replace this with colors from from vue store
       bodyBgColor: "#ffe1e8",
       bodyDarkModeBgColor: "#8843e4",
-      // TODO: replace this with actual dark mode status from from vue store
+     // TODO: replace this with actual dark mode status from from vue store
       darkMode: true,
     };
   },
@@ -255,6 +258,7 @@ export default {
       // if chat is already open then close it
       if (this.activeChatUser?.userName === userName) {
         this.activeChatUser = null;
+        this.showActiveChatProfileInfo = false;
       } else {
         let existingChat = this.loggedInUser.chats.find(
           (chat) => chat.userName === userName
@@ -272,7 +276,6 @@ export default {
       }
 
       this.showNewChatSection = false;
-      this.showActiveChatProfileInfo = false;
     },
     deleteChat(userName) {
       this.chatMessageInput = "";
@@ -353,6 +356,7 @@ export default {
         this.chatMessageInput = "";
         this.scrollToLastMessage();
         this.scrollToFirstChatSelectUser();
+        this.showActiveChatProfileInfo = false;
       }
     },
     openUserProfile(userName) {
@@ -416,7 +420,20 @@ export default {
   created() {
     const body = document.querySelector('body')
     body.style.background = this.darkMode ? this.bodyDarkModeBgColor : this.bodyBgColor;
-  }
+
+    if (this.openLastChatOnLoad && this.loggedInUser.chats.length) {
+
+      this.openChat(this.loggedInUser.chats[0].userName)
+    }
+  },
+  props: {
+    openLastChatOnLoad: {
+      type: Boolean,
+      required: false,
+      default: false
+    }
+  },
+  emits: []
 };
 
 /*
@@ -449,6 +466,7 @@ function getUser(userName) {
   --messageInputColor: #000;
   --messageInputPlaceholderColor: #555;
   --lastMessageIconColor: #1b7200;
+  --profileInfoTypeColor: #003bbf;
 
   border-radius: 10px;
   background: var(--bgColor);
@@ -463,7 +481,7 @@ function getUser(userName) {
 
   padding: 1rem;
   margin: 0 auto;
-  box-shadow: 0 0 20px 0px #858585;
+  box-shadow: 0 0 20px 3px #000000;
 }
 
 #chat.dark {
@@ -477,6 +495,9 @@ function getUser(userName) {
   --messageInputColor: #fff;
   --messageInputPlaceholderColor: #d7d7d7;
   --lastMessageIconColor: #2bb302;
+  --profileInfoTypeColor: #00c4ff;
+
+  box-shadow: 0 0 20px 3px #ffffff;;
 }
 
 #activeChatTopContainer,
@@ -540,7 +561,7 @@ background-repeat: no-repeat;
   padding: 0 0.2rem;
 }
 
-#chatSelectContainer::-webkit-scrollbar {
+#chatSelectContainer::-webkit-scrollbar, #openNewChatUsersList::-webkit-scrollbar, #activeChatProfileInfo::-webkit-scrollbar {
   display: none;
 }
 
@@ -773,6 +794,8 @@ p {
 
 #openNewChatUsersList {
   margin-top: 1rem;
+  max-height: 20rem;
+  overflow: auto;
   text-align: center;
 }
 
@@ -798,7 +821,7 @@ p {
   justify-content: center;
   align-items: center;
   gap: 0.5rem 2rem;
-  padding: 1rem;
+  padding: 1rem 1rem 0 1rem;
   background: rgb(128 0 128 / 10%);
   backdrop-filter: blur(40px);
   border-radius: 10px;
@@ -811,13 +834,19 @@ p {
 
   font-weight: 500;
   font-size: 1.1em;
+
+  overflow: auto;
+}
+
+#activeChatProfileInfo div {
+  text-align: center;
 }
 
 #activeChatProfileInfo .avatar {
   border-radius: 50%;
   margin-bottom: 1rem;
   height: 10em;
-  border: 0.2rem solid rgb(0 0 0);
+  border: 0.15rem solid var(--textColor);
 }
 
 #activeChatProfileInfo .name {
@@ -826,15 +855,29 @@ p {
 }
 
 #activeChatProfileInfo ul {
+  margin: 0;
   list-style: none;
   padding: 0;
   max-width: 30rem;
 }
 #activeChatProfileInfo li {
-  border: 0.1rem solid red;
   border-radius: 10px;
-  width: fit-content;
-  padding: .7em;
+  background: #e1c9ff;
+  margin: 0.8em;
+  padding: 0.7rem 1rem;
+  border: 0.1rem solid var(--textColor);
+  max-width: 22rem;
+  white-space: break-spaces;
+}
+
+.dark #activeChatProfileInfo li {
+  background: #190019;
+}
+
+#activeChatProfileInfo .infoType {
+  font-weight: bold;
+  color: var(--profileInfoTypeColor);
+  margin-right: 0.2em;
 }
 
 #activeChatProfileInfoCloseBtn {
@@ -883,6 +926,7 @@ p {
 
   #activeChatProfileInfo {
     flex-direction: column;
+    justify-content: unset;
   }
 }
 
