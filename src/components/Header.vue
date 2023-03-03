@@ -70,6 +70,30 @@ export default {
         ? logoBlack
         : logoPink;
     },
+    watch: {
+    $route(to, from) {
+      let path = to.name;
+      const body = document.querySelector("body");
+      console.log(path);
+      switch (path) {
+        case "home":
+          // can also be backgroudImage    body.style.background = "green";
+          break;
+        case "about":
+          body.style.background = "yellow";
+          break;
+        case "chat":
+          body.style.background = "red";
+          break;
+        case "login":
+          body.style.background = "purple";
+          break;
+        default:
+          console.log("unknown page");
+          break;
+      }
+    }
+  }
   },
 };
 </script>
@@ -110,7 +134,7 @@ export default {
 }
 
 .nav-items li {
-  padding: 0 10px;
+  padding: 8px;
 }
 
 .nav-items li a {
@@ -179,9 +203,11 @@ export default {
     display: inline;
     text-align: right;
     padding: 0 10px 10px 0;
+    color: #fff;
   }
   .arrow {
-    width: 30px;
+    width: 20px;
+    padding-bottom:4px;
   }
 }
 </style>

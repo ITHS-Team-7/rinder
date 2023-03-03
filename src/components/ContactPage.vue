@@ -6,12 +6,21 @@ import { RouterLink } from "vue-router";
 export default {
   data() {
     return {
+      name: "",
+      email: "",
+      message: "",
       submitted: false,
     };
   },
   methods: {
     onClick() {
       this.submitted = true;
+    },
+  },
+  computed: {
+    btnDisabled() {
+      return this.name.length > 0 && this.email.length  > 0 && this.message.length > 0;
+
     },
   },
 };
@@ -41,25 +50,37 @@ export default {
       <form @submit.prevent>
         <div class="inside-form">
           <h1 class="hi-form">Hi.</h1>
-          <input class="inputs" type="text" name="" placeholder="name" /><br />
           <input
+            v-model="name"
+            class="inputs"
+            type="text"
+            placeholder="name"
+          /><br />
+          <input
+            v-model="email"
             class="inputs"
             type="email"
-            name=""
             placeholder="email"
           /><br />
-          <textarea placeholder="message" class="inputs" rows="4"> </textarea
+          <textarea
+            v-model="message"
+            placeholder="message"
+            class="inputs"
+            rows="4"
+          >
+          </textarea
           ><br />
           <input
             @click="onClick"
             class="form-button"
             type="submit"
-            name=""
+            :style="{ color: btnDisabled ? 'white' : '#ff4779' }"
             value="submit"
+            :disabled="!btnDisabled"
           />
           <p class="p-form" v-if="submitted">
-            Thank you for your email. We have received it and will get back to
-            you soon!
+            Thank you {{ name }} for your email. We have received it and will
+            get back to you at {{ email }} soon!
           </p>
           <p v-else></p>
         </div>
