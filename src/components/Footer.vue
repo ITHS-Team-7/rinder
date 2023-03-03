@@ -1,5 +1,7 @@
-<script setup>
+
+<script>
 </script>
+
 
 <template>
   <!-- Footer -->
