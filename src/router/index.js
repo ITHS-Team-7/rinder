@@ -17,11 +17,6 @@ const router = createRouter({
       component: ChatView,
     },
     {
-      path: "/contact",
-      name: "contact",
-      component: () => import("../views/ContactView.vue"),
-    },
-    {
       path: "/about",
       name: "about",
       // route level code-splitting

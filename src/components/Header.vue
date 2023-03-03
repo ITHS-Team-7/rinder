@@ -26,11 +26,6 @@ import logoPink from "../assets/images/logo.png";
             </RouterLink>
           </li>
           <li>
-            <RouterLink class="nav-link active" aria-current="page" to="/contact"
-              >Contact
-            </RouterLink>
-          </li>
-          <li>
             <RouterLink class="nav-link active" aria-current="page" to="/chat"
               >Chat
             </RouterLink>
