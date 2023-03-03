@@ -49,6 +49,7 @@ html {
 .cardtop {
   width: 24rem;
   margin: auto;
+  padding-top: 8vh;
 }
 .card-body {
   border-radius: 1em;
