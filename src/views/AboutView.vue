@@ -1,8 +1,9 @@
 <script setup>
 import AboutCards from "../components/AboutCards.vue";
+import ChatCards from "../components/ChatCards.vue";
 </script>
 <template>
-  <AboutCards></AboutCards>
+  <ChatCards :start="3"></ChatCards>
 </template>
 
 <style>
