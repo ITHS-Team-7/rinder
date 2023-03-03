@@ -872,9 +872,19 @@ p {
   white-space: break-spaces;
 }
 
+#activeChatProfileInfo li:hover {
+  background: #d1adff;
+}
+
 .dark #activeChatProfileInfo li {
   background: #190019;
 }
+
+.dark #activeChatProfileInfo li:hover {
+  background: #2a002a;
+}
+
+
 
 #activeChatProfileInfo .infoType {
   font-weight: bold;
