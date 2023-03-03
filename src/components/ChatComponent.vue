@@ -369,6 +369,7 @@ function getUser(userName) {
 <style scoped>
 #chat {
   border-radius: 10px;
+  padding: 0.5rem 1rem;
   background: #fff;
   color: #000;
   gap: 1rem;
@@ -402,88 +403,6 @@ function getUser(userName) {
   display: flex;
   flex-direction: column;
   gap: 0.2rem;
-  width: 100%;
-  overflow: auto;
-  grid-area: activeChatMessagesContainer;
-  padding: 2rem 0;
-  margin-top: 0.3rem;
-}
-
-#chatSelectContainer {
-  display: flex;
-  flex-direction: column;
-  min-width: 20rem;
-  /*border: 0.1rem solid red;*/
-  border-radius: 10px;
-
-  grid-area: chatSelectContainer;
-
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Old versions of Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
-  user-select: none;
-  /* Non-prefixed version, currently
-                                   supported by Chrome, Edge, Opera and Firefox */
-
-  overflow-y: scroll;
-}
-
-#chatSelectContainer::-webkit-scrollbar {
-  display: none;
-}
-
-#chatSelectContainer .chatSelect {
-  display: flex;
-  gap: 0 1rem;
-  border-radius: 10px;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  padding: 0.8rem 0;
-}
-
-.chatSelect:hover {
-  background-color: #e1e1e1;
-}
-
-#nameAndLastMessageContainer {
-  display: flex;
-  justify-content: space-around;
-  flex-direction: column;
-  align-content: center;
-  text-align: center;
-  max-width: 10rem;
-  width: 100%;
-}
-
-.name {
-  font-weight: bold;
-  font-size: 1.1em;
-  color: #0060ff;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-}
-
-#activeChatMessagesContainer::-webkit-scrollbar {
-  width: 0.3em;
-  border-radius: 10px;
-}
-
-#activeChatMessagesContainer::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 6px rgba(136, 136, 136, 0.9);
-  border-radius: 10px;
-}
-
-#activeChatMessagesContainer::-webkit-scrollbar-thumb {
-  background-color: rgba(0, 0, 0, 0.9);
-  border-radius: 10px;
-}
-
-#chatSelectContainer > .chatSelect.selected {
-  background-color: #d1d1d1;
 }
 
 .chatMessage {

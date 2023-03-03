@@ -4,5 +4,5 @@ import HeroSec from "../components/HeroSection.vue";
 </script>
 
 <template>
-    <HeroSec></HeroSec>
+  <HeroSec></HeroSec>
 </template>
