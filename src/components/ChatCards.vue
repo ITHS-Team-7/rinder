@@ -74,7 +74,7 @@ export default {
   border-radius: 1em;
   background-color: rgba(255, 255, 255, 0.432);
   min-height: 40%;
-  margin-top: 55%;
+  margin-top: 65%;
   display: table;
 }
 .text-con2 {
