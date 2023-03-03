@@ -22,7 +22,7 @@ body {
     background-position: center center;
     background-color: black;
     background-attachment: fixed;
-  font-family: "Roboto", sans-serif;
-  margin: 0px;
-  padding: 0px;
+    font-family: "Roboto", sans-serif;
+    margin: 0;
+    padding: 0;
 }
