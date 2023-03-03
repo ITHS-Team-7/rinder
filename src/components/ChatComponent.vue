@@ -208,8 +208,8 @@ import moment from "moment";
 
         <ul>
           <li><span class="infoType">Username:</span> {{ activeChatUser.userName }}</li>
-          <li><span class="infoType">Age:</span> {{ activeChatUser.age }}</li>
-          <li><span class="infoType">Gender:</span> {{ activeChatUser.gender }}</li>
+          <div id="ageAndGenderContainer"><li><span class="infoType">Age:</span> {{ activeChatUser.age }}</li>
+          <li><span class="infoType">Gender:</span> {{ activeChatUser.gender }}</li></div>
           <li><span class="infoType">About:</span> {{ activeChatUser.description }}</li>
           <li><span class="infoType">Member since</span> {{ activeChatUser.signupDate }}</li>
         </ul>
@@ -840,7 +840,7 @@ p {
   overflow: auto;
 }
 
-#activeChatProfileInfo div {
+#activeChatProfileInfo > div {
   text-align: center;
 }
 
@@ -865,7 +865,7 @@ p {
 #activeChatProfileInfo li {
   border-radius: 10px;
   background: #e1c9ff;
-  margin: 0.8em;
+  margin: 0.7em 0;
   padding: 0.7rem 1rem;
   border: 0.1rem solid var(--textColor);
   max-width: 22rem;
@@ -886,6 +886,17 @@ p {
   position: absolute;
   right: 1.5rem;
   top: 1rem;
+}
+
+#ageAndGenderContainer {
+  margin: 1rem 0;
+  width: max-content;
+}
+
+
+#ageAndGenderContainer li {
+  display: inline;
+  margin-right: .5em;
 }
 
 
