@@ -82,8 +82,7 @@ export default {
       switch (path) {
         case "home":
         case "terms":
-          // can also be backgroudImage    body.style.background = "green";
-         body.style.backgroundImage = 'linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("./src/assets/dating.jpg")'
+         body.style.backgroundImage = 'linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("./assets/dating.jpg")'
           break;
         case "about":
           body.style.backgroundImage = 'none';
