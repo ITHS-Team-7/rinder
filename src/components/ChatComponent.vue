@@ -1,6 +1,10 @@
 <script setup>
 import users from "../assets/data/users.json";
 import moment from "moment";
+
+// https://picmojs.com/
+import { lightTheme, darkTheme } from 'picmo';
+import { createPopup } from "@picmo/popup-picker";
 </script>
 
 <template>
@@ -8,6 +12,8 @@ import moment from "moment";
   <!-- TODO: use em instead of rem where appropriate -->
   <!-- TODO: find better icons cuz fontawesome icons suck -->
   <!-- TODO: listen/emit some event -->
+  <!-- TODO: use localStorage/sessionStorage for saving settings and chats -->
+  <!-- TODO: move users.json to /public/data/ -->
   <div
     id="chat"
     :class="darkMode ? 'dark' : ''"
@@ -46,7 +52,8 @@ import moment from "moment";
               <span style="font-weight: bold">{{
                 getUserShortName(user.userName)
               }}</span>
-              ({{ user.userName }})
+              <span>{{ user.userName }}</span>
+
             </li>
           </ul>
 
@@ -81,7 +88,7 @@ import moment from "moment";
         <!-- @click.stop="openUserProfile(chat.userName)" -->
         <img :src="getUser(chat.userName).avatar" alt="avatar" class="avatar" draggable="false"/>
         <div id="nameAndLastMessageContainer">
-          <p class="name">
+          <p class="shortName">
             {{ getUserShortName(chat.userName) }}
           </p>
           <div v-if="chat.messages.length" class="lastMessage">
@@ -104,7 +111,8 @@ import moment from "moment";
       </div>
     </div>
 
-    <div v-if="activeChatUser !== null" id="activeChatContainer">
+    <!-- Using v-show instead of v-if due to emoji library needing container to always be in DOM -->
+    <div v-show="activeChatUser !== null" id="activeChatContainer">
       <div id="activeChatTopContainer">
         <div id="activeChatNameContainer">
           <p @click="openUserProfile(activeChatUser.userName)">
@@ -173,8 +181,6 @@ import moment from "moment";
             placeholder="Message..."
             type="text"
           />
-          <!--<input type="button" id="emojiButton" value="😊">
-            <input type="submit" value="Send" class="btn btn-success">-->
           <div id="chatInputButtons">
             <div id="emojiBtn" class="clickableIconContainer">
               <font-awesome-icon icon="fa-solid fa-face-smile" />
@@ -194,23 +200,23 @@ import moment from "moment";
         id="activeChatProfileInfo"
         v-if="showActiveChatProfileInfo && activeChatUser !== null"
       >
-        <div>
+        <div id="activeChatProfileInfoImageContainer">
           <img
             :src="getUser(activeChatUser.userName).avatar"
             alt="avatar"
             class="avatar"
             draggable="false"
           />
-          <p class="name">
+          <p class="fullName">
             {{ activeChatUser.firstName }} {{ activeChatUser.lastName }}
           </p>
         </div>
 
-        <ul>
-          <li><span class="infoType">Username:</span> {{ activeChatUser.userName }}</li>
-          <div id="ageAndGenderContainer"><li><span class="infoType">Age:</span> {{ activeChatUser.age }}</li>
-          <li><span class="infoType">Gender:</span> {{ activeChatUser.gender }}</li></div>
-          <li><span class="infoType">About:</span> {{ activeChatUser.description }}</li>
+        <ul id="activeChatProfileInfoDetailsContainer">
+          <li><span class="infoType">@</span>{{ activeChatUser.userName }}</li>
+          <div id="ageAndGenderContainer"><li><span class="infoType">Age</span> {{ activeChatUser.age }}</li>
+          <li><span class="infoType">Gender</span> {{ activeChatUser.gender }}</li></div>
+          <li><span class="infoType">About</span> {{ activeChatUser.description }}</li>
           <li><span class="infoType">Member since</span> {{ activeChatUser.signupDate }}</li>
         </ul>
         <div class="clickableIconContainer" id="activeChatProfileInfoCloseBtn" @click="openUserProfile(activeChatUser.userName)">
@@ -219,7 +225,7 @@ import moment from "moment";
       </div>
 
     </div>
-    <div v-else id="emptyActiveChatContainer">
+    <div v-show="activeChatUser === null" id="emptyActiveChatContainer">
       <p>
         <font-awesome-icon icon="fa-solid fa-circle-arrow-left" />
         Select a chat
@@ -244,7 +250,7 @@ export default {
       // TODO: replace this with colors from from vue store
       bodyBgColor: "#ffe1e8",
       bodyDarkModeBgColor: "#8843e4",
-     // TODO: replace this with actual dark mode status from from vue store
+     // TODO: replace this with actual dark mode status from vue store
       darkMode: true,
     };
   },
@@ -274,6 +280,8 @@ export default {
         }
 
         this.activeChatUser = getUser(userName);
+
+
       }
 
       this.showNewChatSection = false;
@@ -426,6 +434,47 @@ export default {
 
       this.openChat(this.loggedInUser.chats[0].userName)
     }
+
+
+  },
+  mounted() {
+    /*// The picker must have a root element to insert itself into
+    const rootElement = document.querySelector('#emojiBtn');
+
+// Create the picker
+    const picker = createPicker({ rootElement });
+
+// The picker emits an event when an emoji is selected. Do with it as you will!
+    picker.addEventListener('emoji:select', event => {
+      console.log('Emoji selected:', event.emoji);
+    });
+*/
+
+
+    const trigger = document.querySelector('#emojiBtn');
+
+    const picker = createPopup({
+     theme: darkTheme,
+      onPositionLost: 'close',
+      hideOnEmojiSelect: false,
+      emojiSize: '2rem',
+      position: 'top-end',
+      showSearch: true,
+      showCategoryTabs: false,
+      showRecents: false,
+      showPreview: false,
+      showVariants: false,
+      animate: false,
+      emojisPerRow: 6,
+      categories: ['smileys-emotion', 'people-body', 'animals-nature']
+    }, {
+      referenceElement: trigger,
+      triggerElement: trigger
+    });
+
+    trigger.addEventListener('click', () =>  picker.toggle())
+    picker.addEventListener('emoji:select', (data) => this.chatMessageInput += data.emoji)
+
   },
   props: {
     openLastChatOnLoad: {
@@ -544,7 +593,7 @@ background-repeat: no-repeat;
   overflow: auto;
   grid-area: activeChatMessagesContainer;
   padding: 0 0 2rem 0;
-  margin-top: 0.5rem;
+  margin-top: 1rem;
 }
 
 #chatSelectContainer {
@@ -590,11 +639,11 @@ background-repeat: no-repeat;
   flex-direction: column;
   align-content: center;
   text-align: center;
-  max-width: 10rem;
+  max-width: 7rem;
   width: 100%;
 }
 
-.name {
+.shortName {
   font-weight: bold;
   text-align: center;
   font-size: 1.3em;
@@ -604,7 +653,7 @@ background-repeat: no-repeat;
   text-overflow: ellipsis;
 }
 
-#chat.dark .name {
+#chat.dark .shortName {
   color: #ffffff;
 }
 
@@ -699,7 +748,7 @@ background-repeat: no-repeat;
 }
 
 #openNewChat {
-  margin: 0 auto;
+  margin: 0;
   padding: 1em 0 0.8em 0;
 }
 
@@ -710,13 +759,14 @@ background-repeat: no-repeat;
 
 #activeChatTopContainer {
   display: flex;
-
+  flex-wrap: wrap;
   justify-content: space-between;
   padding: 1rem 1rem 1rem 0;
 }
 
 .activeChatStatus {
   font-size: 0.6em;
+  margin-top: 0.3rem;
 }
 
 .clickableIconContainer {
@@ -759,6 +809,11 @@ background-repeat: no-repeat;
   grid-area: activeChatNameContainer;
 
   font-weight: bold;
+  transition: .2s;
+}
+
+#activeChatNameContainer:hover {
+  font-size: 2.6em;
 }
 
 #activeChatNameContainer p {
@@ -840,53 +895,71 @@ p {
   overflow: auto;
 }
 
-#activeChatProfileInfo > div {
+#activeChatProfileInfoImageContainer {
   text-align: center;
+  margin: auto 0;
+  /* Fixed width to compensate for .avatar:hover extra width */
+  width: 13rem;
+}
+
+#activeChatProfileInfoDetailsContainer {
+  margin: auto 0;
+  list-style: none;
+  padding: 0;
+  max-width: 30rem;
 }
 
 #activeChatProfileInfo .avatar {
   border-radius: 50%;
   margin-bottom: 1rem;
   height: 10em;
-  border: 0.15rem solid var(--textColor);
+  border: 0.2rem solid var(--bgColor );
+  box-shadow: 0 0 20px 0px var(--textColor);
+  transition: .15s;
 }
 
-#activeChatProfileInfo .name {
+#activeChatProfileInfo .avatar:hover {
+  height: 11em;
+}
+
+#activeChatProfileInfo .fullaName {
   font-weight: bold;
   font-size: 1.6em;
+  text-align: center;
+  color: #230038;
+  overflow: hidden;
 }
 
-#activeChatProfileInfo ul {
-  margin: 0;
-  list-style: none;
-  padding: 0;
-  max-width: 30rem;
+#chat.dark .fullName {
+  color: #ffffff;
 }
-#activeChatProfileInfo li {
+
+
+#activeChatProfileInfoDetailsContainer li {
   border-radius: 10px;
   background: #e1c9ff;
-  margin: 0.7em 0;
+  margin: 0.4em 0;
   padding: 0.7rem 1rem;
   border: 0.1rem solid var(--textColor);
   max-width: 22rem;
   white-space: break-spaces;
 }
 
-#activeChatProfileInfo li:hover {
+#activeChatProfileInfoDetailsContainer li:hover {
   background: #d1adff;
 }
 
-.dark #activeChatProfileInfo li {
+.dark #activeChatProfileInfoDetailsContainer li {
   background: #190019;
 }
 
-.dark #activeChatProfileInfo li:hover {
+.dark #activeChatProfileInfoDetailsContainer li:hover {
   background: #2a002a;
 }
 
 
 
-#activeChatProfileInfo .infoType {
+#activeChatProfileInfoDetailsContainer .infoType {
   font-weight: bold;
   color: var(--profileInfoTypeColor);
   margin-right: 0.2em;
@@ -907,6 +980,10 @@ p {
 #ageAndGenderContainer li {
   display: inline;
   margin-right: .5em;
+}
+
+.openNewChatUser span {
+  display: block;
 }
 
 
@@ -930,7 +1007,7 @@ p {
   }
 
   #chatSelectContainer {
-    min-width: 10rem;
+    min-width: fit-content;
     /*border: 0.1rem solid red;*/
     border-radius: 10px;
   }
@@ -951,9 +1028,13 @@ p {
     flex-direction: column;
     justify-content: unset;
   }
+
+  #activeChatProfileInfo li {
+    font-size: clamp(1em, 3vw, 1.4em);
+  }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 600px) {
   #chat {
     gap: 0.25rem;
     min-height: 50vh;
@@ -963,12 +1044,12 @@ p {
     margin: 0 0.5rem;
 
     padding: 0.2rem;
-    font-size: clamp(0.5rem, 1.5vw, 0.8rem);
+    font-size: clamp(0.6rem, 2vw, 0.8rem);
   }
 
-  #chatSelectContainer {
+ /* #chatSelectContainer {
     min-width: 7rem;
-  }
+  } */
 
   #callIconsContainer {
     gap: 0.5rem;
@@ -1012,7 +1093,11 @@ p {
     font-size: 0.8rem;
   }
 
-  .avatar {
+  .openNewChatUser {
+    padding: 0.5rem 0.1rem;
+  }
+
+  .chatSelect .avatar {
     height: 4rem;
   }
 
