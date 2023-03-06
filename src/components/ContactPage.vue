@@ -19,8 +19,9 @@ export default {
   },
   computed: {
     btnDisabled() {
-      return this.name.length > 0 && this.email.length  > 0 && this.message.length > 0;
-
+      return (
+        this.name.length > 0 && this.email.length > 0 && this.message.length > 0
+      );
     },
   },
 };
