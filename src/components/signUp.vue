@@ -32,7 +32,6 @@
   <div v-else class="signup">
     <div class="signup-form-box">
       <div class="signup-form">
-        <suform>
           <h2>Rinder 💗</h2>
           <h3>Sign up and find love today</h3>
           <div class="su-input">
@@ -96,7 +95,6 @@
             <input type="date" id="age" name="birthday" />
           </div>
           <button type="submit" class="subutton">Sign up now!</button>
-        </suform>
       </div>
     </div>
   </div>
