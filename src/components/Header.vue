@@ -73,31 +73,32 @@ export default {
         ? logoBlack
         : logoPink;
     },
-    watch: {
-      $route(to, from) {
-        let path = to.name;
-        const body = document.querySelector("body");
-        console.log(path);
-        switch (path) {
-          case "home":
-            // can also be backgroudImage    body.style.background = "green";
-            break;
-          case "about":
-            body.style.background = "yellow";
-            break;
-          case "chat":
-            body.style.background = "red";
-            break;
-          case "login":
-            body.style.background = "purple";
-            break;
-          default:
-            console.log("unknown page");
-            break;
-        }
-      },
-    },
   },
+    watch: {
+    $route(to, from) {
+      let path = to.name;
+      const body = document.querySelector("body");
+      console.log(path);
+      switch (path) {
+        case "home":
+          // can also be backgroudImage    body.style.background = "green";
+          break;
+        case "about":
+          body.style.background = "#ffe1e8";
+          break;
+        case "chat":
+          body.style.background = "#ffe1e8";
+          break;
+        case "login":
+          body.style.background = "purple";
+          break;
+        default:
+          console.log("Header.vue $route watch - unknown page");
+
+          break;
+      }
+    }
+  }
 };
 </script>
 

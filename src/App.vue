@@ -2,6 +2,9 @@
 import { RouterView } from "vue-router";
 import Header from "./components/Header.vue";
 import Footer from "./components/Footer.vue";
+
+// TODO: add vue store
+// users, darkMode, loggedInUser etc...
 </script>
 
 <template>
