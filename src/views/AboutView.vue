@@ -8,10 +8,6 @@ import ChatCards from "../components/ChatCards.vue";
 </template>
 
 <style>
-body {
-  background-image: none;
-  background-color: #ffe1e8;
-}
 </style>
 
 <style scoped>
