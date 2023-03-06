@@ -1,8 +1,7 @@
 <script setup>
-// import signUp from '../components/signUp'
-
-//
+import SignUp from "../components/signUp.vue";
 </script>
 
-//
-<template>// <signUp /> //</template>
+<template>
+  <SignUp />
+</template>
