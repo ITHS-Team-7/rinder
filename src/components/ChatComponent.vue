@@ -252,7 +252,7 @@ export default {
       bodyBgColor: "#ffe1e8",
       bodyDarkModeBgColor: "#8843e4",
      // TODO: replace this with actual dark mode status from vue store
-      darkMode: true,
+      darkMode: false,
     };
   },
   methods: {
