@@ -1,27 +1,33 @@
 {
-  "name": "rinder",
-  "version": "0.0.1",
-  "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "deploy": "gh-pages -d dist",
-    "preview": "vite preview",
-    "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
-  },
-  "dependencies": {
-    "bootstrap": "^5.2.3",
-    "fontawesome": "^5.6.3",
-    "vue": "^3.2.45",
-    "vue-router": "^4.1.6"
-  },
-  "devDependencies": {
-    "@rushstack/eslint-patch": "^1.1.4",
-    "@vitejs/plugin-vue": "^4.0.0",
-    "@vue/eslint-config-prettier": "^7.0.0",
-    "eslint": "^8.22.0",
-    "eslint-plugin-vue": "^9.3.0",
-    "gh-pages": "^5.0.0",
-    "prettier": "^2.7.1",
-    "vite": "^4.0.0"
-  }
+    "name": "rinder",
+    "version": "0.0.1",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "deploy": "gh-pages -d dist",
+        "preview": "vite preview",
+        "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore"
+    },
+    "dependencies": {
+        "@fortawesome/fontawesome-svg-core": "^6.3.0",
+        "@fortawesome/free-brands-svg-icons": "^6.3.0",
+        "@fortawesome/free-regular-svg-icons": "^6.3.0",
+        "@fortawesome/free-solid-svg-icons": "^6.3.0",
+        "@fortawesome/vue-fontawesome": "^3.0.3",
+        "bootstrap": "^5.3.0-alpha1",
+        "fortawesome": "^0.0.1-security",
+        "moment": "^2.29.4",
+        "vue": "^3.2.45",
+        "vue-router": "^4.1.6"
+    },
+    "devDependencies": {
+        "@rushstack/eslint-patch": "^1.1.4",
+        "@vitejs/plugin-vue": "^4.0.0",
+        "@vue/eslint-config-prettier": "^7.0.0",
+        "eslint": "^8.22.0",
+        "eslint-plugin-vue": "^9.3.0",
+        "gh-pages": "^5.0.0",
+        "prettier": "^2.7.1",
+        "vite": "^4.0.0"
+    }
 }
