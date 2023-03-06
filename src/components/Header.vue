@@ -26,10 +26,7 @@ import logoPink from "../assets/images/logo.png";
             </RouterLink>
           </li>
           <li>
-            <RouterLink
-              class="nav-link active"
-              aria-current="page"
-              to="/contact"
+            <RouterLink class="nav-link active" aria-current="page" to="/contact"
               >Contact
             </RouterLink>
           </li>
@@ -73,31 +70,31 @@ export default {
         ? logoBlack
         : logoPink;
     },
+     },
     watch: {
-      $route(to, from) {
-        let path = to.name;
-        const body = document.querySelector("body");
-        console.log(path);
-        switch (path) {
-          case "home":
-            // can also be backgroudImage    body.style.background = "green";
-            break;
-          case "about":
-            body.style.background = "yellow";
-            break;
-          case "chat":
-            body.style.background = "red";
-            break;
-          case "login":
-            body.style.background = "purple";
-            break;
-          default:
-            console.log("unknown page");
-            break;
-        }
-      },
-    },
-  },
+    $route(to, from) {
+      let path = to.name;
+      const body = document.querySelector("body");
+      console.log(path);
+      switch (path) {
+        case "home":
+          // can also be backgroudImage    body.style.background = "green";
+          break;
+        case "about":
+          body.style.background = "#ffe1e8";
+          break;
+        case "chat":
+          body.style.background = "#ffe1e8";
+          break;
+        case "login":
+          body.style.background = "purple";
+          break;
+        default:
+          console.log("unknown page");
+          break;
+      }
+    }
+  }
 };
 </script>
 
@@ -210,7 +207,7 @@ export default {
   }
   .arrow {
     width: 20px;
-    padding-bottom: 4px;
+    padding-bottom:4px;
   }
 }
 </style>
