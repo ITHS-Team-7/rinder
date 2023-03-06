@@ -414,7 +414,7 @@ export default {
     },
     darkMode(status) {
       const body = document.querySelector('body')
-      body.style.background = this.darkMode ? this.bodyDarkModeBgColor : this.bodyBgColor;
+      body.style.backgroundColor = this.darkMode ? this.bodyDarkModeBgColor : this.bodyBgColor;
     },
   },
   computed: {
@@ -428,7 +428,7 @@ export default {
   },
   created() {
     const body = document.querySelector('body')
-    body.style.background = this.darkMode ? this.bodyDarkModeBgColor : this.bodyBgColor;
+    body.style.backgroundColor = this.darkMode ? this.bodyDarkModeBgColor : this.bodyBgColor;
 
     if (this.openLastChatOnLoad && this.loggedInUser.chats.length) {
 
@@ -565,14 +565,6 @@ function getUser(userName) {
 
 #activeChatContainer {
   width: 100%;
-  /* SEPARATOR */
-  /*
-  background-image: linear-gradient(#80008070, #80008070);
-background-repeat: no-repeat;
-  background-size: 1px 70%, calc(100% - 4px) 100%;
-  background-position: left center, 4px 0;
-
-   */
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: min-content min-content 1fr min-content;
