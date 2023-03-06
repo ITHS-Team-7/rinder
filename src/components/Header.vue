@@ -81,6 +81,7 @@ export default {
       console.log(path);
       switch (path) {
         case "home":
+        case "terms":
           // can also be backgroudImage    body.style.background = "green";
          body.style.backgroundImage = 'linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("./src/assets/dating.jpg")'
           break;
@@ -101,7 +102,7 @@ export default {
           body.style.backgroundColor = "purple";
           break;
         default:
-          console.log("Header.vue $route watch - unknown page");
+          console.log("Header.vue $route watch - unknown page " + path);
 
           break;
       }
