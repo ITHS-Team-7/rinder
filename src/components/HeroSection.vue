@@ -1,3 +1,7 @@
+<script setup>
+import { RouterLink } from "vue-router";
+</script>
+
 <script>
 export default {
   data() {
@@ -13,30 +17,17 @@ export default {
       <h1 class="heroText">
         {{ heroHeader }}
       </h1>
-      <input class="signupBtn" type="button" name="" value="Sign up" />
+      <router-link to="/login">
+        <input class="signupBtn" type="button" name="" value="Sign up" />
+      </router-link>
     </div>
   </div>
 </template>
 
 <style scoped>
-.backgroundImg {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-    url("../assets/dating.jpg");
-  background-color: black;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  position: fixed;
-  width: 100%;
-  height: 100%;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-}
-
 .textContainer {
-  position: absolute;
-  top: 35%;
+  position: fixed;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -47,9 +38,9 @@ export default {
 }
 .heroText {
   color: var(--white);
-  font-size: 7vw;
+  font-size: 6.5vw;
   text-align: center;
-  margin-bottom: 0.5em;
+  margin-bottom: 0.25em;
 }
 .signupBtn {
   background-color: var(--purple);
@@ -61,6 +52,11 @@ export default {
   border: none;
   border-radius: 10px;
 }
+
+a {
+  text-decoration: none;
+}
+
 @media screen and (min-width: 1400px) {
   .heroText {
     font-size: 6em;
@@ -72,7 +68,7 @@ export default {
 
 @media screen and (max-width: 600px) {
   .heroText {
-    font-size: 2.6em;
+    font-size: 2.4em;
     white-space: nowrap;
     overflow: hidden;
   }

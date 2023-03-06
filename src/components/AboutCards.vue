@@ -25,10 +25,10 @@ export default {
           />
         </div>
         <div class="card-body">
-          <h5 class="card-title">{{ user.userName }}</h5>
-          <p class="card-text">{{ user.firstName }} {{ user.lastName }}</p>
+          <h5 class="card-title">{{ user.firstName }} {{ user.lastName }}</h5>
           <p class="card-text">Gender: {{ user.gender }}</p>
           <p class="card-text">Age: {{ user.age }}</p>
+          <p class="card-text">{{ user.description }}</p>
           <p class="card-text">Signed up since: {{ user.signupDate }}</p>
         </div>
       </div>
@@ -39,12 +39,17 @@ export default {
 html {
   overflow-y: scroll;
 }
+.card {
+  background-color: #ffe1e8;
+  max-height: 100%;
+}
 .con {
   max-width: 175px;
 }
 .cardtop {
   width: 24rem;
   margin: auto;
+  padding-top: 8vh;
 }
 .card-body {
   border-radius: 1em;
@@ -62,13 +67,12 @@ html {
   transform: translateX(-50%);
 }
 .cardtop {
-  padding-top: 10vh;
-  padding-bottom: 5vh;
+  margin-top: 5vh;
+  margin-bottom: 5vh;
 }
 @media screen and (max-width: 600px) {
   .cardtop {
     width: 20rem;
-    margin: auto;
   }
   .img-fluid {
     max-width: 150px;
@@ -77,15 +81,10 @@ html {
     left: 85%;
     transform: translateX(-50%);
   }
-  .cardtop {
-    padding-top: 15vh;
-    padding-bottom: 10vh;
-  }
 }
 @media screen and (max-width: 325px) {
   .cardtop {
     width: 16rem;
-    margin: auto;
   }
   .img-fluid {
     max-width: 125px;
@@ -93,10 +92,6 @@ html {
     top: -65px;
     left: 66%;
     transform: translateX(-50%);
-  }
-  .cardtop {
-    padding-top: 15vh;
-    padding-bottom: 10vh;
   }
 }
 </style>
