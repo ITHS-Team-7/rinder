@@ -25,7 +25,6 @@ export default {
 </template>
 
 <style scoped>
-
 .textContainer {
   position: fixed;
   top: 50%;
