@@ -217,6 +217,7 @@ import { createPopup } from "@picmo/popup-picker";
           <div id="ageAndGenderContainer"><li><span class="infoType">Age</span> {{ activeChatUser.age }}</li>
           <li><span class="infoType">Gender</span> {{ activeChatUser.gender }}</li></div>
           <li><span class="infoType">About</span> {{ activeChatUser.description }}</li>
+          <li><span class="infoType">Country</span> {{ activeChatUser.country }}</li>
           <li><span class="infoType">Member since</span> {{ activeChatUser.signupDate }}</li>
         </ul>
         <div class="clickableIconContainer" id="activeChatProfileInfoCloseBtn" @click="openUserProfile(activeChatUser.userName)">
@@ -304,6 +305,61 @@ export default {
     sendMessage(evt) {
       evt.preventDefault();
 
+      const randomWords = [
+        "shaft",
+          "am",
+        "digress",
+        "reason",
+        "foster",
+        "unaware",
+        "price",
+        "section",
+        "employ",
+        "hospitality",
+        "freight",
+        "modest",
+        "theft",
+        "tablet",
+        "debate",
+        "node",
+        "threshold",
+        "robot",
+        "disgrace",
+        "picture",
+        "edge",
+        "structure",
+        "fountain",
+        "humor",
+        "negative",
+        "jungle",
+        "avenue",
+        "turn",
+        "late",
+        "sun",
+        "hover",
+        "market",
+        "reform",
+        "age",
+        "intermediate",
+        "welfare",
+        "contraction",
+        "delivery",
+        "develop",
+        "worry",
+        "swing",
+        "length",
+        "multimedia",
+        "eat",
+        "mind",
+        "recovery",
+        "bond",
+        "relief",
+        "spokesperson",
+        "crutch",
+      ];
+
+      const randomEmojis = ["✌","😂","😝","😁","😱","👉","🙌","🍻","🔥","🌈","☀","🎈","🌹","💄","🎀","⚽","🎾","🏁","😡","👿","🐻","🐶","🐬","🐟","🍀","👀","🚗","🍎","💝","💙","👌","❤","😍","😉","😓","😳","💪","💩","🍸","🔑","💖","🌟","🎉","🌺","🎶","👠","🏈","⚾","🏆","👽","💀","🐵","🐮","🐩","🐎","💣","👃","👂","🍓","💘","💜","👊","💋","😘","😜","😵","🙏","👋","🚽","💃","💎","🚀","🌙","🎁","⛄","🌊","⛵","🏀","🎱","💰","👶","👸","🐰","🐷","🐍","🐫","🔫","👄","🚲","🍉","💛","💚"];
+
       if (this.chatMessageInput) {
         // move chat to index 0 for sender
         const chatIndex = this.loggedInUser.chats.findIndex(
@@ -320,6 +376,16 @@ export default {
           message: this.chatMessageInput,
           type: "sent",
         });
+
+        // SIMULATE RANDOM RECEIVED MESSAGE
+        setTimeout(() => {
+          this.loggedInUser.chats[0].messages.push({
+            time: moment().unix(),
+            message: randomWords[Math.floor(Math.random() * randomWords.length)] + ' ' + randomEmojis[Math.floor(Math.random() * randomEmojis.length)],
+            type: "received",
+          });
+        }, 3000)
+
 
         // also add message to the receiving user message list
         const receivingUser = users.find(
@@ -414,7 +480,7 @@ export default {
     },
     darkMode(status) {
       const body = document.querySelector('body')
-      body.style.background = this.darkMode ? this.bodyDarkModeBgColor : this.bodyBgColor;
+      body.style.backgroundColor = this.darkMode ? this.bodyDarkModeBgColor : this.bodyBgColor;
     },
   },
   computed: {
@@ -428,7 +494,7 @@ export default {
   },
   created() {
     const body = document.querySelector('body')
-    body.style.background = this.darkMode ? this.bodyDarkModeBgColor : this.bodyBgColor;
+    body.style.backgroundColor = this.darkMode ? this.bodyDarkModeBgColor : this.bodyBgColor;
 
     if (this.openLastChatOnLoad && this.loggedInUser.chats.length) {
 
@@ -565,14 +631,6 @@ function getUser(userName) {
 
 #activeChatContainer {
   width: 100%;
-  /* SEPARATOR */
-  /*
-  background-image: linear-gradient(#80008070, #80008070);
-background-repeat: no-repeat;
-  background-size: 1px 70%, calc(100% - 4px) 100%;
-  background-position: left center, 4px 0;
-
-   */
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: min-content min-content 1fr min-content;
