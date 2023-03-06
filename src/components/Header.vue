@@ -82,15 +82,23 @@ export default {
       switch (path) {
         case "home":
           // can also be backgroudImage    body.style.background = "green";
+         body.style.backgroundImage = 'linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("./src/assets/dating.jpg")'
           break;
         case "about":
-          body.style.background = "#ffe1e8";
+          body.style.backgroundImage = 'none';
+          body.style.backgroundColor = "#ffe1e8";
           break;
         case "chat":
-          body.style.background = "#ffe1e8";
+          body.style.backgroundImage = 'none';
+          body.style.backgroundColor = "#ffe1e8";
+          break;
+        case "contact":
+          body.style.backgroundImage = 'none';
+          body.style.backgroundColor = "#ffe1e8";
           break;
         case "login":
-          body.style.background = "purple";
+          body.style.backgroundImage = 'none';
+          body.style.backgroundColor = "purple";
           break;
         default:
           console.log("Header.vue $route watch - unknown page");
