@@ -384,6 +384,7 @@ export default {
             message: randomWords[Math.floor(Math.random() * randomWords.length)] + ' ' + randomEmojis[Math.floor(Math.random() * randomEmojis.length)],
             type: "received",
           });
+          this.scrollToLastMessage();
         }, 3000)
 
 
