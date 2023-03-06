@@ -70,6 +70,7 @@ export default {
         ? logoBlack
         : logoPink;
     },
+  },
     watch: {
     $route(to, from) {
       let path = to.name;
@@ -82,6 +83,9 @@ export default {
         case "about":
           body.style.background = "yellow";
           break;
+        case "contact":
+          body.style.background = "black";
+          break;
         case "chat":
           body.style.background = "red";
           break;
@@ -89,12 +93,11 @@ export default {
           body.style.background = "purple";
           break;
         default:
-          console.log("unknown page");
+          console.log("Header.vue $route watch - unknown page");
           break;
       }
     }
   }
-  },
 };
 </script>
 
