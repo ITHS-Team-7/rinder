@@ -70,6 +70,7 @@ export default {
         ? logoBlack
         : logoPink;
     },
+     },
     watch: {
     $route(to, from) {
       let path = to.name;
@@ -80,10 +81,10 @@ export default {
           // can also be backgroudImage    body.style.background = "green";
           break;
         case "about":
-          body.style.background = "yellow";
+          body.style.background = "#ffe1e8";
           break;
         case "chat":
-          body.style.background = "red";
+          body.style.background = "#ffe1e8";
           break;
         case "login":
           body.style.background = "purple";
@@ -94,7 +95,6 @@ export default {
       }
     }
   }
-  },
 };
 </script>
 
