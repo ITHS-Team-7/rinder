@@ -26,7 +26,10 @@ import logoPink from "../assets/images/logo.png";
             </RouterLink>
           </li>
           <li>
-            <RouterLink class="nav-link active" aria-current="page" to="/contact"
+            <RouterLink
+              class="nav-link active"
+              aria-current="page"
+              to="/contact"
               >Contact
             </RouterLink>
           </li>
@@ -70,30 +73,39 @@ export default {
         ? logoBlack
         : logoPink;
     },
-    watch: {
+  },
+  watch: {
     $route(to, from) {
       let path = to.name;
       const body = document.querySelector("body");
+      // clear any styles
+      body.style = "";
       console.log(path);
       switch (path) {
         case "home":
-          // can also be backgroudImage    body.style.background = "green";
+        case "terms":
+        case "login":
+          // default bg-image from main.css
           break;
         case "about":
-          body.style.background = "yellow";
+          body.style.backgroundImage = "none";
+          body.style.backgroundColor = "#ffe1e8";
           break;
         case "chat":
-          body.style.background = "red";
+          body.style.backgroundImage = "none";
+          body.style.backgroundColor = "#ffe1e8";
           break;
-        case "login":
-          body.style.background = "purple";
+        case "contact":
+          body.style.backgroundImage = "none";
+          body.style.backgroundColor = "#ffe1e8";
           break;
+
         default:
-          console.log("unknown page");
+          console.log("Header.vue $route watch - unknown page " + path);
+
           break;
       }
-    }
-  }
+    },
   },
 };
 </script>
@@ -207,7 +219,7 @@ export default {
   }
   .arrow {
     width: 20px;
-    padding-bottom:4px;
+    padding-bottom: 4px;
   }
 }
 </style>

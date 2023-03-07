@@ -15,17 +15,14 @@ body {
   --white: #ffffff;
 }
 body {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-    url("../assets/dating.jpg");
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center center;
-  background-color: black;
-  background-attachment: fixed;
-}
-
-body {
-  font-family: "Roboto", sans-serif;
-  margin: 0px;
-  padding: 0px;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+      url("../assets/dating.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    background-color: black;
+    background-attachment: fixed;
+    font-family: "Roboto", sans-serif;
+    margin: 0;
+    padding: 0;
 }

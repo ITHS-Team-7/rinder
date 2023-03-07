@@ -1,8 +1,8 @@
 import { createApp } from "vue";
-import App from "./App.vue";
-import router from "./router";
 import "bootstrap/dist/css/bootstrap.css";
 import bootstrap from "bootstrap/dist/js/bootstrap.bundle.js";
+import App from "./App.vue";
+import router from "./router";
 import "./assets/main.css";
 
 /* import the fontawesome core */
@@ -13,6 +13,7 @@ import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
 
 /* import specific icons */
 import {
+  faSun,
   faBars,
   faCircleArrowLeft,
   faUserSecret,
@@ -24,13 +25,21 @@ import {
   faTrashCan,
 } from "@fortawesome/free-solid-svg-icons";
 
-import { faCircleUp, faCircleDown } from "@fortawesome/free-regular-svg-icons";
+import {
+  faUser,
+  faCircleXmark,
+  faCircleUp,
+  faCircleDown,
+} from "@fortawesome/free-regular-svg-icons";
 
 import { faFacebook, faInstagram } from "@fortawesome/free-brands-svg-icons";
 
 /* add icons to the library */
 library.add(
   faBars,
+  faCircleXmark,
+  faSun,
+  faUser,
   faCircleUp,
   faCircleDown,
   faCircleArrowLeft,

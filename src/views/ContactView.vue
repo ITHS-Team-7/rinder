@@ -3,5 +3,5 @@ import ContactSec from "../components/ContactPage.vue";
 </script>
 
 <template>
-    <ContactSec></ContactSec>
+  <ContactSec></ContactSec>
 </template>
