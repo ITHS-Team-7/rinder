@@ -261,8 +261,6 @@ export default {
 
       this.chatMessageInput = "";
 
-      // TODO: ability to open chat with new user
-
       // if chat is already open then close it
       if (this.activeChatUser?.userName === userName) {
         this.activeChatUser = null;
@@ -497,10 +495,12 @@ export default {
     const body = document.querySelector('body')
     body.style.backgroundColor = this.darkMode ? this.bodyDarkModeBgColor : this.bodyBgColor;
 
-    if (this.openLastChatOnLoad && this.loggedInUser.chats.length) {
-
+    if (this.openChatUsernameOnLoad) {
+      this.openChat(this.openChatUsernameOnLoad)
+    } else if (this.openLastChatOnLoad && this.loggedInUser.chats.length) {
       this.openChat(this.loggedInUser.chats[0].userName)
     }
+
 
 
   },
@@ -548,6 +548,10 @@ export default {
       type: Boolean,
       required: false,
       default: false
+    },
+    openChatUsernameOnLoad: {
+      type: String,
+      required: false
     }
   },
   emits: []
@@ -565,9 +569,15 @@ function getAvatarUrl(userName) {
 
 // TODO: add error handling if user not found
 function getUser(userName) {
-  return users.find(
+  const user = users.find(
     (user) => user.userName.toLowerCase() === userName.toLowerCase()
   );
+
+  if (!user) {
+    console.error('User with username: ' + userName + ' not found')
+  }
+
+  return user;
 }
 </script>
 
