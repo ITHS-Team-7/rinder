@@ -248,7 +248,7 @@ export default {
       chatMessageInput: "",
       showNewChatSection: false,
       showActiveChatProfileInfo: false,
-      // TODO: replace this with colors from from vue store
+      // TODO: replace this with colors from vue store
       bodyBgColor: "#ffe1e8",
       bodyDarkModeBgColor: "#8843e4",
      // TODO: replace this with actual dark mode status from vue store
@@ -434,14 +434,13 @@ export default {
       }
     },
     openUserProfile(userName) {
-      // TODO: redirect to user profile page
       // toggle
       this.showActiveChatProfileInfo = !this.showActiveChatProfileInfo;
       this.showActiveChatSettings = false;
     },
     scrollToLastMessage() {
       // Scroll down to last message
-      // $nextTick is called after v-for has rendered all chatMessages
+      // $nextTick is called after v-for has rendered
       this.$nextTick(() => {
         const container = document.querySelector(
           "#activeChatMessagesContainer"
@@ -452,8 +451,8 @@ export default {
       });
     },
     scrollToFirstChatSelectUser() {
-      // Scroll down to last message
-      // $nextTick is called after v-for has rendered all chatMessages
+      // Scroll up to first user in select user section
+      // $nextTick is called after v-for has rendered
       this.$nextTick(() => {
         const container = document.querySelector("#chatSelectContainer");
         if (container) {
@@ -500,23 +499,8 @@ export default {
     } else if (this.openLastChatOnLoad && this.loggedInUser.chats.length) {
       this.openChat(this.loggedInUser.chats[0].userName)
     }
-
-
-
   },
   mounted() {
-    /*// The picker must have a root element to insert itself into
-    const rootElement = document.querySelector('#emojiBtn');
-
-// Create the picker
-    const picker = createPicker({ rootElement });
-
-// The picker emits an event when an emoji is selected. Do with it as you will!
-    picker.addEventListener('emoji:select', event => {
-      console.log('Emoji selected:', event.emoji);
-    });
-*/
-
 
     const trigger = document.querySelector('#emojiBtn');
 
@@ -757,9 +741,6 @@ function getUser(userName) {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-}
-
-.lastMessage {
   color: var(--lastMessageIconColor);
   font-size: 1.2em;
 }
