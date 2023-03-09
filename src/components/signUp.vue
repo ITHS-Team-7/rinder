@@ -56,7 +56,7 @@
               type="password"
               class="su-text"
               id="password"
-              v-model="email"
+              v-model="password"
             />
             <div class="choose">
               <label for="gender">Choose your gender </label>
