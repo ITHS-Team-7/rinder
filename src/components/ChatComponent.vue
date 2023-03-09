@@ -218,19 +218,11 @@ import { createPopup } from "@picmo/popup-picker";
 
         <ul id="activeChatProfileInfoDetailsContainer">
           <li><span class="infoType">@</span>{{ activeChatUser.userName }}</li>
-          <div id="ageAndGenderContainer">
-            <li><span class="infoType">Age</span> {{ activeChatUser.age }}</li>
-            <li>
-              <span class="infoType">Gender</span> {{ activeChatUser.gender }}
-            </li>
-          </div>
-          <li>
-            <span class="infoType">About</span> {{ activeChatUser.description }}
-          </li>
-          <li>
-            <span class="infoType">Member since</span>
-            {{ activeChatUser.signupDate }}
-          </li>
+          <div id="ageAndGenderContainer"><li><span class="infoType">Age</span> {{ activeChatUser.age }}</li>
+          <li><span class="infoType">Gender</span> {{ activeChatUser.gender }}</li></div>
+          <li><span class="infoType">About</span> {{ activeChatUser.description }}</li>
+          <li><span class="infoType">Country</span> {{ activeChatUser.country }}</li>
+          <li><span class="infoType">Member since</span> {{ activeChatUser.signupDate }}</li>
         </ul>
         <div
           class="clickableIconContainer"
@@ -263,11 +255,11 @@ export default {
       chatMessageInput: "",
       showNewChatSection: false,
       showActiveChatProfileInfo: false,
-      // TODO: replace this with colors from from vue store
+      // TODO: replace this with colors from vue store
       bodyBgColor: "#ffe1e8",
       bodyDarkModeBgColor: "#8843e4",
-      // TODO: replace this with actual dark mode status from vue store
-      darkMode: true,
+     // TODO: replace this with actual dark mode status from vue store
+      darkMode: false,
     };
   },
   methods: {
@@ -275,8 +267,6 @@ export default {
       // TODO: disable opening chat with self
 
       this.chatMessageInput = "";
-
-      // TODO: ability to open chat with new user
 
       // if chat is already open then close it
       if (this.activeChatUser?.userName === userName) {
@@ -318,6 +308,61 @@ export default {
     sendMessage(evt) {
       evt.preventDefault();
 
+      const randomWords = [
+        "shaft",
+          "am",
+        "digress",
+        "reason",
+        "foster",
+        "unaware",
+        "price",
+        "section",
+        "employ",
+        "hospitality",
+        "freight",
+        "modest",
+        "theft",
+        "tablet",
+        "debate",
+        "node",
+        "threshold",
+        "robot",
+        "disgrace",
+        "picture",
+        "edge",
+        "structure",
+        "fountain",
+        "humor",
+        "negative",
+        "jungle",
+        "avenue",
+        "turn",
+        "late",
+        "sun",
+        "hover",
+        "market",
+        "reform",
+        "age",
+        "intermediate",
+        "welfare",
+        "contraction",
+        "delivery",
+        "develop",
+        "worry",
+        "swing",
+        "length",
+        "multimedia",
+        "eat",
+        "mind",
+        "recovery",
+        "bond",
+        "relief",
+        "spokesperson",
+        "crutch",
+      ];
+
+      const randomEmojis = ["✌","😂","😝","😁","😱","👉","🙌","🍻","🔥","🌈","☀","🎈","🌹","💄","🎀","⚽","🎾","🏁","😡","👿","🐻","🐶","🐬","🐟","🍀","👀","🚗","🍎","💝","💙","👌","❤","😍","😉","😓","😳","💪","💩","🍸","🔑","💖","🌟","🎉","🌺","🎶","👠","🏈","⚾","🏆","👽","💀","🐵","🐮","🐩","🐎","💣","👃","👂","🍓","💘","💜","👊","💋","😘","😜","😵","🙏","👋","🚽","💃","💎","🚀","🌙","🎁","⛄","🌊","⛵","🏀","🎱","💰","👶","👸","🐰","🐷","🐍","🐫","🔫","👄","🚲","🍉","💛","💚"];
+
       if (this.chatMessageInput) {
         // move chat to index 0 for sender
         const chatIndex = this.loggedInUser.chats.findIndex(
@@ -334,6 +379,17 @@ export default {
           message: this.chatMessageInput,
           type: "sent",
         });
+
+        // SIMULATE RANDOM RECEIVED MESSAGE
+        setTimeout(() => {
+          this.loggedInUser.chats[0].messages.push({
+            time: moment().unix(),
+            message: randomWords[Math.floor(Math.random() * randomWords.length)] + ' ' + randomEmojis[Math.floor(Math.random() * randomEmojis.length)],
+            type: "received",
+          });
+          this.scrollToLastMessage();
+        }, 3000)
+
 
         // also add message to the receiving user message list
         const receivingUser = users.find(
@@ -383,14 +439,13 @@ export default {
       }
     },
     openUserProfile(userName) {
-      // TODO: redirect to user profile page
       // toggle
       this.showActiveChatProfileInfo = !this.showActiveChatProfileInfo;
       this.showActiveChatSettings = false;
     },
     scrollToLastMessage() {
       // Scroll down to last message
-      // $nextTick is called after v-for has rendered all chatMessages
+      // $nextTick is called after v-for has rendered
       this.$nextTick(() => {
         const container = document.querySelector(
           "#activeChatMessagesContainer"
@@ -401,8 +456,8 @@ export default {
       });
     },
     scrollToFirstChatSelectUser() {
-      // Scroll down to last message
-      // $nextTick is called after v-for has rendered all chatMessages
+      // Scroll up to first user in select user section
+      // $nextTick is called after v-for has rendered
       this.$nextTick(() => {
         const container = document.querySelector("#chatSelectContainer");
         if (container) {
@@ -427,10 +482,8 @@ export default {
       // user is typing...
     },
     darkMode(status) {
-      const body = document.querySelector("body");
-      body.style.background = this.darkMode
-        ? this.bodyDarkModeBgColor
-        : this.bodyBgColor;
+      const body = document.querySelector('body')
+      body.style.backgroundColor = this.darkMode ? this.bodyDarkModeBgColor : this.bodyBgColor;
     },
   },
   computed: {
@@ -443,51 +496,37 @@ export default {
     },
   },
   created() {
-    const body = document.querySelector("body");
-    body.style.background = this.darkMode
-      ? this.bodyDarkModeBgColor
-      : this.bodyBgColor;
+    const body = document.querySelector('body')
+    body.style.backgroundColor = this.darkMode ? this.bodyDarkModeBgColor : this.bodyBgColor;
 
-    if (this.openLastChatOnLoad && this.loggedInUser.chats.length) {
-      this.openChat(this.loggedInUser.chats[0].userName);
+    if (this.openChatUsernameOnLoad) {
+      this.openChat(this.openChatUsernameOnLoad)
+    } else if (this.openLastChatOnLoad && this.loggedInUser.chats.length) {
+      this.openChat(this.loggedInUser.chats[0].userName)
     }
   },
   mounted() {
-    /*// The picker must have a root element to insert itself into
-    const rootElement = document.querySelector('#emojiBtn');
 
-// Create the picker
-    const picker = createPicker({ rootElement });
+    const trigger = document.querySelector('#emojiBtn');
 
-// The picker emits an event when an emoji is selected. Do with it as you will!
-    picker.addEventListener('emoji:select', event => {
-      console.log('Emoji selected:', event.emoji);
+    const picker = createPopup({
+     theme: darkTheme,
+      onPositionLost: 'close',
+      hideOnEmojiSelect: false,
+      emojiSize: '2rem',
+      position: 'top-end',
+      showSearch: true,
+      showCategoryTabs: false,
+      showRecents: false,
+      showPreview: false,
+      showVariants: false,
+      animate: false,
+      emojisPerRow: 6,
+      categories: ['smileys-emotion', 'people-body', 'animals-nature']
+    }, {
+      referenceElement: trigger,
+      triggerElement: trigger
     });
-*/
-
-    const trigger = document.querySelector("#emojiBtn");
-
-    const picker = createPopup(
-      {
-        theme: darkTheme,
-        onPositionLost: "close",
-        hideOnEmojiSelect: false,
-        emojiSize: "2rem",
-        position: "top-end",
-        showSearch: true,
-        showCategoryTabs: false,
-        showRecents: false,
-        showPreview: false,
-        showVariants: false,
-        animate: false,
-        emojisPerRow: 6,
-        categories: ["smileys-emotion", "people-body", "animals-nature"],
-      },
-      {
-        referenceElement: trigger,
-        triggerElement: trigger,
-      }
-    );
 
     trigger.addEventListener("click", () => picker.toggle());
     picker.addEventListener(
@@ -499,10 +538,14 @@ export default {
     openLastChatOnLoad: {
       type: Boolean,
       required: false,
-      default: false,
+      default: false
     },
+    openChatUsernameOnLoad: {
+      type: String,
+      required: false
+    }
   },
-  emits: [],
+  emits: []
 };
 
 /*
@@ -515,11 +558,16 @@ function getAvatarUrl(userName) {
 }
  */
 
-// TODO: add error handling if user not found
 function getUser(userName) {
-  return users.find(
+  const user = users.find(
     (user) => user.userName.toLowerCase() === userName.toLowerCase()
   );
+
+  if (!user) {
+    console.error('User with username: ' + userName + ' not found')
+  }
+
+  return user;
 }
 </script>
 
@@ -551,6 +599,15 @@ function getUser(userName) {
   padding: 1rem;
   margin: 0 auto;
   box-shadow: 0 0 20px 3px #000000;
+
+  /* prevent unwanted dragging and text selection */
+
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
 }
 
 #chat.dark {
@@ -569,29 +626,9 @@ function getUser(userName) {
   box-shadow: 0 0 20px 3px #ffffff;
 }
 
-/*#activeChatTopContainer,
-#chatSelectContainer*/
-#chat {
-  /* prevent unwanted dragging and text selection */
-
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Old versions of Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
-  user-select: none;
-}
 
 #activeChatContainer {
   width: 100%;
-  /* SEPARATOR */
-  /*
-  background-image: linear-gradient(#80008070, #80008070);
-background-repeat: no-repeat;
-  background-size: 1px 70%, calc(100% - 4px) 100%;
-  background-position: left center, 4px 0;
-
-   */
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: min-content min-content 1fr min-content;
@@ -709,9 +746,6 @@ background-repeat: no-repeat;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-}
-
-.lastMessage {
   color: var(--lastMessageIconColor);
   font-size: 1.2em;
 }

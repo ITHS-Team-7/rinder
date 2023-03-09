@@ -32,71 +32,62 @@
   <div v-else class="signup">
     <div class="signup-form-box">
       <div class="signup-form">
-        <suform>
-          <h2>Rinder 💗</h2>
-          <h3>Sign up and find love today</h3>
+        <h2>Rinder 💗</h2>
+        <h3>Sign up and find love today</h3>
+        <div class="su-input">
+          <label for="firstName">First Name </label>
+          <input
+            type="text"
+            class="su-text"
+            id="firstName"
+            v-model="firstName"
+          />
+        </div>
+        <div class="su-input">
+          <label for="lastname">Last Name </label>
+          <input type="text" class="su-text" id="lastName" v-model="lastName" />
           <div class="su-input">
-            <label for="firstName">First Name </label>
-            <input
-              type="text"
-              class="su-text"
-              id="firstName"
-              v-model="firstName"
-            />
+            <label for="email">Email </label>
+            <input type="email" class="su-text" id="email" v-model="email" />
           </div>
           <div class="su-input">
-            <label for="lastname">Last Name </label>
+            <label for="password">Password </label>
             <input
-              type="text"
+              type="password"
               class="su-text"
-              id="lastName"
-              v-model="lastName"
+              id="password"
+              v-model="password"
             />
-            <div class="su-input">
-              <label for="email">Email </label>
-              <input type="email" class="su-text" id="email" v-model="email" />
-            </div>
-            <div class="su-input">
-              <label for="password">Password </label>
-              <input
-                type="password"
-                class="su-text"
-                id="password"
-                v-model="email"
-              />
-              <div class="choose">
-                <label for="gender">Choose your gender </label>
-                <select name="gender" id="gender">
-                  <option value="Female">Female</option>
-                  <option value="Male">Male</option>
-                  <option value="Other">Other</option>
-                </select>
-              </div>
+            <div class="choose">
+              <label for="gender">Choose your gender </label>
+              <select name="gender" id="gender">
+                <option value="Female">Female</option>
+                <option value="Male">Male</option>
+                <option value="Other">Other</option>
+              </select>
             </div>
           </div>
-          <p>I am looking for</p>
-          <div>
-            <input
-              type="radio"
-              id="female"
-              name="choice"
-              value="FEMALE"
-            /><label for="female">Female </label>
-            <input type="radio" id="male" name="choice" value="MALE" /><label
-              for="male"
-              >Male
-            </label>
-            <input type="radio" id="all" name="choice" value="ALL" /><label
-              for="all"
-              >All
-            </label>
-          </div>
-          <div class="birthday">
-            <label for="age">Fill in your birthday </label>
-            <input type="date" id="age" name="birthday" />
-          </div>
-          <button type="submit" class="subutton">Sign up now!</button>
-        </suform>
+        </div>
+        <p>I am looking for</p>
+        <div>
+          <input type="radio" id="female" name="choice" value="FEMALE" /><label
+            for="female"
+            >Female
+          </label>
+          <input type="radio" id="male" name="choice" value="MALE" /><label
+            for="male"
+            >Male
+          </label>
+          <input type="radio" id="all" name="choice" value="ALL" /><label
+            for="all"
+            >All
+          </label>
+        </div>
+        <div class="birthday">
+          <label for="age">Fill in your birthday </label>
+          <input type="date" id="age" name="birthday" />
+        </div>
+        <button type="submit" class="subutton">Sign up now!</button>
       </div>
     </div>
   </div>
@@ -112,7 +103,16 @@ export default {
     };
   },
   methods: {
-    login() {},
+    login() {
+      if (
+        this.email === "richardcarlsson@hotmail.se" &&
+        this.password === "12345"
+      ) {
+        this.$router.push({ name: "chat" });
+      } else {
+        alert("Invalid password or email");
+      }
+    },
     onClick: function () {
       this.showLogIn = false;
     },
@@ -126,7 +126,8 @@ export default {
   justify-content: center;
 }
 .login-form {
-  height: 400px;
+  height: 550px;
+  width: 350px;
   background-color: rgba(255, 255, 255, 0.6);
   border-radius: 5px;
   text-align: center;
@@ -154,7 +155,7 @@ button:hover {
   width: 160px;
   height: 30px;
   border: 0;
-  margin-top: 10px;
+  margin-top: 5px;
 }
 .button2:hover {
   background-color: white;
@@ -176,7 +177,10 @@ h4 {
   margin: 0;
 }
 h5 {
-  margin-top: 40px;
+  margin-top: 150px;
+}
+form {
+  margin-top: 50px;
 }
 .form-input {
   display: flex;
@@ -189,14 +193,17 @@ h5 {
   margin-top: 15px;
   font-size: 14px;
 }
-form {
-  width: 230px;
-}
 .form-text {
   height: 35px;
   border-radius: 10px;
   width: 200px;
   border: none;
+}
+.login-form-box {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 .signup-form-box {
   display: flex;

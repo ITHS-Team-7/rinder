@@ -78,22 +78,30 @@ export default {
     $route(to, from) {
       let path = to.name;
       const body = document.querySelector("body");
+      // clear any styles
+      body.style = "";
       console.log(path);
       switch (path) {
         case "home":
-          // can also be backgroudImage    body.style.background = "green";
+        case "terms":
+        case "login":
+          // default bg-image from main.css
           break;
         case "about":
-          body.style.background = "#ffe1e8";
+          body.style.backgroundImage = "none";
+          body.style.backgroundColor = "#ffe1e8";
           break;
         case "chat":
-          body.style.background = "#ffe1e8";
+          body.style.backgroundImage = "none";
+          body.style.backgroundColor = "#ffe1e8";
           break;
-        case "login":
-          body.style.background = "purple";
+        case "contact":
+          body.style.backgroundImage = "none";
+          body.style.backgroundColor = "#ffe1e8";
           break;
+
         default:
-          console.log("Header.vue $route watch - unknown page");
+          console.log("Header.vue $route watch - unknown page " + path);
 
           break;
       }
