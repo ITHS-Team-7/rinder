@@ -108,7 +108,7 @@ export default {
         this.email === "richardcarlsson@hotmail.se" &&
         this.password === "12345"
       ) {
-        this.$router.push({ name: "ChatView" });
+        this.$router.push({ name: "chat" });
       } else {
         alert("Invalid password or email");
       }

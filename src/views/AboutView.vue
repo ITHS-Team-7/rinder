@@ -7,8 +7,7 @@ import ChatCards from "../components/ChatCards.vue";
   <ChatCards :start="3"></ChatCards>
 </template>
 
-<style>
-</style>
+<style></style>
 
 <style scoped>
 @media (min-width: 1024px) {
