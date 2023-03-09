@@ -153,7 +153,7 @@ form {
   margin-left: auto;
   margin-right: auto;
   max-width: 50em;
-  margin-top: 15em;
+  margin-top: 15vh;
 }
 
 #ett {
