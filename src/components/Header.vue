@@ -74,7 +74,7 @@ export default {
         : logoPink;
     },
   },
-    watch: {
+  watch: {
     $route(to, from) {
       let path = to.name;
       const body = document.querySelector("body");
@@ -97,8 +97,8 @@ export default {
 
           break;
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
