@@ -551,7 +551,6 @@ function getAvatarUrl(userName) {
 }
  */
 
-// TODO: add error handling if user not found
 function getUser(userName) {
   const user = users.find(
     (user) => user.userName.toLowerCase() === userName.toLowerCase()
@@ -593,6 +592,15 @@ function getUser(userName) {
   padding: 1rem;
   margin: 0 auto;
   box-shadow: 0 0 20px 3px #000000;
+
+  /* prevent unwanted dragging and text selection */
+
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
 }
 
 #chat.dark {
@@ -611,18 +619,6 @@ function getUser(userName) {
   box-shadow: 0 0 20px 3px #ffffff;;
 }
 
-/*#activeChatTopContainer,
-#chatSelectContainer*/
-#chat {
-  /* prevent unwanted dragging and text selection */
-
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Old versions of Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
-  user-select: none;
-}
 
 #activeChatContainer {
   width: 100%;
