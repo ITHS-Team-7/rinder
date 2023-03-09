@@ -4,7 +4,6 @@ import bootstrap from "bootstrap/dist/js/bootstrap.bundle.js";
 import App from "./App.vue";
 import router from "./router";
 import "./assets/main.css";
-
 /* import the fontawesome core */
 import { library } from "@fortawesome/fontawesome-svg-core";
 
