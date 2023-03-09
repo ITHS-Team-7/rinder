@@ -37,8 +37,13 @@ export default {
 </template>
 <style>
 .card {
-  background-color: #ffe1e8;
+  /* background-color: #ffe1e8; */
+  background-color: transparent;
   max-height: 100%;
+}
+/* remove bootstrap x-margin that causes overflow */
+.row {
+  --bs-gutter-x: 0;
 }
 .con {
   max-width: 175px;

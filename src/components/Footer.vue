@@ -11,7 +11,7 @@
     <!-- Section: Social media -->
     <section class="d-flex justify-content-between p-4 text-white">
       <!-- Left -->
-      <div class="terms me-5">
+      <div class="terms">
         <RouterLink class="nav-link active" aria-current="page" to="/terms"
           >Terms & Conditions
         </RouterLink>
@@ -62,7 +62,7 @@
 
 <style scoped>
 footer {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 100%;
   height: 80px;
