@@ -3,7 +3,7 @@ import users from "../assets/data/users.json";
 import moment from "moment";
 
 // https://picmojs.com/
-import { lightTheme, darkTheme } from "picmo";
+import { lightTheme, darkTheme } from 'picmo';
 import { createPopup } from "@picmo/popup-picker";
 </script>
 
@@ -53,6 +53,7 @@ import { createPopup } from "@picmo/popup-picker";
                 getUserShortName(user.userName)
               }}</span>
               <span>{{ user.userName }}</span>
+
             </li>
           </ul>
 
@@ -85,22 +86,17 @@ import { createPopup } from "@picmo/popup-picker";
         @click="openChat(chat.userName)"
       >
         <!-- @click.stop="openUserProfile(chat.userName)" -->
-        <img
-          :src="getUser(chat.userName).avatar"
-          alt="avatar"
-          class="avatar"
-          draggable="false"
-        />
+        <img :src="getUser(chat.userName).avatar" alt="avatar" class="avatar" draggable="false"/>
         <div id="nameAndLastMessageContainer">
           <p class="shortName">
             {{ getUserShortName(chat.userName) }}
           </p>
           <div v-if="chat.messages.length" class="lastMessage">
-            <font-awesome-icon
-              v-if="chat.messages[chat.messages.length - 1].type === 'sent'"
-              icon="fa-regular fa-circle-up"
-            />
-            <font-awesome-icon v-else icon="fa-regular fa-circle-down" />
+              <font-awesome-icon
+                v-if="chat.messages[chat.messages.length - 1].type === 'sent'"
+                icon="fa-regular fa-circle-up"
+              />
+              <font-awesome-icon v-else icon="fa-regular fa-circle-down" />
 
             <p>
               {{ chat.messages[chat.messages.length - 1].message }}
@@ -224,14 +220,11 @@ import { createPopup } from "@picmo/popup-picker";
           <li><span class="infoType">Country</span> {{ activeChatUser.country }}</li>
           <li><span class="infoType">Member since</span> {{ activeChatUser.signupDate }}</li>
         </ul>
-        <div
-          class="clickableIconContainer"
-          id="activeChatProfileInfoCloseBtn"
-          @click="openUserProfile(activeChatUser.userName)"
-        >
-          <font-awesome-icon icon="fa-regular fa-circle-xmark" />
-        </div>
+        <div class="clickableIconContainer" id="activeChatProfileInfoCloseBtn" @click="openUserProfile(activeChatUser.userName)">
+        <font-awesome-icon icon="fa-regular fa-circle-xmark" />
       </div>
+      </div>
+
     </div>
     <div v-show="activeChatUser === null" id="emptyActiveChatContainer">
       <p>
@@ -255,7 +248,7 @@ export default {
       chatMessageInput: "",
       showNewChatSection: false,
       showActiveChatProfileInfo: false,
-      // TODO: replace this with colors from from vue store
+      // TODO: replace this with colors from vue store
       bodyBgColor: "#ffe1e8",
       bodyDarkModeBgColor: "#8843e4",
      // TODO: replace this with actual dark mode status from vue store
@@ -267,8 +260,6 @@ export default {
       // TODO: disable opening chat with self
 
       this.chatMessageInput = "";
-
-      // TODO: ability to open chat with new user
 
       // if chat is already open then close it
       if (this.activeChatUser?.userName === userName) {
@@ -288,6 +279,8 @@ export default {
         }
 
         this.activeChatUser = getUser(userName);
+
+
       }
 
       this.showNewChatSection = false;
@@ -441,14 +434,13 @@ export default {
       }
     },
     openUserProfile(userName) {
-      // TODO: redirect to user profile page
       // toggle
       this.showActiveChatProfileInfo = !this.showActiveChatProfileInfo;
       this.showActiveChatSettings = false;
     },
     scrollToLastMessage() {
       // Scroll down to last message
-      // $nextTick is called after v-for has rendered all chatMessages
+      // $nextTick is called after v-for has rendered
       this.$nextTick(() => {
         const container = document.querySelector(
           "#activeChatMessagesContainer"
@@ -459,8 +451,8 @@ export default {
       });
     },
     scrollToFirstChatSelectUser() {
-      // Scroll down to last message
-      // $nextTick is called after v-for has rendered all chatMessages
+      // Scroll up to first user in select user section
+      // $nextTick is called after v-for has rendered
       this.$nextTick(() => {
         const container = document.querySelector("#chatSelectContainer");
         if (container) {
@@ -502,61 +494,51 @@ export default {
     const body = document.querySelector('body')
     body.style.backgroundColor = this.darkMode ? this.bodyDarkModeBgColor : this.bodyBgColor;
 
-    if (this.openLastChatOnLoad && this.loggedInUser.chats.length) {
-      this.openChat(this.loggedInUser.chats[0].userName);
+    if (this.openChatUsernameOnLoad) {
+      this.openChat(this.openChatUsernameOnLoad)
+    } else if (this.openLastChatOnLoad && this.loggedInUser.chats.length) {
+      this.openChat(this.loggedInUser.chats[0].userName)
     }
   },
   mounted() {
-    /*// The picker must have a root element to insert itself into
-    const rootElement = document.querySelector('#emojiBtn');
 
-// Create the picker
-    const picker = createPicker({ rootElement });
+    const trigger = document.querySelector('#emojiBtn');
 
-// The picker emits an event when an emoji is selected. Do with it as you will!
-    picker.addEventListener('emoji:select', event => {
-      console.log('Emoji selected:', event.emoji);
+    const picker = createPopup({
+     theme: darkTheme,
+      onPositionLost: 'close',
+      hideOnEmojiSelect: false,
+      emojiSize: '2rem',
+      position: 'top-end',
+      showSearch: true,
+      showCategoryTabs: false,
+      showRecents: false,
+      showPreview: false,
+      showVariants: false,
+      animate: false,
+      emojisPerRow: 6,
+      categories: ['smileys-emotion', 'people-body', 'animals-nature']
+    }, {
+      referenceElement: trigger,
+      triggerElement: trigger
     });
-*/
 
-    const trigger = document.querySelector("#emojiBtn");
+    trigger.addEventListener('click', () =>  picker.toggle())
+    picker.addEventListener('emoji:select', (data) => this.chatMessageInput += data.emoji)
 
-    const picker = createPopup(
-      {
-        theme: darkTheme,
-        onPositionLost: "close",
-        hideOnEmojiSelect: false,
-        emojiSize: "2rem",
-        position: "top-end",
-        showSearch: true,
-        showCategoryTabs: false,
-        showRecents: false,
-        showPreview: false,
-        showVariants: false,
-        animate: false,
-        emojisPerRow: 6,
-        categories: ["smileys-emotion", "people-body", "animals-nature"],
-      },
-      {
-        referenceElement: trigger,
-        triggerElement: trigger,
-      }
-    );
-
-    trigger.addEventListener("click", () => picker.toggle());
-    picker.addEventListener(
-      "emoji:select",
-      (data) => (this.chatMessageInput += data.emoji)
-    );
   },
   props: {
     openLastChatOnLoad: {
       type: Boolean,
       required: false,
-      default: false,
+      default: false
     },
+    openChatUsernameOnLoad: {
+      type: String,
+      required: false
+    }
   },
-  emits: [],
+  emits: []
 };
 
 /*
@@ -569,11 +551,16 @@ function getAvatarUrl(userName) {
 }
  */
 
-// TODO: add error handling if user not found
 function getUser(userName) {
-  return users.find(
+  const user = users.find(
     (user) => user.userName.toLowerCase() === userName.toLowerCase()
   );
+
+  if (!user) {
+    console.error('User with username: ' + userName + ' not found')
+  }
+
+  return user;
 }
 </script>
 
@@ -605,6 +592,15 @@ function getUser(userName) {
   padding: 1rem;
   margin: 0 auto;
   box-shadow: 0 0 20px 3px #000000;
+
+  /* prevent unwanted dragging and text selection */
+
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Safari */
+  -khtml-user-select: none; /* Konqueror HTML */
+  -moz-user-select: none; /* Old versions of Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none;
 }
 
 #chat.dark {
@@ -620,21 +616,9 @@ function getUser(userName) {
   --lastMessageIconColor: #2bb302;
   --profileInfoTypeColor: #00c4ff;
 
-  box-shadow: 0 0 20px 3px #ffffff;
+  box-shadow: 0 0 20px 3px #ffffff;;
 }
 
-/*#activeChatTopContainer,
-#chatSelectContainer*/
-#chat {
-  /* prevent unwanted dragging and text selection */
-
-  -webkit-touch-callout: none; /* iOS Safari */
-  -webkit-user-select: none; /* Safari */
-  -khtml-user-select: none; /* Konqueror HTML */
-  -moz-user-select: none; /* Old versions of Firefox */
-  -ms-user-select: none; /* Internet Explorer/Edge */
-  user-select: none;
-}
 
 #activeChatContainer {
   width: 100%;
@@ -677,9 +661,7 @@ function getUser(userName) {
   padding: 0 0.2rem;
 }
 
-#chatSelectContainer::-webkit-scrollbar,
-#openNewChatUsersList::-webkit-scrollbar,
-#activeChatProfileInfo::-webkit-scrollbar {
+#chatSelectContainer::-webkit-scrollbar, #openNewChatUsersList::-webkit-scrollbar, #activeChatProfileInfo::-webkit-scrollbar {
   display: none;
 }
 
@@ -755,9 +737,6 @@ function getUser(userName) {
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-}
-
-.lastMessage {
   color: var(--lastMessageIconColor);
   font-size: 1.2em;
 }
@@ -876,7 +855,7 @@ function getUser(userName) {
   grid-area: activeChatNameContainer;
 
   font-weight: bold;
-  transition: 0.2s;
+  transition: .2s;
 }
 
 #activeChatNameContainer:hover {
@@ -980,9 +959,9 @@ p {
   border-radius: 50%;
   margin-bottom: 1rem;
   height: 10em;
-  border: 0.2rem solid var(--bgColor);
+  border: 0.2rem solid var(--bgColor );
   box-shadow: 0 0 20px 0px var(--textColor);
-  transition: 0.15s;
+  transition: .15s;
 }
 
 #activeChatProfileInfo .avatar:hover {
@@ -1000,6 +979,7 @@ p {
 #chat.dark .fullName {
   color: #ffffff;
 }
+
 
 #activeChatProfileInfoDetailsContainer li {
   border-radius: 10px;
@@ -1023,6 +1003,8 @@ p {
   background: #2a002a;
 }
 
+
+
 #activeChatProfileInfoDetailsContainer .infoType {
   font-weight: bold;
   color: var(--profileInfoTypeColor);
@@ -1040,14 +1022,16 @@ p {
   width: max-content;
 }
 
+
 #ageAndGenderContainer li {
   display: inline;
-  margin-right: 0.5em;
+  margin-right: .5em;
 }
 
 .openNewChatUser span {
   display: block;
 }
+
 
 @media (max-width: 1000px) {
   #chat {
@@ -1109,7 +1093,7 @@ p {
     font-size: clamp(0.6rem, 2vw, 0.8rem);
   }
 
-  /* #chatSelectContainer {
+ /* #chatSelectContainer {
     min-width: 7rem;
   } */
 
@@ -1168,7 +1152,7 @@ p {
     padding: 0.8em 0.8em;
   }
 
-  #activeChatProfileInfo ul {
+  #activeChatProfileInfo ul{
     max-width: 20rem;
   }
 }
