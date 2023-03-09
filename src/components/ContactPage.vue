@@ -81,7 +81,7 @@ export default {
             :disabled="!btnDisabled"
           />
           <p class="p-form" v-if="submitted">
-            Thank you {{ name }} for y our email. We have received it and will
+            Thank you {{ name }} for your email. We have received it and will
             get back to you at {{ email }} soon!
           </p>
           <p v-else></p>
