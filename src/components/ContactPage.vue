@@ -81,7 +81,7 @@ export default {
             :disabled="!btnDisabled"
           />
           <p class="p-form" v-if="submitted">
-            Thank you {{ name }} for y  our email. We have received it and will
+            Thank you {{ name }} for y our email. We have received it and will
             get back to you at {{ email }} soon!
           </p>
           <p v-else></p>
@@ -153,7 +153,7 @@ form {
   margin-left: auto;
   margin-right: auto;
   max-width: 50em;
-  margin-top: 15em;
+  margin-top: 15vh;
 }
 
 #ett {
