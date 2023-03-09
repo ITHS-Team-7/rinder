@@ -1,7 +1,7 @@
 <script setup>
 import { RouterLink } from "vue-router";
 
-import { lightTheme, darkTheme } from 'picmo';
+import { lightTheme, darkTheme } from "picmo";
 import { createPopup } from "@picmo/popup-picker";
 
 import logoBlack from "../assets/images/logo_black.png";
@@ -9,66 +9,67 @@ import logoPink from "../assets/images/logo.png";
 </script>
 
 <template>
-<div
+  <div
     id="header"
     :class="darkMode ? 'dark' : ''"
     @someEvent="actionForSomeEvent"
   >
-<nav class="navbar navbar-expand-lg">
-
-  <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid">
         <RouterLink to="/"
           ><img :src="logoFileName" width="238" alt="Rinder"
         /></RouterLink>
-     
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li>
-            <RouterLink class="nav-link" aria-current="page" to="/about"
-              >About
-            </RouterLink>
-          </li>
-          <li>
-            <RouterLink
-              class="nav-link"
-              aria-current="page"
-              to="/contact"
-              >Contact
-            </RouterLink>
-          </li>
-          <li>
-            <RouterLink class="nav-link" aria-current="page" to="/chat"
-              >Chat
-            </RouterLink>
-          </li>
-          <li>
-            <RouterLink class="nav-link" to="/login"
-              >Log in
-            </RouterLink>
-          </li>
-          <li>
-              <RouterLink class="nav-link" to="/login"
-              >
-              <img
-                class="arrow"
-                src="../assets/images/arrow-right.svg"
-                width="30"
-              />
-            </RouterLink>
-          </li>
-        <li><div class="clickableIconContainer" @click.stop="toggleDarkMode">
-        <font-awesome-icon icon="fa-solid fa-sun" />
-        </div></li>
-      </ul>
-    </div>
-  </div>
 
-  
-</nav>
-</div>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarText"
+          aria-controls="navbarText"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li>
+              <RouterLink class="nav-link" aria-current="page" to="/about"
+                >About
+              </RouterLink>
+            </li>
+            <li>
+              <RouterLink class="nav-link" aria-current="page" to="/contact"
+                >Contact
+              </RouterLink>
+            </li>
+            <li>
+              <RouterLink class="nav-link" aria-current="page" to="/chat"
+                >Chat
+              </RouterLink>
+            </li>
+            <li>
+              <RouterLink class="nav-link" to="/login">Log in </RouterLink>
+            </li>
+            <li>
+              <RouterLink class="nav-link" to="/login">
+                <img
+                  class="arrow"
+                  src="../assets/images/arrow-right.svg"
+                  width="30"
+                />
+              </RouterLink>
+            </li>
+            <li>
+              <div class="clickableIconContainer" @click.stop="toggleDarkMode">
+                <font-awesome-icon icon="fa-solid fa-sun" />
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
 </template>
 
 <script>
@@ -78,26 +79,24 @@ export default {
       showMobileMenu: false,
       bodyBgColor: "#ffe1e8",
       bodyDarkModeBgColor: "#000",
-      darkMode: false
+      darkMode: false,
     };
   },
   methods: {
     showMenu() {
       this.showMobileMenu = !this.showMobileMenu;
     },
-      toggleDarkMode() {
+    toggleDarkMode() {
       this.darkMode = !this.darkMode;
     },
   },
   computed: {
     logoFileName() {
       // Check the route and return the appropriate logo file name
-      return this.$route.name === "chat"
-        ? logoBlack
-        : logoPink;
+      return this.$route.name === "chat" ? logoBlack : logoPink;
     },
   },
-    watch: {
+  watch: {
     $route(to, from) {
       let path = to.name;
       const body = document.querySelector("body");
@@ -107,19 +106,19 @@ export default {
       switch (path) {
         case "home":
         case "terms":
-          case "login":
+        case "login":
           // default bg-image from main.css
           break;
         case "about":
-          body.style.backgroundImage = 'none';
+          body.style.backgroundImage = "none";
           body.style.backgroundColor = "#ffe1e8";
           break;
         case "chat":
-          body.style.backgroundImage = 'none';
+          body.style.backgroundImage = "none";
           body.style.backgroundColor = "#ffe1e8";
           break;
         case "contact":
-          body.style.backgroundImage = 'none';
+          body.style.backgroundImage = "none";
           body.style.backgroundColor = "#ffe1e8";
           break;
         default:
@@ -129,10 +128,12 @@ export default {
       }
     },
     darkMode(status) {
-      const body = document.querySelector('body')
-      body.style.backgroundColor = this.darkMode ? this.bodyDarkModeBgColor : this.bodyBgColor;
+      const body = document.querySelector("body");
+      body.style.backgroundColor = this.darkMode
+        ? this.bodyDarkModeBgColor
+        : this.bodyBgColor;
     },
-  }
+  },
 };
 </script>
 
@@ -143,21 +144,21 @@ export default {
   margin: 0;
 }
 
-.navbar-nav .nav-link{
-    color: #fff;
-    font-size: 20px;
+.navbar-nav .nav-link {
+  color: #fff;
+  font-size: 20px;
 }
 
-.navbar-collapse{
-    flex-grow: 0;
+.navbar-collapse {
+  flex-grow: 0;
 }
 .arrow {
   vertical-align: middle;
   padding-bottom: 10px;
 }
 
-.navbar-toggler{
-    background-color: #fff;
+.navbar-toggler {
+  background-color: #fff;
 }
 .clickableIconContainer {
   font-size: 2.3em;
@@ -169,7 +170,7 @@ export default {
   color: #fff;
 }
 
-#header{
+#header {
   --textColor: #000;
   --bgColor: #fff;
   --iconHoverColor: #3c008d;
@@ -200,19 +201,19 @@ export default {
   --lastMessageIconColor: #2bb302;
   --profileInfoTypeColor: #00c4ff;
 
-/*  box-shadow: 0 0 20px 3px #ffffff;; */
+  /*  box-shadow: 0 0 20px 3px #ffffff;; */
 }
 
 /* Mobile version hidden hamburger menu */
 
 @media screen and (max-width: 768px) {
-   .arrow {
+  .arrow {
     width: 20px;
     padding-bottom: 4px;
   }
-  .navbar-nav .nav-link{
+  .navbar-nav .nav-link {
     color: #fff;
     font-size: 16px;
-}
+  }
 }
 </style>
