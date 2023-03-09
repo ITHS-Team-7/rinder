@@ -4,10 +4,11 @@ import ChatCards from "../components/ChatCards.vue";
 </script>
 <script>
 export default {
-  data() {
-    return {
-      gender: "",
-    };
+  data() {},
+  computed: {
+    gender() {
+      return this.$store.state.gender;
+    },
   },
 };
 </script>
