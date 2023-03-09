@@ -1,57 +1,73 @@
 <script setup>
 import { RouterLink } from "vue-router";
 
+import { lightTheme, darkTheme } from 'picmo';
+import { createPopup } from "@picmo/popup-picker";
+
 import logoBlack from "../assets/images/logo_black.png";
 import logoPink from "../assets/images/logo.png";
 </script>
 
 <template>
-  <div>
-    <div class="nav-menu">
-      <font-awesome-icon icon="fa-solid fa-bars" @click="showMenu()" />
-      <div class="logo">
+<div
+    id="header"
+    :class="darkMode ? 'dark' : ''"
+    @someEvent="actionForSomeEvent"
+  >
+<nav class="navbar navbar-expand-lg">
+
+  <div class="container-fluid">
         <RouterLink to="/"
           ><img :src="logoFileName" width="238" alt="Rinder"
         /></RouterLink>
-      </div>
-      <!--<i class="fas fa-bars" @click="showMenu()"> </i> -->
-      <div
-        class="nav-content"
-        :class="showMobileMenu ? 'open-menu' : 'closed-menu'"
-      >
-        <ul class="nav-items">
-          <li>
-            <RouterLink class="nav-link active" aria-current="page" to="/about"
+     
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li>
+            <RouterLink class="nav-link" aria-current="page" to="/about"
               >About
             </RouterLink>
           </li>
           <li>
             <RouterLink
-              class="nav-link active"
+              class="nav-link"
               aria-current="page"
               to="/contact"
               >Contact
             </RouterLink>
           </li>
           <li>
-            <RouterLink class="nav-link active" aria-current="page" to="/chat"
+            <RouterLink class="nav-link" aria-current="page" to="/chat"
               >Chat
             </RouterLink>
           </li>
           <li>
             <RouterLink class="nav-link" to="/login"
               >Log in
+            </RouterLink>
+          </li>
+          <li>
+              <RouterLink class="nav-link" to="/login"
+              >
               <img
                 class="arrow"
                 src="../assets/images/arrow-right.svg"
-                width="41"
+                width="30"
               />
             </RouterLink>
           </li>
-        </ul>
-      </div>
+      </ul>
     </div>
   </div>
+ <div class="clickableIconContainer" @click.stop="toggleDarkMode">
+          <font-awesome-icon icon="fa-solid fa-sun" />
+</div>
+  
+</nav>
+</div>
 </template>
 
 <script>
@@ -59,11 +75,17 @@ export default {
   data() {
     return {
       showMobileMenu: false,
+      bodyBgColor: "#ffe1e8",
+      bodyDarkModeBgColor: "#000",
+      darkMode: false
     };
   },
   methods: {
     showMenu() {
       this.showMobileMenu = !this.showMobileMenu;
+    },
+      toggleDarkMode() {
+      this.darkMode = !this.darkMode;
     },
   },
   computed: {
@@ -107,121 +129,92 @@ export default {
 
           break;
       }
-    }
+    },
+    darkMode(status) {
+      const body = document.querySelector('body')
+      body.style.backgroundColor = this.darkMode ? this.bodyDarkModeBgColor : this.bodyBgColor;
+    },
   }
 };
 </script>
 
 <style scoped>
-.nav-menu {
+.navbar {
   background: rgb(37, 37, 37);
   background: linear-gradient(180deg, #252525 0%, rgba(0, 0, 0, 0) 100%);
-}
-.logo img {
-  display: block;
-  float: left;
-  font-size: 2em;
-  padding: 10px 20px;
-  text-decoration: none;
+  margin: 0;
 }
 
+.navbar-nav .nav-link{
+    color: #fff;
+    font-size: 20px;
+}
+
+.navbar-collapse{
+    flex-grow: 0;
+}
 .arrow {
   vertical-align: middle;
   padding-bottom: 10px;
 }
 
-.nav-content {
-  display: flex;
-  justify-content: right;
-  padding: 10px 30px;
-  align-items: center;
-  bottom: 2vh;
+.navbar-toggler{
+    background-color: #fff;
 }
-
-.nav-items {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.nav-items li {
-  padding: 8px;
-}
-
-.nav-items li a {
-  display: block;
-  padding: 20px 20px;
-  text-decoration: none;
-  font-size: 32px;
+.clickableIconContainer {
+  font-size: 2.3em;
+  margin: auto 0;
+  cursor: pointer;
+  display: inline;
+  min-width: 2rem;
+  text-align: center;
   color: #fff;
 }
 
-.svg-inline--fa {
-  display: none;
+#header{
+  --textColor: #000;
+  --bgColor: #fff;
+  --iconHoverColor: #3c008d;
+  --scrollBarColor: rgba(0, 0, 0, 0.9);
+  --scrollBarTrackColor: inset 0 0 6px rgba(136, 136, 136, 0.9);
+  --lastMessageColor: #282828;
+  --messageInputBg: #fff;
+  --messageInputColor: #000;
+  --messageInputPlaceholderColor: #555;
+  --lastMessageIconColor: #1b7200;
+  --profileInfoTypeColor: #003bbf;
+
+  border-radius: 10px;
+  background: var(--bgColor);
+  color: var(--textColor);
 }
+
+#header.dark {
+  --textColor: #fff;
+  --bgColor: #000;
+  --iconHoverColor: #b37aff;
+  --scrollBarColor: rgba(255, 255, 255, 0.4);
+  --scrollBarTrackColor: inset 0 0 6px rgba(148, 103, 103, 0.9);
+  --lastMessageColor: #d5d5d5;
+  --messageInputBg: #323232;
+  --messageInputColor: #fff;
+  --messageInputPlaceholderColor: #d7d7d7;
+  --lastMessageIconColor: #2bb302;
+  --profileInfoTypeColor: #00c4ff;
+
+  box-shadow: 0 0 20px 3px #ffffff;;
+}
+
 /* Mobile version hidden hamburger menu */
 
 @media screen and (max-width: 768px) {
-  .nav-menu {
-    padding-top: 10px;
-    position: relative;
-    width: 100%;
-    text-align: right;
-    padding-right: 2rem;
-    padding-top: 2rem;
-  }
-
-  .open-menu {
-    opacity: 1;
-    height: 150px;
-  }
-
-  .closed-menu {
-    opacity: 0;
-    height: 0;
-    padding: 0;
-  }
-
-  .nav-content {
-    display: inline-block;
-    z-index: 100;
-    position: relative;
-    transition: all 0.2s ease-out;
-    padding: 0;
-    bottom: 5vh;
-  }
-
-  .nav-items {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  .nav-items li a {
-    color: #fff;
-    font-size: 24px;
-    padding: 20px 0;
-  }
-  .logo img {
-    width: 139px;
-    position: relative;
-    bottom: 5vh;
-  }
-
-  .svg-inline--fa {
-    display: inline;
-    text-align: right;
-    padding: 0 10px 10px 0;
-    color: #fff;
-  }
-  .arrow {
+   .arrow {
     width: 20px;
     padding-bottom: 4px;
   }
+  .navbar-nav .nav-link{
+    color: #fff;
+    font-size: 16px;
+}
 }
 </style>

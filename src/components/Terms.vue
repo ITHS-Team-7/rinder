@@ -72,6 +72,8 @@ import { RouterLink } from "vue-router";
 .terms {
   padding-right: 5rem;
   padding-left: 5rem;
+  backdrop-filter: blur(25px);
+
 }
 .main-container {
   position: relative;

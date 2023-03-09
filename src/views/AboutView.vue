@@ -1,10 +1,12 @@
 <script setup>
 import AboutCards from "../components/AboutCards.vue";
 import ChatCards from "../components/ChatCards.vue";
+import UserGraph from "../components/UserGraph.vue";
 </script>
 <template>
   <AboutCards></AboutCards>
   <ChatCards :start="3"></ChatCards>
+  <UserGraph></UserGraph>
 </template>
 
 <style>
