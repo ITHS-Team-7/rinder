@@ -1,26 +1,51 @@
 <script>
 import data from "../assets/data/users.json";
 export default {
+  computed: {
+    userFilter() {
+      console.log(this.genderpref);
+      if (this.genderpref.length > 0) {
+        return this.users.filter((users) =>
+          users.gender.includes(this.genderpref)
+        );
+      } else if (this.genderpref === undefined) {
+        return this.users;
+      }
+      return this.users;
+    },
+  },
   data() {
     return {
       users: data,
       i: this.start,
+      genderpref: this.gend,
     };
   },
   methods: {
     onclick() {
       this.i += 3;
-      console.log(this.i);
+    },
+    chatClick() {
+      this.$router.push({
+        name: "chat",
+        params: { userName: this.users.userName },
+      });
+      console.log(this.userFilter.userName);
     },
   },
   props: {
     start: Number,
+    gend: String,
   },
 };
 </script>
 <template>
   <div class="row justify-content-center" style="padding-top: 10vh">
-    <div v-for="user in users.slice(0, i)" class="card col-4 border-0 cardtop">
+    <div
+      v-for="(user, index) in userFilter.slice(0, i)"
+      :key="index"
+      class="card col-4 border-0 cardtop"
+    >
       <img :src="user.avatar" class="card-img" alt="Profil bild" />
       <div class="card-img-overlay">
         <div class="text-con">
@@ -29,7 +54,13 @@ export default {
             <p>{{ user.description }}</p>
           </div>
         </div>
-        <button type="button" class="btn btn-primary border-0">Chat</button>
+        <button
+          type="button"
+          class="btn btn-primary border-0"
+          @click="chatClick()"
+        >
+          Chat
+        </button>
       </div>
     </div>
     <div class="but">

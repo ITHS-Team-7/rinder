@@ -3,7 +3,7 @@ import users from "../assets/data/users.json";
 import moment from "moment";
 
 // https://picmojs.com/
-import { lightTheme, darkTheme } from 'picmo';
+import { lightTheme, darkTheme } from "picmo";
 import { createPopup } from "@picmo/popup-picker";
 </script>
 
@@ -53,7 +53,6 @@ import { createPopup } from "@picmo/popup-picker";
                 getUserShortName(user.userName)
               }}</span>
               <span>{{ user.userName }}</span>
-
             </li>
           </ul>
 
@@ -86,17 +85,22 @@ import { createPopup } from "@picmo/popup-picker";
         @click="openChat(chat.userName)"
       >
         <!-- @click.stop="openUserProfile(chat.userName)" -->
-        <img :src="getUser(chat.userName).avatar" alt="avatar" class="avatar" draggable="false"/>
+        <img
+          :src="getUser(chat.userName).avatar"
+          alt="avatar"
+          class="avatar"
+          draggable="false"
+        />
         <div id="nameAndLastMessageContainer">
           <p class="shortName">
             {{ getUserShortName(chat.userName) }}
           </p>
           <div v-if="chat.messages.length" class="lastMessage">
-              <font-awesome-icon
-                v-if="chat.messages[chat.messages.length - 1].type === 'sent'"
-                icon="fa-regular fa-circle-up"
-              />
-              <font-awesome-icon v-else icon="fa-regular fa-circle-down" />
+            <font-awesome-icon
+              v-if="chat.messages[chat.messages.length - 1].type === 'sent'"
+              icon="fa-regular fa-circle-up"
+            />
+            <font-awesome-icon v-else icon="fa-regular fa-circle-down" />
 
             <p>
               {{ chat.messages[chat.messages.length - 1].message }}
@@ -214,17 +218,31 @@ import { createPopup } from "@picmo/popup-picker";
 
         <ul id="activeChatProfileInfoDetailsContainer">
           <li><span class="infoType">@</span>{{ activeChatUser.userName }}</li>
-          <div id="ageAndGenderContainer"><li><span class="infoType">Age</span> {{ activeChatUser.age }}</li>
-          <li><span class="infoType">Gender</span> {{ activeChatUser.gender }}</li></div>
-          <li><span class="infoType">About</span> {{ activeChatUser.description }}</li>
-          <li><span class="infoType">Country</span> {{ activeChatUser.country }}</li>
-          <li><span class="infoType">Member since</span> {{ activeChatUser.signupDate }}</li>
+          <div id="ageAndGenderContainer">
+            <li><span class="infoType">Age</span> {{ activeChatUser.age }}</li>
+            <li>
+              <span class="infoType">Gender</span> {{ activeChatUser.gender }}
+            </li>
+          </div>
+          <li>
+            <span class="infoType">About</span> {{ activeChatUser.description }}
+          </li>
+          <li>
+            <span class="infoType">Country</span> {{ activeChatUser.country }}
+          </li>
+          <li>
+            <span class="infoType">Member since</span>
+            {{ activeChatUser.signupDate }}
+          </li>
         </ul>
-        <div class="clickableIconContainer" id="activeChatProfileInfoCloseBtn" @click="openUserProfile(activeChatUser.userName)">
-        <font-awesome-icon icon="fa-regular fa-circle-xmark" />
+        <div
+          class="clickableIconContainer"
+          id="activeChatProfileInfoCloseBtn"
+          @click="openUserProfile(activeChatUser.userName)"
+        >
+          <font-awesome-icon icon="fa-regular fa-circle-xmark" />
+        </div>
       </div>
-      </div>
-
     </div>
     <div v-show="activeChatUser === null" id="emptyActiveChatContainer">
       <p>
@@ -251,7 +269,7 @@ export default {
       // TODO: replace this with colors from vue store
       bodyBgColor: "#ffe1e8",
       bodyDarkModeBgColor: "#8843e4",
-     // TODO: replace this with actual dark mode status from vue store
+      // TODO: replace this with actual dark mode status from vue store
       darkMode: false,
     };
   },
@@ -279,8 +297,6 @@ export default {
         }
 
         this.activeChatUser = getUser(userName);
-
-
       }
 
       this.showNewChatSection = false;
@@ -305,7 +321,7 @@ export default {
 
       const randomWords = [
         "shaft",
-          "am",
+        "am",
         "digress",
         "reason",
         "foster",
@@ -356,7 +372,100 @@ export default {
         "crutch",
       ];
 
-      const randomEmojis = ["✌","😂","😝","😁","😱","👉","🙌","🍻","🔥","🌈","☀","🎈","🌹","💄","🎀","⚽","🎾","🏁","😡","👿","🐻","🐶","🐬","🐟","🍀","👀","🚗","🍎","💝","💙","👌","❤","😍","😉","😓","😳","💪","💩","🍸","🔑","💖","🌟","🎉","🌺","🎶","👠","🏈","⚾","🏆","👽","💀","🐵","🐮","🐩","🐎","💣","👃","👂","🍓","💘","💜","👊","💋","😘","😜","😵","🙏","👋","🚽","💃","💎","🚀","🌙","🎁","⛄","🌊","⛵","🏀","🎱","💰","👶","👸","🐰","🐷","🐍","🐫","🔫","👄","🚲","🍉","💛","💚"];
+      const randomEmojis = [
+        "✌",
+        "😂",
+        "😝",
+        "😁",
+        "😱",
+        "👉",
+        "🙌",
+        "🍻",
+        "🔥",
+        "🌈",
+        "☀",
+        "🎈",
+        "🌹",
+        "💄",
+        "🎀",
+        "⚽",
+        "🎾",
+        "🏁",
+        "😡",
+        "👿",
+        "🐻",
+        "🐶",
+        "🐬",
+        "🐟",
+        "🍀",
+        "👀",
+        "🚗",
+        "🍎",
+        "💝",
+        "💙",
+        "👌",
+        "❤",
+        "😍",
+        "😉",
+        "😓",
+        "😳",
+        "💪",
+        "💩",
+        "🍸",
+        "🔑",
+        "💖",
+        "🌟",
+        "🎉",
+        "🌺",
+        "🎶",
+        "👠",
+        "🏈",
+        "⚾",
+        "🏆",
+        "👽",
+        "💀",
+        "🐵",
+        "🐮",
+        "🐩",
+        "🐎",
+        "💣",
+        "👃",
+        "👂",
+        "🍓",
+        "💘",
+        "💜",
+        "👊",
+        "💋",
+        "😘",
+        "😜",
+        "😵",
+        "🙏",
+        "👋",
+        "🚽",
+        "💃",
+        "💎",
+        "🚀",
+        "🌙",
+        "🎁",
+        "⛄",
+        "🌊",
+        "⛵",
+        "🏀",
+        "🎱",
+        "💰",
+        "👶",
+        "👸",
+        "🐰",
+        "🐷",
+        "🐍",
+        "🐫",
+        "🔫",
+        "👄",
+        "🚲",
+        "🍉",
+        "💛",
+        "💚",
+      ];
 
       if (this.chatMessageInput) {
         // move chat to index 0 for sender
@@ -379,12 +488,14 @@ export default {
         setTimeout(() => {
           this.loggedInUser.chats[0].messages.push({
             time: moment().unix(),
-            message: randomWords[Math.floor(Math.random() * randomWords.length)] + ' ' + randomEmojis[Math.floor(Math.random() * randomEmojis.length)],
+            message:
+              randomWords[Math.floor(Math.random() * randomWords.length)] +
+              " " +
+              randomEmojis[Math.floor(Math.random() * randomEmojis.length)],
             type: "received",
           });
           this.scrollToLastMessage();
-        }, 3000)
-
+        }, 3000);
 
         // also add message to the receiving user message list
         const receivingUser = users.find(
@@ -477,8 +588,10 @@ export default {
       // user is typing...
     },
     darkMode(status) {
-      const body = document.querySelector('body')
-      body.style.backgroundColor = this.darkMode ? this.bodyDarkModeBgColor : this.bodyBgColor;
+      const body = document.querySelector("body");
+      body.style.backgroundColor = this.darkMode
+        ? this.bodyDarkModeBgColor
+        : this.bodyBgColor;
     },
   },
   computed: {
@@ -491,54 +604,60 @@ export default {
     },
   },
   created() {
-    const body = document.querySelector('body')
-    body.style.backgroundColor = this.darkMode ? this.bodyDarkModeBgColor : this.bodyBgColor;
+    const body = document.querySelector("body");
+    body.style.backgroundColor = this.darkMode
+      ? this.bodyDarkModeBgColor
+      : this.bodyBgColor;
 
     if (this.openChatUsernameOnLoad) {
-      this.openChat(this.openChatUsernameOnLoad)
+      this.openChat(this.openChatUsernameOnLoad);
     } else if (this.openLastChatOnLoad && this.loggedInUser.chats.length) {
-      this.openChat(this.loggedInUser.chats[0].userName)
+      this.openChat(this.loggedInUser.chats[0].userName);
     }
   },
   mounted() {
+    const trigger = document.querySelector("#emojiBtn");
 
-    const trigger = document.querySelector('#emojiBtn');
+    const picker = createPopup(
+      {
+        theme: darkTheme,
+        onPositionLost: "close",
+        hideOnEmojiSelect: false,
+        emojiSize: "2rem",
+        position: "top-end",
+        showSearch: true,
+        showCategoryTabs: false,
+        showRecents: false,
+        showPreview: false,
+        showVariants: false,
+        animate: false,
+        emojisPerRow: 6,
+        categories: ["smileys-emotion", "people-body", "animals-nature"],
+      },
+      {
+        referenceElement: trigger,
+        triggerElement: trigger,
+      }
+    );
 
-    const picker = createPopup({
-     theme: darkTheme,
-      onPositionLost: 'close',
-      hideOnEmojiSelect: false,
-      emojiSize: '2rem',
-      position: 'top-end',
-      showSearch: true,
-      showCategoryTabs: false,
-      showRecents: false,
-      showPreview: false,
-      showVariants: false,
-      animate: false,
-      emojisPerRow: 6,
-      categories: ['smileys-emotion', 'people-body', 'animals-nature']
-    }, {
-      referenceElement: trigger,
-      triggerElement: trigger
-    });
-
-    trigger.addEventListener('click', () =>  picker.toggle())
-    picker.addEventListener('emoji:select', (data) => this.chatMessageInput += data.emoji)
-
+    trigger.addEventListener("click", () => picker.toggle());
+    picker.addEventListener(
+      "emoji:select",
+      (data) => (this.chatMessageInput += data.emoji)
+    );
   },
   props: {
     openLastChatOnLoad: {
       type: Boolean,
       required: false,
-      default: false
+      default: false,
     },
     openChatUsernameOnLoad: {
       type: String,
-      required: false
-    }
+      required: false,
+    },
   },
-  emits: []
+  emits: [],
 };
 
 /*
@@ -557,7 +676,7 @@ function getUser(userName) {
   );
 
   if (!user) {
-    console.error('User with username: ' + userName + ' not found')
+    console.error("User with username: " + userName + " not found");
   }
 
   return user;
@@ -616,9 +735,8 @@ function getUser(userName) {
   --lastMessageIconColor: #2bb302;
   --profileInfoTypeColor: #00c4ff;
 
-  box-shadow: 0 0 20px 3px #ffffff;;
+  box-shadow: 0 0 20px 3px #ffffff;
 }
-
 
 #activeChatContainer {
   width: 100%;
@@ -661,7 +779,9 @@ function getUser(userName) {
   padding: 0 0.2rem;
 }
 
-#chatSelectContainer::-webkit-scrollbar, #openNewChatUsersList::-webkit-scrollbar, #activeChatProfileInfo::-webkit-scrollbar {
+#chatSelectContainer::-webkit-scrollbar,
+#openNewChatUsersList::-webkit-scrollbar,
+#activeChatProfileInfo::-webkit-scrollbar {
   display: none;
 }
 
@@ -855,7 +975,7 @@ function getUser(userName) {
   grid-area: activeChatNameContainer;
 
   font-weight: bold;
-  transition: .2s;
+  transition: 0.2s;
 }
 
 #activeChatNameContainer:hover {
@@ -959,9 +1079,9 @@ p {
   border-radius: 50%;
   margin-bottom: 1rem;
   height: 10em;
-  border: 0.2rem solid var(--bgColor );
+  border: 0.2rem solid var(--bgColor);
   box-shadow: 0 0 20px 0px var(--textColor);
-  transition: .15s;
+  transition: 0.15s;
 }
 
 #activeChatProfileInfo .avatar:hover {
@@ -979,7 +1099,6 @@ p {
 #chat.dark .fullName {
   color: #ffffff;
 }
-
 
 #activeChatProfileInfoDetailsContainer li {
   border-radius: 10px;
@@ -1003,8 +1122,6 @@ p {
   background: #2a002a;
 }
 
-
-
 #activeChatProfileInfoDetailsContainer .infoType {
   font-weight: bold;
   color: var(--profileInfoTypeColor);
@@ -1022,16 +1139,14 @@ p {
   width: max-content;
 }
 
-
 #ageAndGenderContainer li {
   display: inline;
-  margin-right: .5em;
+  margin-right: 0.5em;
 }
 
 .openNewChatUser span {
   display: block;
 }
-
 
 @media (max-width: 1000px) {
   #chat {
@@ -1093,7 +1208,7 @@ p {
     font-size: clamp(0.6rem, 2vw, 0.8rem);
   }
 
- /* #chatSelectContainer {
+  /* #chatSelectContainer {
     min-width: 7rem;
   } */
 
@@ -1152,7 +1267,7 @@ p {
     padding: 0.8em 0.8em;
   }
 
-  #activeChatProfileInfo ul{
+  #activeChatProfileInfo ul {
     max-width: 20rem;
   }
 }
