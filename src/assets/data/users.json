@@ -148,6 +148,19 @@
       "description": "Hello there \uD83D\uDE03\nI'm studying JavaScript at ITHS Stockholm\nDid you know that I made this chat? \uD83D\uDCAC",
       "country":"Sweden",
       "chats": []
+  },
+  {
+    "userName": "Irina862",
+    "firstName": "Irina",
+    "lastName": "K",
+    "email": "irina.kudlai@something.com",
+    "gender": "Female",
+    "age": 36,
+    "avatar": "https://xsgames.co/randomusers/assets/avatars/female/27.jpg",
+    "signupDate": "2022-07-30",
+    "description": "Hello \uD83D\uDC4B\nMy name is Irina and I love play billiard \uD83D\uDE03",
+    "country":"Sweden",
+    "chats": []
     },
     {
       "userName": "gerrileepunter700",

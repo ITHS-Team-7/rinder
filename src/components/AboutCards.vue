@@ -36,9 +36,6 @@ export default {
   </div>
 </template>
 <style>
-html {
-  overflow-y: scroll;
-}
 .card {
   background-color: #ffe1e8;
   max-height: 100%;
