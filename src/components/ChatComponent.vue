@@ -257,7 +257,9 @@ export default {
   },
   methods: {
     openChat(userName) {
-      // TODO: disable opening chat with self
+      if (this.loggedInUser.userName === userName) {
+        return console.error("Unable to open chat with yourself");
+      }
 
       this.chatMessageInput = "";
 
@@ -471,7 +473,9 @@ export default {
           this.loggedInUser.chats[0].messages.push({
             time: moment().unix(),
             message:
-              randomChatMessages[Math.floor(Math.random() * randomChatMessages.length)] +
+              randomChatMessages[
+                Math.floor(Math.random() * randomChatMessages.length)
+              ] +
               " " +
               randomEmojis[Math.floor(Math.random() * randomEmojis.length)],
             type: "received",
@@ -639,7 +643,7 @@ export default {
     openChatUsernameOnLoad: {
       type: String,
       required: false,
-      default: null
+      default: null,
     },
   },
   emits: [],
