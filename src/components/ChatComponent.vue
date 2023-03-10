@@ -1,6 +1,7 @@
 <script setup>
 import users from "../assets/data/users.json";
 import moment from "moment";
+import randomChatMessages from "../assets/data/randomChatMessages.json";
 
 // https://picmojs.com/
 import { lightTheme, darkTheme } from "picmo";
@@ -20,7 +21,6 @@ import { createPopup } from "@picmo/popup-picker";
     @someEvent="actionForSomeEvent"
   >
     <div id="chatSelectContainer">
-      <!-- + 1 needed to compensate for currently logged in user -->
       <div v-if="ableToOpenNewChat" id="openNewChat">
         <input
           v-if="!showNewChatSection"
@@ -37,7 +37,6 @@ import { createPopup } from "@picmo/popup-picker";
             @click="showNewChatSection = false"
           />
           <!-- Filter users to exclude currently logged in user -->
-
           <ul id="openNewChatUsersList" class="list-group" data-bs-theme="dark">
             <li
               v-for="(user, index) in users.filter(
@@ -55,19 +54,6 @@ import { createPopup } from "@picmo/popup-picker";
               <span>{{ user.userName }}</span>
             </li>
           </ul>
-
-          <!--<div
-              :key="index"
-              class="openNewChatUser"
-              v-for="(user, index) in users.filter(
-                (user) =>
-                  user.userName !== loggedInUser.userName &&
-                  !openChatsUsernames.includes(user.userName)
-              )"
-              @click="openChat(user.userName)"
-            >
-              {{ user.userName }}
-            </div>-->
         </template>
       </div>
       <!--<div id="openNewChat" v-else>
@@ -107,8 +93,6 @@ import { createPopup } from "@picmo/popup-picker";
             </p>
           </div>
         </div>
-        <!-- <div id="chatSelectContainerOptions">
-          </div> -->
       </div>
       <div v-if="!loggedInUser.chats.length" id="noOpenChats">
         <p>You don't have any open chats...</p>
@@ -260,17 +244,15 @@ export default {
     return {
       activeChatUser: null,
       showActiveChatSettings: false,
-      loading: true,
       // TODO: replace this with actual logged in user, get it from vue store
       loggedInUser: users[0],
       chatMessageInput: "",
       showNewChatSection: false,
       showActiveChatProfileInfo: false,
-      // TODO: replace this with colors from vue store
+      // TODO: move body bg color change to $route watch() when vue store is ready
       bodyBgColor: "#ffe1e8",
-      bodyDarkModeBgColor: "#8843e4",
-      // TODO: replace this with actual dark mode status from vue store
-      darkMode: false,
+      bodyBgColorDark: "#8843e4",
+      darkMode: this.$store.state.darkMode || false,
     };
   },
   methods: {
@@ -489,7 +471,7 @@ export default {
           this.loggedInUser.chats[0].messages.push({
             time: moment().unix(),
             message:
-              randomWords[Math.floor(Math.random() * randomWords.length)] +
+              randomChatMessages[Math.floor(Math.random() * randomChatMessages.length)] +
               " " +
               randomEmojis[Math.floor(Math.random() * randomEmojis.length)],
             type: "received",
@@ -573,6 +555,7 @@ export default {
     },
     toggleDarkMode() {
       this.darkMode = !this.darkMode;
+      //this.$store.commit('toggleDarkMode')
     },
     getUserShortName(userName) {
       const user = getUser(userName);
@@ -588,9 +571,10 @@ export default {
       // user is typing...
     },
     darkMode(status) {
+      // TODO: remove this once darkModeToggle() is available in $store
       const body = document.querySelector("body");
       body.style.backgroundColor = this.darkMode
-        ? this.bodyDarkModeBgColor
+        ? this.bodyBgColorDark
         : this.bodyBgColor;
     },
   },
@@ -606,7 +590,7 @@ export default {
   created() {
     const body = document.querySelector("body");
     body.style.backgroundColor = this.darkMode
-      ? this.bodyDarkModeBgColor
+      ? this.bodyBgColorDark
       : this.bodyBgColor;
 
     if (this.openChatUsernameOnLoad) {
@@ -616,9 +600,9 @@ export default {
     }
   },
   mounted() {
-    const trigger = document.querySelector("#emojiBtn");
+    const emojiBtn = document.querySelector("#emojiBtn");
 
-    const picker = createPopup(
+    const emojiSelector = createPopup(
       {
         theme: darkTheme,
         onPositionLost: "close",
@@ -635,13 +619,13 @@ export default {
         categories: ["smileys-emotion", "people-body", "animals-nature"],
       },
       {
-        referenceElement: trigger,
-        triggerElement: trigger,
+        referenceElement: emojiBtn,
+        triggerElement: emojiBtn,
       }
     );
 
-    trigger.addEventListener("click", () => picker.toggle());
-    picker.addEventListener(
+    emojiBtn.addEventListener("click", () => emojiSelector.toggle());
+    emojiSelector.addEventListener(
       "emoji:select",
       (data) => (this.chatMessageInput += data.emoji)
     );
@@ -655,6 +639,7 @@ export default {
     openChatUsernameOnLoad: {
       type: String,
       required: false,
+      default: null
     },
   },
   emits: [],
@@ -752,10 +737,9 @@ function getUser(userName) {
 }
 
 #activeChatMessagesContainer {
-  border-radius: 10px;
   display: flex;
   flex-direction: column;
-  gap: 0.2rem;
+  gap: 0.3rem;
   width: 100%;
   overflow: auto;
   grid-area: activeChatMessagesContainer;
@@ -827,7 +811,7 @@ function getUser(userName) {
 }
 
 #activeChatMessagesContainer::-webkit-scrollbar {
-  width: 0.3em;
+  width: 0.4em;
   border-radius: 10px;
 }
 
@@ -851,6 +835,8 @@ function getUser(userName) {
   border-radius: 10px;
   font-size: 1.2em;
   font-weight: 500;
+  max-width: 25em;
+  text-align: justify;
 }
 
 .lastMessage {
@@ -1269,6 +1255,10 @@ p {
 
   #activeChatProfileInfo ul {
     max-width: 20rem;
+  }
+
+  .lastMessage {
+    display: none;
   }
 }
 </style>
