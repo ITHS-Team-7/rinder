@@ -4,7 +4,7 @@ import ChatComponent from "../components/ChatComponent.vue";
 
 <template>
   <chat-component
-    :openChatUsernameOnLoad="$route.query.username"
+    :openChatUsernameOnLoad="$route.params.userName"
     :openLastChatOnLoad="false"
   ></chat-component>
 </template>
