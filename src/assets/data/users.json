@@ -1,16 +1,81 @@
 [
     {
-      "userName": "olivercarlsson443",
-      "firstName": "Oliver",
-      "lastName": "Carlsson",
-      "email": "olivercarlsson443@cnet.com",
+      "userName": "richardcarlsson443",
+      "firstName": "Richard",
+      "lastName": "C",
+      "email": "richardcarlsson@hotmail.se",
       "gender": "Male",
-      "age": 35,
-      "avatar": "https://xsgames.co/randomusers/assets/avatars/male/62.jpg",
+      "age": 39,
+      "avatar": "https://xsgames.co/randomusers/assets/avatars/male/67.jpg",
       "signupDate": "2022-08-24",
-      "description": "Nam ultrices, libero non mattis pulvinar, nulla pede ullamcorper augue, a suscipit nulla elit ac nulla.",
+      "description": "It's Richard here. Ask me anything about Javascript and I should be able to answer it",
       "country":"Sweden",
       "chats": [
+        {
+        "userName": "hassan977",
+        "messages": [
+          {
+            "time": "1677101537",
+            "message": "Hi, we matched :D",
+            "type": "received"
+          },
+          {
+            "time": "1677101538",
+            "message": "Yeeeah we did, now show me your rizz hahah",
+            "type": "sent"
+          },
+          {
+            "time": "1677101538",
+            "message": "What are you up to?",
+            "type": "sent"
+          },
+          {
+            "time": "1677101538",
+            "message": "Not much, just chillin and eating some popcorn, want some?",
+            "type": "received"
+          },
+          {
+            "time": "1677101538",
+            "message": "\uD83D\uDE0B\uD83D\uDE0B",
+            "type": "sent"
+          },
+          {
+            "time": "1677101538",
+            "message": "I want some popcorn too",
+            "type": "sent"
+          },
+          {
+            "time": "1677101539",
+            "message": "wanna go on a date? I'll buy you some popcorn \uD83D\uDE09",
+            "type": "received"
+          },
+          {
+            "time": "1677101539",
+            "message": "deal \uD83E\uDD1D",
+            "type": "sent"
+          },
+          {
+            "time": "1677101539",
+            "message": "when do you wanna meet?",
+            "type": "sent"
+          },
+          {
+            "time": "1677101539",
+            "message": "how about this Friday evening?",
+            "type": "received"
+          },
+          {
+            "time": "1677101539",
+            "message": "I can pick you up",
+            "type": "received"
+          },
+          {
+            "time": "1677101539",
+            "message": "perfect, sounds good \uD83D\uDE0A",
+            "type": "sent"
+          }
+        ]
+      },
         {
           "userName": "anjaaa505",
           "messages": [
@@ -73,66 +138,6 @@
               "time": "1677101539",
               "message": "Awesome, can't wait! \uD83D\uDE01 ",
               "type": "received"
-            }
-          ]
-        },
-        {
-          "userName": "hassan977",
-          "messages": [
-            {
-              "time": "1677101537",
-              "message": "Hi, we matched :D",
-              "type": "received"
-            },
-            {
-              "time": "1677101538",
-              "message": "Yeeeah we did, now show me your rizz hahah",
-              "type": "sent"
-            },
-            {
-              "time": "1677101538",
-              "message": "What are you up to?",
-              "type": "sent"
-            },
-            {
-              "time": "1677101538",
-              "message": "Not much, just chillin and eating some popcorn, want some?",
-              "type": "received"
-            },
-            {
-              "time": "1677101538",
-              "message": "\uD83D\uDE0B\uD83D\uDE0B",
-              "type": "sent"
-            },
-            {
-              "time": "1677101538",
-              "message": "I want some popcorn too",
-              "type": "sent"
-            },
-            {
-              "time": "1677101539",
-              "message": "wanna go on a date? I'll buy you some popcorn \uD83D\uDE09",
-              "type": "received"
-            },
-            {
-              "time": "1677101539",
-              "message": "deal \uD83E\uDD1D",
-              "type": "sent"
-            },
-            {
-              "time": "1677101539",
-              "message": "when do you wanna meet?",
-              "type": "sent"
-            },
-            {
-              "time": "1677101539",
-              "message": "how about this Friday evening?",
-              "type": "received"
-            },
-            {
-              "time": "1677101539",
-              "message": "perfect, sounds good \uD83D\uDE0A",
-              "type": "sent"
             }
           ]
         },
@@ -220,7 +225,7 @@
       "age": 25,
       "avatar": "https://xsgames.co/randomusers/assets/avatars/male/7.jpg",
       "signupDate": "2022-12-08",
-      "description": "Hello there \uD83D\uDE03\nI'm studying JavaScript at ITHS Stockholm \uD83D\uDCAC",
+      "description": "Hello there \uD83D\uDE03\nI'm studying Full Stack JavaScript at ITHS Stockholm",
       "country":"Sweden",
       "chats": []
   },
