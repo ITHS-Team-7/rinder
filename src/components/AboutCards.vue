@@ -13,7 +13,7 @@ export default {
   <div class="container-fluid">
     <div class="row justify-content-center" style="padding-top: 10vh">
       <div
-        v-for="(user, index) in users.slice(0, 3)"
+        v-for="(user, index) in users.slice(102, 105)"
         :key="index"
         class="card col-sm-4 border-0 cardtop"
       >

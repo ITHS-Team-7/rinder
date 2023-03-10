@@ -4,6 +4,7 @@ import bootstrap from "bootstrap/dist/js/bootstrap.bundle.js";
 import App from "./App.vue";
 import router from "./router";
 import "./assets/main.css";
+import store from "./store/store";
 /* import the fontawesome core */
 import { library } from "@fortawesome/fontawesome-svg-core";
 
@@ -59,5 +60,6 @@ app.component("font-awesome-icon", FontAwesomeIcon);
 
 app.use(router);
 app.use(bootstrap);
+app.use(store);
 
 app.mount("#app");
