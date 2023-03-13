@@ -1,16 +1,14 @@
 <script setup>
 import AboutCards from "../components/AboutCards.vue";
 import ChatCards from "../components/ChatCards.vue";
-
 </script>
 <script>
 export default {
-    computed: {
+  computed: {
     gender() {
       return this.$store.state.gender;
     },
-}
-
+  },
 };
 </script>
 <template>
@@ -22,7 +20,6 @@ export default {
     </p>
   </div>
   <AboutCards></AboutCards>
-
 </template>
 
 <style scoped>

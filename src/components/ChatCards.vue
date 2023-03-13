@@ -25,7 +25,7 @@ export default {
       this.i += 3;
     },
     chatClick() {
-        this.$emit('open-chat');
+      this.$emit("open-chat");
     },
   },
   props: {
@@ -35,37 +35,41 @@ export default {
 };
 </script>
 <template>
-    <div class="container-fluid">
-  <div class="row justify-content-center" style="padding-top: 10vh" >
-    <div
-      v-for="(user, index) in userFilter.slice(0, i)"
-      :key="index"
-      class="card col-4 border-0 cardtop"
-    >
-      <img :src="user.avatar" class="card-img" alt="Profil bild" />
-      <div class="card-img-overlay">
-        <div class="text-con">
-          <div class="text-con2">
-            <h4>{{ user.firstName }} {{ user.lastName }}</h4>
-            <p>{{ user.description }}</p>
+  <div class="container-fluid">
+    <div class="row justify-content-center" style="padding-top: 10vh">
+      <div
+        v-for="(user, index) in userFilter.slice(0, i)"
+        :key="index"
+        class="card col-4 border-0 cardtop"
+      >
+        <img :src="user.avatar" class="card-img" alt="Profil bild" />
+        <div class="card-img-overlay">
+          <div class="text-con">
+            <div class="text-con2">
+              <h4>{{ user.firstName }} {{ user.lastName }}</h4>
+              <p>{{ user.description }}</p>
+            </div>
           </div>
+          <button
+            type="button"
+            class="btn btn-primary border-0"
+            @click="chatClick"
+          >
+            Chat
+          </button>
         </div>
+      </div>
+      <div class="but">
         <button
           type="button"
-          class="btn btn-primary border-0"
-          @click="chatClick"
+          @click="onclick()"
+          class="btn btn-primary border-0 ViewMore"
         >
-          Chat
+          View More
         </button>
       </div>
     </div>
-    <div class="but">
-      <button type="button" @click="onclick()" class="btn btn-primary border-0 ViewMore">
-        View More
-      </button>
-    </div>
   </div>
-</div>
 </template>
 <style scoped>
 .card {

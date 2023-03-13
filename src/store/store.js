@@ -11,8 +11,8 @@ export default createStore({
       sessionStorage.setItem("gender", gender);
     },
     Login(state, islogedin) {
-        state.islogedin = islogedin;
-        sessionStorage.setItem("islogedin", islogedin);
-      },
+      state.islogedin = islogedin;
+      sessionStorage.setItem("islogedin", islogedin);
+    },
   },
 });

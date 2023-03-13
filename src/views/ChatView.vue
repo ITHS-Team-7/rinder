@@ -4,24 +4,23 @@ import ChatComponent from "../components/ChatComponent.vue";
 </script>
 
 <template>
-    <ChatCards
+  <ChatCards
     :start="3"
     :gend="gender"
-    v-if="(islogedin && chat === 0)"
+    v-if="islogedin && chat === 0"
     @openChat="openChat"
   ></ChatCards>
   <chat-component
-  v-else-if="(islogedin && chat === 1)"
+    v-else-if="islogedin && chat === 1"
     :openChatUsernameOnLoad="$route.query.username"
     :openLastChatOnLoad="false"
   ></chat-component>
-  <div v-else>
-  You need to sign in in order to chat with other users</div>
+  <div v-else>You need to sign in in order to chat with other users</div>
 </template>
 
 <script>
 export default {
-    computed: {
+  computed: {
     gender() {
       return this.$store.state.gender;
     },
@@ -31,15 +30,14 @@ export default {
   },
   data() {
     return {
-        chat: 0
-    }
+      chat: 0,
+    };
   },
   methods: {
-  openChat() {
-    this.chat = 1;
-  }
-}
-
+    openChat() {
+      this.chat = 1;
+    },
+  },
 };
 </script>
 
