@@ -12,7 +12,7 @@ import ChatComponent from "../components/ChatComponent.vue";
   ></ChatCards>
   <chat-component
     v-else-if="islogedin && chat === 1"
-    :openChatUsernameOnLoad="$route.query.username"
+    :openChatUsernameOnLoad="$route.params.userName"
     :openLastChatOnLoad="false"
   ></chat-component>
   <div v-else>You need to sign in in order to chat with other users</div>
