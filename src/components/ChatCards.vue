@@ -3,7 +3,6 @@ import data from "../assets/data/users.json";
 export default {
   computed: {
     userFilter() {
-      console.log(this.genderpref);
       if (this.genderpref.length > 0) {
         return this.users.filter((users) =>
           users.gender.includes(this.genderpref)
@@ -26,11 +25,7 @@ export default {
       this.i += 3;
     },
     chatClick() {
-      this.$router.push({
-        name: "chat",
-        params: { userName: this.users.userName },
-      });
-      console.log(this.userFilter.userName);
+        this.$emit('open-chat');
     },
   },
   props: {
@@ -40,7 +35,8 @@ export default {
 };
 </script>
 <template>
-  <div class="row justify-content-center" style="padding-top: 10vh">
+    <div class="container-fluid">
+  <div class="row justify-content-center" style="padding-top: 10vh" >
     <div
       v-for="(user, index) in userFilter.slice(0, i)"
       :key="index"
@@ -57,18 +53,19 @@ export default {
         <button
           type="button"
           class="btn btn-primary border-0"
-          @click="chatClick()"
+          @click="chatClick"
         >
           Chat
         </button>
       </div>
     </div>
     <div class="but">
-      <button type="button" @click="onclick()" class="btn btn-primary border-0">
+      <button type="button" @click="onclick()" class="btn btn-primary border-0 ViewMore">
         View More
       </button>
     </div>
   </div>
+</div>
 </template>
 <style scoped>
 .card {
@@ -90,7 +87,6 @@ export default {
 .btn-primary:hover {
   background-color: #8843e4;
 }
-
 .card-img-overlay {
   border-radius: 1em;
   display: flex;
