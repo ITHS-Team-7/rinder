@@ -34,11 +34,24 @@ import logoPink from "../assets/images/logo.png";
             </RouterLink>
           </li>
           <li>
-            <RouterLink class="nav-link active" aria-current="page" to="/chat"
+            <RouterLink
+              class="nav-link active"
+              aria-current="page"
+              to="/newchat"
               >Chat
             </RouterLink>
           </li>
-          <li>
+          <li v-if="islogedin">
+            <RouterLink class="nav-link" to=""
+              >Richard
+              <img
+                class="rounded-circle"
+                src="../assets/images/Richard.png"
+                width="41"
+              />
+            </RouterLink>
+          </li>
+          <li v-else>
             <RouterLink class="nav-link" to="/login"
               >Log in
               <img
@@ -73,6 +86,9 @@ export default {
         ? logoBlack
         : logoPink;
     },
+    islogedin() {
+      return this.$store.state.islogedin;
+    },
   },
   watch: {
     $route(to, from) {
@@ -92,6 +108,10 @@ export default {
           body.style.backgroundColor = "#ffe1e8";
           break;
         case "chat":
+          body.style.backgroundImage = "none";
+          body.style.backgroundColor = "#ffe1e8";
+          break;
+        case "newchat":
           body.style.backgroundImage = "none";
           body.style.backgroundColor = "#ffe1e8";
           break;
