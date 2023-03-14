@@ -108,7 +108,9 @@ export default {
         this.email === "richardcarlsson@hotmail.se" &&
         this.password === "12345"
       ) {
-        this.$router.push({ name: "chat" });
+        this.$store.commit("SetGender", "Female");
+        this.$store.commit("Login", true);
+        this.$router.push({ name: "newchat" });
       } else {
         alert("Invalid password or email");
       }

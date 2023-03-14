@@ -10,7 +10,6 @@ export default {
       email: "",
       message: "",
       submitted: false,
-      formError: false,
     };
   },
   methods: {

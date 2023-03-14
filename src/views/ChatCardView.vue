@@ -1,13 +1,14 @@
 <script setup>
-import ChatComponent from "../components/ChatComponent.vue";
+import ChatCards from "../components/ChatCards.vue";
 </script>
 
 <template>
-  <chat-component
+  <ChatCards
     v-if="islogedin"
-    :openChatUsernameOnLoad="$route.params.userName"
-    :openLastChatOnLoad="false"
-  ></chat-component>
+    :start="3"
+    :gend="gender"
+    @openChat="openChat"
+  ></ChatCards>
   <div class="con" v-else>
     You need to sign in in order to chat with other users
   </div>
@@ -16,13 +17,25 @@ import ChatComponent from "../components/ChatComponent.vue";
 <script>
 export default {
   computed: {
+    gender() {
+      return this.$store.state.gender;
+    },
     islogedin() {
       return this.$store.state.islogedin;
     },
   },
+  data() {
+    return {
+      chat: 0,
+    };
+  },
+  methods: {
+    openChat() {
+      this.chat = 1;
+    },
+  },
 };
 </script>
-
 <style scoped>
 .con {
   padding-top: 10vh;
