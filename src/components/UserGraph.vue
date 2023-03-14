@@ -5,8 +5,8 @@ import data from "../assets/data/users.json";
 </script>
 
 <template>
- <div>
-    <canvas ref="chart"></canvas>
+ <div class="graph-container">
+    <canvas class="mx-auto" ref="chart"></canvas>
   </div>
 </template>
 
@@ -84,3 +84,15 @@ export default {
   },
 };
 </script>
+
+<style scooped>
+
+.graph-container{
+    padding-top: 7vh;
+    padding-bottom: 10vh;
+}
+.graph-container canvas{
+    height: auto !important;
+    width: 800px !important;
+}
+</style>

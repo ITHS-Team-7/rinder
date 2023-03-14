@@ -185,7 +185,6 @@ export default {
   --profileInfoTypeColor: #003bbf;
 
   border-radius: 10px;
-  background: var(--bgColor);
   color: var(--textColor);
 }
 
