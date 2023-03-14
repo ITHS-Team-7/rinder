@@ -1,5 +1,6 @@
 <script setup>
 import AboutCards from "../components/AboutCards.vue";
+import UserGraph from "../components/UserGraph.vue";
 </script>
 <script>
 export default {
@@ -12,6 +13,7 @@ export default {
 </script>
 <template>
   <AboutCards></AboutCards>
+  <UserGraph></UserGraph>
 </template>
 
 <style scoped></style>
