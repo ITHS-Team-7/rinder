@@ -5,7 +5,7 @@ import data from "../assets/data/users.json";
 </script>
 
 <template>
- <div class="graph-container">
+  <div class="graph-container">
     <canvas class="mx-auto" ref="chart"></canvas>
   </div>
 </template>
@@ -18,10 +18,10 @@ export default {
       chart: null,
     };
   },
-  mounted(){
-      this.createChart();
+  mounted() {
+    this.createChart();
   },
-    methods: {
+  methods: {
     createChart() {
       const genderAgeCounts = this.getGenderAgeCounts();
 
@@ -86,13 +86,12 @@ export default {
 </script>
 
 <style scooped>
-
-.graph-container{
-    padding-top: 7vh;
-    padding-bottom: 10vh;
+.graph-container {
+  padding-top: 7vh;
+  padding-bottom: 10vh;
 }
-.graph-container canvas{
-    height: auto !important;
-    width: 800px !important;
+.graph-container canvas {
+  height: auto !important;
+  width: 800px !important;
 }
 </style>
