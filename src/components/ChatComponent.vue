@@ -812,6 +812,7 @@ function getUser(userName) {
 
 #chat.dark .shortName {
   color: #ffffff;
+  text-shadow: 0px 0px 2px var(--bgColor);
 }
 
 #activeChatMessagesContainer::-webkit-scrollbar {
@@ -1088,6 +1089,7 @@ p {
 
 #chat.dark .fullName {
   color: #ffffff;
+  text-shadow: 0px 0px 2px var(--bgColor);
 }
 
 #activeChatProfileInfoDetailsContainer li {
