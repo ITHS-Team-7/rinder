@@ -10,6 +10,7 @@ export default {
       email: "",
       message: "",
       submitted: false,
+      formError: false,
     };
   },
   methods: {
@@ -75,7 +76,7 @@ export default {
             @click="onClick"
             class="form-button"
             type="submit"
-            :style="{ color: btnDisabled ? 'white' : '#ff4779' }"
+            :style="{ opacity: btnDisabled ? '' : '.6' }"
             value="submit"
             :disabled="!btnDisabled"
           />
@@ -102,7 +103,6 @@ form {
   align-items: center;
   padding: 3em;
   padding-bottom: 5em;
-  width: 25em;
 }
 .hi-form {
   color: white;
@@ -121,6 +121,10 @@ form {
 
 .infoClass a {
   color: #8843e4;
+}
+
+.emptyinputs {
+  color: white;
 }
 .inside-form .form-button {
   float: right;
@@ -149,7 +153,7 @@ form {
   margin-left: auto;
   margin-right: auto;
   max-width: 50em;
-  margin-top: 15em;
+  margin-top: 15vh;
 }
 
 #ett {
@@ -173,8 +177,6 @@ form {
 
   #ett {
     grid-area: ett;
-    margin-left: auto;
-    margin-right: auto;
     text-align: center;
   }
   #tva {

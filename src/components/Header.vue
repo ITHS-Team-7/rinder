@@ -40,11 +40,24 @@ import logoPink from "../assets/images/logo.png";
             </RouterLink>
           </li>
           <li>
-            <RouterLink class="nav-link" aria-current="page" to="/chat"
+            <RouterLink
+              class="nav-link active"
+              aria-current="page"
+              to="/newchat"
               >Chat
             </RouterLink>
           </li>
-          <li>
+          <li v-if="islogedin">
+            <RouterLink class="nav-link" to=""
+              >Richard
+              <img
+                class="rounded-circle"
+                src="../assets/images/Richard.png"
+                width="41"
+              />
+            </RouterLink>
+          </li>
+          <li v-else>
             <RouterLink class="nav-link" to="/login"
               >Log in
             </RouterLink>
@@ -95,8 +108,11 @@ export default {
         ? logoBlack
         : logoPink;
     },
+    islogedin() {
+      return this.$store.state.islogedin;
+    },
   },
-    watch: {
+  watch: {
     $route(to, from) {
       let path = to.name;
       const body = document.querySelector("body");
@@ -106,35 +122,33 @@ export default {
       switch (path) {
         case "home":
         case "terms":
+        case "login":
           // default bg-image from main.css
           break;
         case "about":
-          body.style.backgroundImage = 'none';
+          body.style.backgroundImage = "none";
           body.style.backgroundColor = "#ffe1e8";
           break;
         case "chat":
-          body.style.backgroundImage = 'none';
+          body.style.backgroundImage = "none";
+          body.style.backgroundColor = "#ffe1e8";
+          break;
+        case "newchat":
+          body.style.backgroundImage = "none";
           body.style.backgroundColor = "#ffe1e8";
           break;
         case "contact":
-          body.style.backgroundImage = 'none';
+          body.style.backgroundImage = "none";
           body.style.backgroundColor = "#ffe1e8";
           break;
-        case "login":
-          body.style.backgroundImage = 'none';
-          body.style.backgroundColor = "#ff4779";
-          break;
+
         default:
           console.log("Header.vue $route watch - unknown page " + path);
 
           break;
       }
     },
-    darkMode(status) {
-      const body = document.querySelector('body')
-      body.style.backgroundColor = this.darkMode ? this.bodyDarkModeBgColor : this.bodyBgColor;
-    },
-  }
+  },
 };
 </script>
 

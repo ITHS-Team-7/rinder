@@ -1,19 +1,19 @@
-<script>
+<script setup>
 import data from "../assets/data/users.json";
-export default {
-  data() {
-    return {
-      users: data,
-    };
-  },
-};
 </script>
 
 <template>
+  <div class="abouttext">
+    <h1>Find your partner today!</h1>
+    <p>
+      Rinder is the latest way to find you new partner! Check out what a few of
+      our users have to say about ther experience:
+    </p>
+  </div>
   <div class="container-fluid">
-    <div class="row justify-content-center" style="padding-top: 10vh">
+    <div class="row justify-content-center" style="padding-top: 5vh">
       <div
-        v-for="(user, index) in users.slice(0, 3)"
+        v-for="(user, index) in users.slice(102, 105)"
         :key="index"
         class="card col-sm-4 border-0 cardtop"
       >
@@ -35,10 +35,18 @@ export default {
     </div>
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      users: data,
+    };
+  },
+};
+</script>
+
 <style>
-html {
-  overflow-y: scroll;
-}
 .card {
   background-color: #ffe1e8;
   max-height: 100%;
@@ -48,7 +56,8 @@ html {
 }
 .cardtop {
   width: 24rem;
-  margin: auto;
+  margin-left: 5vw;
+  margin-right: 5vw;
   padding-top: 8vh;
 }
 .card-body {
@@ -69,6 +78,35 @@ html {
 .cardtop {
   margin-top: 5vh;
   margin-bottom: 5vh;
+}
+.abouttext {
+  padding-left: 10vw;
+  max-width: 800px;
+  padding-right: 2vw;
+}
+.abouttext p {
+  margin-top: 6vh;
+  font-size: 1.5rem;
+}
+.abouttext h1 {
+  font-size: 3rem;
+  margin-top: 5vh;
+}
+@media screen and (max-width: 800px) {
+  .abouttext p {
+    font-size: 1.2rem;
+  }
+  .abouttext h1 {
+    font-size: 2.7rem;
+  }
+}
+@media screen and (max-width: 500px) {
+  .abouttext p {
+    font-size: 1.1rem;
+  }
+  .abouttext h1 {
+    font-size: 1.75rem;
+  }
 }
 @media screen and (max-width: 600px) {
   .cardtop {
