@@ -1,7 +1,7 @@
 <script setup>
 import { RouterLink } from "vue-router";
 
-import { lightTheme, darkTheme } from 'picmo';
+import { lightTheme, darkTheme } from "picmo";
 import { createPopup } from "@picmo/popup-picker";
 
 import logoBlack from "../assets/images/logo_black.png";
@@ -9,78 +9,72 @@ import logoPink from "../assets/images/logo.png";
 </script>
 
 <template>
-<div
+  <div
     id="header"
     :class="darkMode ? 'dark' : ''"
     @someEvent="actionForSomeEvent"
   >
-<nav class="navbar navbar-expand-lg">
-
-  <div class="container-fluid">
+    <nav class="navbar navbar-expand-lg">
+      <div class="container-fluid">
         <RouterLink to="/"
           ><img :src="logoFileName" width="238" alt="Rinder"
         /></RouterLink>
-     
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li>
-            <RouterLink class="nav-link" aria-current="page" to="/about"
-              >About
-            </RouterLink>
-          </li>
-          <li>
-            <RouterLink
-              class="nav-link"
-              aria-current="page"
-              to="/contact"
-              >Contact
-            </RouterLink>
-          </li>
-          <li>
-            <RouterLink
-              class="nav-link active"
-              aria-current="page"
-              to="/newchat"
-              >Chat
-            </RouterLink>
-          </li>
-          <li v-if="islogedin">
-            <RouterLink class="nav-link" to=""
-              >Richard
-              <img
-                class="rounded-circle"
-                src="../assets/images/Richard.png"
-                width="41"
-              />
-            </RouterLink>
-          </li>
-          <li v-else>
-            <RouterLink class="nav-link" to="/login"
-              >Log in
-            </RouterLink>
-          </li>
-          <li>
-              <RouterLink class="nav-link" to="/login"
-              >
-              <img
-                class="arrow"
-                src="../assets/images/arrow-right.svg"
-                width="30"
-              />
-            </RouterLink>
-          </li>
-      </ul>
-    </div>
+
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarText"
+          aria-controls="navbarText"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li>
+              <RouterLink class="nav-link" aria-current="page" to="/about"
+                >About
+              </RouterLink>
+            </li>
+            <li>
+              <RouterLink class="nav-link" aria-current="page" to="/contact"
+                >Contact
+              </RouterLink>
+            </li>
+            <li>
+              <RouterLink
+                class="nav-link active"
+                aria-current="page"
+                to="/newchat"
+                >Chat
+              </RouterLink>
+            </li>
+            <li class="loggedIn" v-if="isloggedin">
+              <RouterLink class="nav-link" to=""
+                ><span @click="$store.commit('Login', false)">Richard</span>
+                <img
+                  class="rounded-circle"
+                  src="../assets/images/Richard.png"
+                  width="41"
+                />
+              </RouterLink>
+            </li>
+            <li v-else>
+              <RouterLink class="nav-link" to="/login">Log in </RouterLink>
+            </li>
+          </ul>
+          <div
+            class="clickableIconContainer"
+            @click.stop="$store.commit('ToggleDarkmode')"
+          >
+            <font-awesome-icon icon="fa-solid fa-sun" />
+          </div>
+        </div>
+      </div>
+    </nav>
   </div>
- <div class="clickableIconContainer" @click.stop="toggleDarkMode">
-          <font-awesome-icon icon="fa-solid fa-sun" />
-</div>
-  
-</nav>
-</div>
 </template>
 
 <script>
@@ -90,14 +84,14 @@ export default {
       showMobileMenu: false,
       bodyBgColor: "#ffe1e8",
       bodyDarkModeBgColor: "#000",
-      darkMode: false
+      darkMode: false,
     };
   },
   methods: {
     showMenu() {
       this.showMobileMenu = !this.showMobileMenu;
     },
-      toggleDarkMode() {
+    toggleDarkMode() {
       this.darkMode = !this.darkMode;
     },
   },
@@ -108,8 +102,8 @@ export default {
         ? logoBlack
         : logoPink;
     },
-    islogedin() {
-      return this.$store.state.islogedin;
+    isloggedin() {
+      return this.$store.state.isloggedin;
     },
   },
   watch: {
@@ -159,21 +153,34 @@ export default {
   margin: 0;
 }
 
-.navbar-nav .nav-link{
-    color: #fff;
-    font-size: 20px;
+.loggedIn span {
+  color: #000;
+  font-weight: bold;
 }
 
-.navbar-collapse{
-    flex-grow: 0;
+.loggedIn img {
+  margin-left: 0.7rem;
+}
+
+.navbar-nav {
+  align-items: baseline;
+}
+
+.navbar-nav .nav-link {
+  color: #fff;
+  font-size: 20px;
+}
+
+.navbar-collapse {
+  flex-grow: 0;
 }
 .arrow {
   vertical-align: middle;
   padding-bottom: 10px;
 }
 
-.navbar-toggler{
-    background-color: #fff;
+.navbar-toggler {
+  background-color: #fff;
 }
 .clickableIconContainer {
   font-size: 2.3em;
@@ -183,9 +190,10 @@ export default {
   min-width: 2rem;
   text-align: center;
   color: #fff;
+  margin-left: 2rem;
 }
 
-#header{
+#header {
   --textColor: #000;
   --bgColor: #fff;
   --iconHoverColor: #3c008d;
@@ -215,19 +223,19 @@ export default {
   --lastMessageIconColor: #2bb302;
   --profileInfoTypeColor: #00c4ff;
 
-  box-shadow: 0 0 20px 3px #ffffff;;
+  box-shadow: 0 0 20px 3px #ffffff;
 }
 
 /* Mobile version hidden hamburger menu */
 
 @media screen and (max-width: 768px) {
-   .arrow {
+  .arrow {
     width: 20px;
     padding-bottom: 4px;
   }
-  .navbar-nav .nav-link{
+  .navbar-nav .nav-link {
     color: #fff;
     font-size: 16px;
-}
+  }
 }
 </style>
