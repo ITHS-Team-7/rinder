@@ -4,7 +4,7 @@ import ChatCards from "../components/ChatCards.vue";
 
 <template>
   <ChatCards
-    v-if="islogedin"
+    v-if="isloggedin"
     :start="3"
     :gend="gender"
     @openChat="openChat"
@@ -17,8 +17,8 @@ export default {
     gender() {
       return this.$store.state.gender;
     },
-    islogedin() {
-      return this.$store.state.islogedin;
+    isloggedin() {
+      return this.$store.state.isloggedin;
     },
   },
   data() {
