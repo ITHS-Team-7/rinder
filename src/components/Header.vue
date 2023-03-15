@@ -74,7 +74,7 @@ import logoPink from "../assets/images/logo.png";
           </ul>
         </div>
       </div>
-      <div class="clickableIconContainer" @click.stop="toggleDarkMode">
+      <div class="clickableIconContainer" @click="ToggleDarkmode()">
         <font-awesome-icon icon="fa-solid fa-sun" />
       </div>
     </nav>
@@ -95,8 +95,8 @@ export default {
     showMenu() {
       this.showMobileMenu = !this.showMobileMenu;
     },
-    toggleDarkMode() {
-      this.darkMode = !this.darkMode;
+    ToggleDarkmode() {
+      this.$store.commit("ToggleDarkmode");
     },
   },
   computed: {
