@@ -110,7 +110,7 @@ export default {
       ) {
         this.$store.commit("SetGender", "Female");
         this.$store.commit("Login", true);
-        this.$router.push({ name: "chat" });
+        this.$router.push({ name: "newchat" });
       } else {
         alert("Invalid password or email");
       }

@@ -9,6 +9,9 @@ import ChatCards from "../components/ChatCards.vue";
     :gend="gender"
     @openChat="openChat"
   ></ChatCards>
+  <div class="con" v-else>
+    You need to sign in in order to chat with other users
+  </div>
 </template>
 
 <script>
@@ -33,3 +36,15 @@ export default {
   },
 };
 </script>
+<style scoped>
+.con {
+  padding-top: 10vh;
+  text-align: center;
+  font-size: 2.2rem;
+}
+@media screen and (max-width: 800px) {
+  .con {
+    font-size: 1.5rem;
+  }
+}
+</style>
