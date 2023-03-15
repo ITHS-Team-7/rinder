@@ -91,6 +91,10 @@ export default {
 </template>
 
 <style scoped>
+.dark-mode {
+    background-color: black;
+    color: white;
+}
 .infoClass {
   color: #252525;
   margin-top: 1em;
