@@ -17,7 +17,7 @@ import { createPopup } from "@picmo/popup-picker";
   <!-- TODO: move users.json to /public/data/ -->
   <div
     id="chat"
-    :class="darkMode ? 'dark' : ''"
+    :class="$store.state.Darkmode ? 'dark' : ''"
     @someEvent="actionForSomeEvent"
   >
     <div id="chatSelectContainer">
@@ -141,7 +141,7 @@ import { createPopup } from "@picmo/popup-picker";
           <font-awesome-icon icon="fa-solid fa-trash-can" />
         </div>
 
-        <div class="clickableIconContainer" @click.stop="toggleDarkMode">
+        <div class="clickableIconContainer" @click.stop="$store.commit('ToggleDarkmode')">
           <font-awesome-icon icon="fa-solid fa-sun" />
         </div>
       </div>
@@ -252,7 +252,7 @@ export default {
       // TODO: move body bg color change to $route watch() when vue store is ready
       bodyBgColor: "#ffe1e8",
       bodyBgColorDark: "#8843e4",
-      darkMode: this.$store.state.darkMode || false,
+      //darkMode: this.$store.state.Darkmode,
     };
   },
   methods: {
@@ -526,7 +526,7 @@ export default {
 
         this.chatMessageInput = "";
         this.scrollToLastMessage();
-        this.scrollToFirstChatSelectUser();
+        this.scrollToFirstChatSelect();
         this.showActiveChatProfileInfo = false;
       }
     },
@@ -547,7 +547,7 @@ export default {
         }
       });
     },
-    scrollToFirstChatSelectUser() {
+    scrollToFirstChatSelect() {
       // Scroll up to first user in select user section
       // $nextTick is called after v-for has rendered
       this.$nextTick(() => {
@@ -556,10 +556,6 @@ export default {
           container.scrollTop = 0;
         }
       });
-    },
-    toggleDarkMode() {
-      this.darkMode = !this.darkMode;
-      //this.$store.commit('toggleDarkMode')
     },
     getUserShortName(userName) {
       const user = getUser(userName);
@@ -575,11 +571,14 @@ export default {
       // user is typing...
     },
     darkMode(status) {
+      /*
       // TODO: remove this once darkModeToggle() is available in $store
       const body = document.querySelector("body");
       body.style.backgroundColor = this.darkMode
         ? this.bodyBgColorDark
         : this.bodyBgColor;
+
+       */
     },
   },
   computed: {
@@ -592,10 +591,13 @@ export default {
     },
   },
   created() {
+    /*
     const body = document.querySelector("body");
     body.style.backgroundColor = this.darkMode
       ? this.bodyBgColorDark
       : this.bodyBgColor;
+
+     */
 
     if (this.openChatUsernameOnLoad) {
       this.openChat(this.openChatUsernameOnLoad);
@@ -698,7 +700,6 @@ function getUser(userName) {
   display: flex;
 
   padding: 1rem;
-  margin: 0 auto;
   box-shadow: 0 0 20px 3px #000000;
 
   /* prevent unwanted dragging and text selection */
@@ -1221,7 +1222,10 @@ p {
   }
 
   #activeChatTopContainer {
+    align-items: center;
     padding-right: 0;
+    gap: 1rem;
+    flex-direction: column;
   }
 
   #chatInputsContainer {
@@ -1257,6 +1261,8 @@ p {
   #activeChatSettings {
     gap: 0.2rem;
     padding: 0.8em 0.8em;
+    margin-right: auto;
+    margin-left: auto;
   }
 
   #activeChatProfileInfo ul {
