@@ -1,9 +1,6 @@
 <script setup>
 import { RouterLink } from "vue-router";
 
-import { lightTheme, darkTheme } from "picmo";
-import { createPopup } from "@picmo/popup-picker";
-
 import logoBlack from "../assets/images/logo_black.png";
 import logoPink from "../assets/images/logo.png";
 </script>
