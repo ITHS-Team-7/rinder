@@ -141,7 +141,10 @@ import { createPopup } from "@picmo/popup-picker";
           <font-awesome-icon icon="fa-solid fa-trash-can" />
         </div>
 
-        <div class="clickableIconContainer" @click.stop="$store.commit('ToggleDarkmode')">
+        <div
+          class="clickableIconContainer"
+          @click.stop="$store.commit('ToggleDarkmode')"
+        >
           <font-awesome-icon icon="fa-solid fa-sun" />
         </div>
       </div>

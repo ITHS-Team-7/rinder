@@ -8,7 +8,9 @@ import ChatComponent from "../components/ChatComponent.vue";
     :openChatUsernameOnLoad="$route.params.userName"
     :openLastChatOnLoad="false"
   ></chat-component>
-  <div id="notSignedInMessage" v-else>You need to sign in in order to chat with other users</div>
+  <div id="notSignedInMessage" v-else>
+    You need to sign in in order to chat with other users
+  </div>
 </template>
 
 <style scoped>
