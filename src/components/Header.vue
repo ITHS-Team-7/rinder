@@ -189,7 +189,6 @@ export default {
   min-width: 2rem;
   text-align: center;
   color: #fff;
-  margin-left: 2rem;
 }
 
 #header {
