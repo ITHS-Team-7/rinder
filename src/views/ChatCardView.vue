@@ -68,9 +68,9 @@ export default {
   },
 
   darkMode() {
-    if (this.darkMode === true && isloggedin() === null) {
+    if (this.darkMode === true) {
       this.turnOnDarkMode();
-    } else if (isloggedin() === null) {
+    } else {
       this.turnOffDarkMode();
     }
   },
