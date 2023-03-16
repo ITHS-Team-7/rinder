@@ -3,7 +3,7 @@ import ChatCards from "../components/ChatCards.vue";
 </script>
 
 <template>
-  <ChatCards v-if="islogedin" :start="3" :gend="gender"></ChatCards>
+  <ChatCards v-if="isloggedin" :start="3" :gend="gender"></ChatCards>
   <div class="con" v-else>
     You need to sign in in order to chat with other users
   </div>
@@ -16,8 +16,8 @@ export default {
     gender() {
       return this.$store.state.gender;
     },
-    islogedin() {
-      return this.$store.state.islogedin;
+    isloggedin() {
+      return this.$store.state.isloggedin;
     },
     darkMode() {
       return this.$store.state.Darkmode;
@@ -30,9 +30,9 @@ export default {
   },
   watch: {
     darkMode() {
-      if ((this.darkMode = true && this.islogedin === null)) {
+      if ((this.darkMode = true && this.isloggedin === null)) {
         this.turnOnDarkMode();
-      } else if (this.islogedin === null) {
+      } else if (this.isloggedin === null) {
         this.turnOffDarkMode();
       }
     },
@@ -68,9 +68,9 @@ export default {
   },
 
   darkMode() {
-    if (this.darkMode === true && islogedin() === null) {
+    if (this.darkMode === true && isloggedin() === null) {
       this.turnOnDarkMode();
-    } else if (islogedin() === null) {
+    } else if (isloggedin() === null) {
       this.turnOffDarkMode();
     }
   },
