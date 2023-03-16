@@ -4,25 +4,36 @@ import ChatComponent from "../components/ChatComponent.vue";
 
 <template>
   <chat-component
-    v-if="$store.state.isloggedin"
+    v-if="isloggedin"
     :openChatUsernameOnLoad="$route.params.userName"
     :openLastChatOnLoad="false"
   ></chat-component>
-  <div id="notSignedInMessage" v-else>
+  <div class="con" v-else>
     You need to sign in in order to chat with other users
   </div>
 </template>
 
-<style scoped>
-#notSignedInMessage {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  font-weight: bold;
-  font-size: 1.2rem;
-}
+<script>
+export default {
+  computed: {
+    isloggedin() {
+      return this.$store.state.isloggedin;
+    },
+  },
+};
+</script>
 
+<style scoped>
+.con {
+  padding-top: 10vh;
+  text-align: center;
+  font-size: 2.2rem;
+}
+@media screen and (max-width: 800px) {
+  .con {
+    font-size: 1.5rem;
+  }
+}
 #chat {
   margin: 5rem auto 0 auto;
 }
