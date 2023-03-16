@@ -76,7 +76,8 @@ export default {
 </template>
 <style scoped>
 .card {
-  background-color: #ffe1e8;
+  /*background-color: #ffe1e8;*/
+  background-color: transparent;
   max-height: 100%;
 }
 .cardtop {

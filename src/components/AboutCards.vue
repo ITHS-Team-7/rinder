@@ -48,7 +48,8 @@ export default {
 
 <style>
 .card {
-  background-color: #ffe1e8;
+  /*background-color: #ffe1e8;*/
+  background-color: transparent;
   max-height: 100%;
 }
 .con {
