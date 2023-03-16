@@ -4,7 +4,7 @@ import moment from "moment";
 import randomChatMessages from "../assets/data/randomChatMessages.json";
 
 // https://picmojs.com/
-import { lightTheme, darkTheme } from "picmo";
+import { darkTheme } from "picmo";
 import { createPopup } from "@picmo/popup-picker";
 </script>
 
@@ -306,59 +306,6 @@ export default {
     sendMessage(evt) {
       evt.preventDefault();
 
-      const randomWords = [
-        "shaft",
-        "am",
-        "digress",
-        "reason",
-        "foster",
-        "unaware",
-        "price",
-        "section",
-        "employ",
-        "hospitality",
-        "freight",
-        "modest",
-        "theft",
-        "tablet",
-        "debate",
-        "node",
-        "threshold",
-        "robot",
-        "disgrace",
-        "picture",
-        "edge",
-        "structure",
-        "fountain",
-        "humor",
-        "negative",
-        "jungle",
-        "avenue",
-        "turn",
-        "late",
-        "sun",
-        "hover",
-        "market",
-        "reform",
-        "age",
-        "intermediate",
-        "welfare",
-        "contraction",
-        "delivery",
-        "develop",
-        "worry",
-        "swing",
-        "length",
-        "multimedia",
-        "eat",
-        "mind",
-        "recovery",
-        "bond",
-        "relief",
-        "spokesperson",
-        "crutch",
-      ];
-
       const randomEmojis = [
         "✌",
         "😂",
@@ -533,7 +480,7 @@ export default {
         this.showActiveChatProfileInfo = false;
       }
     },
-    openUserProfile(userName) {
+    openUserProfile() {
       // toggle
       this.showActiveChatProfileInfo = !this.showActiveChatProfileInfo;
       this.showActiveChatSettings = false;
@@ -570,18 +517,8 @@ export default {
       this.showActiveChatSettings = false;
       this.scrollToLastMessage();
     },
-    chatMessageInput(msg) {
+    chatMessageInput() {
       // user is typing...
-    },
-    darkMode(status) {
-      /*
-      // TODO: remove this once darkModeToggle() is available in $store
-      const body = document.querySelector("body");
-      body.style.backgroundColor = this.darkMode
-        ? this.bodyBgColorDark
-        : this.bodyBgColor;
-
-       */
     },
   },
   computed: {

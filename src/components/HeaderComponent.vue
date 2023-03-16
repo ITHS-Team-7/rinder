@@ -113,7 +113,7 @@ export default {
     },
   },
   watch: {
-    $route(to, from) {
+    $route(to) {
       let path = to.name;
       const body = document.querySelector("body");
       // clear any styles
@@ -143,7 +143,9 @@ export default {
           break;
 
         default:
-          console.log("Header.vue $route watch - unknown page " + path);
+          console.log(
+            "HeaderComponent.vue $route watch - unknown page " + path
+          );
 
           break;
       }

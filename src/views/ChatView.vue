@@ -16,7 +16,7 @@ import ChatComponent from "../components/ChatComponent.vue";
 
 <script>
 export default {
-    computed: {
+  computed: {
     gender() {
       return this.$store.state.gender;
     },
@@ -72,14 +72,13 @@ export default {
   },
 
   darkMode() {
-    if (this.darkMode === true ) {
+    if (this.darkMode === true) {
       this.turnOnDarkMode();
     } else {
       this.turnOffDarkMode();
     }
   },
 };
-
 </script>
 
 <style scoped>
