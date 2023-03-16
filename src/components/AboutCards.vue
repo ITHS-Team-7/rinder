@@ -46,7 +46,7 @@ export default {
   data() {
     return {
       users: data,
-      k: data.length
+      k: data.length,
     };
   },
   watch: {
