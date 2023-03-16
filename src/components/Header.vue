@@ -1,9 +1,6 @@
 <script setup>
 import { RouterLink } from "vue-router";
 
-import { lightTheme, darkTheme } from "picmo";
-import { createPopup } from "@picmo/popup-picker";
-
 import logoBlack from "../assets/images/logo_black.png";
 import logoPink from "../assets/images/logo.png";
 </script>
@@ -17,7 +14,16 @@ import logoPink from "../assets/images/logo.png";
     <nav class="navbar navbar-expand-lg">
       <div class="container-fluid">
         <RouterLink to="/"
-          ><img :src="logoFileName" width="238" alt="Rinder"
+          ><img
+            :src="
+              $store.state.Darkmode ||
+              $route.name === 'home' ||
+              $route.name === 'login'
+                ? logoPink
+                : logoBlack
+            "
+            width="238"
+            alt="Rinder"
         /></RouterLink>
 
         <button
@@ -65,10 +71,7 @@ import logoPink from "../assets/images/logo.png";
               <RouterLink class="nav-link" to="/login">Log in </RouterLink>
             </li>
           </ul>
-          <div
-            class="clickableIconContainer"
-            @click="ToggleDarkmode()"
-          >
+          <div class="clickableIconContainer" @click="ToggleDarkmode()">
             <font-awesome-icon icon="fa-solid fa-sun" />
           </div>
         </div>
@@ -83,7 +86,7 @@ export default {
     return {
       showMobileMenu: false,
       bodyBgColor: "#ffe1e8",
-      bodyDarkModeBgColor: "#000"
+      bodyDarkModeBgColor: "#000",
     };
   },
   methods: {
@@ -189,7 +192,7 @@ export default {
   min-width: 2rem;
   text-align: center;
   color: #fff;
-  margin-left: .3rem;
+  margin-left: 0.3rem;
 }
 
 #header {
