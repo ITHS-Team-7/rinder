@@ -153,7 +153,7 @@ export default {
 }
 
 .loggedIn span {
-  color: var(--textColor);
+  color: white;
   font-weight: bold;
 }
 
@@ -189,6 +189,7 @@ export default {
   min-width: 2rem;
   text-align: center;
   color: #fff;
+  margin-left: .3rem;
 }
 
 #header {

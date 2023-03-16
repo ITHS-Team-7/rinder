@@ -45,7 +45,7 @@ export default {
             {
               label: "User Counts",
               data: data,
-              backgroundColor: "#4e73df",
+              backgroundColor: "#9747ff",
             },
           ],
         },
