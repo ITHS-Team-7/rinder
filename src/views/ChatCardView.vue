@@ -30,9 +30,9 @@ export default {
   },
   watch: {
     darkMode() {
-      if ((this.darkMode = true && this.isloggedin === null)) {
+      if (this.darkMode === true) {
         this.turnOnDarkMode();
-      } else if (this.isloggedin === null) {
+      } else {
         this.turnOffDarkMode();
       }
     },

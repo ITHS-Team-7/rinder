@@ -13,7 +13,7 @@ import data from "../assets/data/users.json";
   <div class="container-fluid">
     <div class="row justify-content-center" style="padding-top: 5vh">
       <div
-        v-for="(user, index) in users.slice(103, 106)"
+        v-for="(user, index) in users.slice(k - 3, k)"
         :key="index"
         class="card col-sm-4 border-0 cardtop kort"
       >
@@ -46,6 +46,7 @@ export default {
   data() {
     return {
       users: data,
+      k: data.length,
     };
   },
   watch: {
