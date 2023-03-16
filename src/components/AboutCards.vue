@@ -13,7 +13,7 @@ import data from "../assets/data/users.json";
   <div class="container-fluid">
     <div class="row justify-content-center" style="padding-top: 5vh">
       <div
-        v-for="(user, index) in users.slice(102, 105)"
+        v-for="(user, index) in users.slice(103, 106)"
         :key="index"
         class="card col-sm-4 border-0 cardtop kort"
       >
@@ -83,7 +83,7 @@ export default {
       cards.forEach((card) => {
         card.style.backgroundColor = "#ffe1e8";
       });
-      text.style.color = "#000000";
+      text.style.color = "#252525";
     },
   },
   mounted() {
@@ -133,6 +133,7 @@ export default {
   padding-left: 10vw;
   max-width: 800px;
   padding-right: 2vw;
+  color: #252525;
 }
 .abouttext p {
   margin-top: 6vh;

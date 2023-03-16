@@ -51,7 +51,7 @@ import logoPink from "../assets/images/logo.png";
                 >Chat
               </RouterLink>
             </li>
-            <li v-if="islogedin">
+            <li v-if="isloggedin">
               <RouterLink class="nav-link" to=""
                 >Richard
                 <img
@@ -106,8 +106,8 @@ export default {
         ? logoBlack
         : logoPink;
     },
-    islogedin() {
-      return this.$store.state.islogedin;
+    isloggedin() {
+      return this.$store.state.isloggedin;
     },
   },
   watch: {
