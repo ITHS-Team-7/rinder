@@ -12,7 +12,7 @@ export default createStore({
       sessionStorage.setItem("gender", gender);
     },
     Login(state, isloggedin) {
-      state.islogedin = isloggedin;
+      state.isloggedin = isloggedin;
       sessionStorage.setItem("islogedin", isloggedin);
     },
     ToggleDarkmode(state) {
@@ -21,4 +21,3 @@ export default createStore({
     },
   },
 });
-
