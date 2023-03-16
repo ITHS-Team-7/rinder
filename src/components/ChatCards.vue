@@ -12,6 +12,9 @@ export default {
       }
       return this.users;
     },
+    darkMode() {
+      return this.$store.state.Darkmode;
+    },
   },
   data() {
     return {
@@ -21,6 +24,13 @@ export default {
     };
   },
   methods: {
+    checkDarkMode() {
+      if (this.darkMode === true) {
+        this.turnOnDarkMode();
+      } else {
+        this.turnOffDarkMode();
+      }
+    },
     onclick() {
       this.i += 3;
     },
@@ -29,6 +39,51 @@ export default {
         name: "chat",
         params: { userName: userName },
       });
+    },
+    turnOnDarkMode() {
+      const body = document.querySelector("body");
+      const cards = document.querySelectorAll(".card");
+      body.style.backgroundColor = "#000000";
+      cards.forEach((card) => {
+        card.style.backgroundColor = "#000000";
+      });
+    },
+    turnOffDarkMode() {
+      const body = document.querySelector("body");
+      const cards = document.querySelectorAll(".card");
+      body.style.backgroundColor = "#ffe1e8";
+      cards.forEach((card) => {
+        card.style.backgroundColor = "#ffe1e8";
+      });
+    },
+  },
+  mounted() {
+    const darkMode = localStorage.getItem("Darkmode");
+    if (darkMode === "true") {
+      this.turnOnDarkMode();
+    } else {
+      this.turnOffDarkMode();
+    }
+  },
+  watch: {
+    darkMode() {
+      if (this.darkMode === true) {
+        this.turnOnDarkMode();
+      } else {
+        this.turnOffDarkMode();
+      }
+    },
+    i(newValue) {
+      if (newValue) {
+        setTimeout(() => {
+          const darkMode = localStorage.getItem("Darkmode");
+          if (darkMode === "true") {
+            this.turnOnDarkMode();
+          } else {
+            this.turnOffDarkMode();
+          }
+        }, 1);
+      }
     },
   },
   props: {
@@ -76,18 +131,15 @@ export default {
 </template>
 <style scoped>
 .card {
-  /*background-color: #ffe1e8;*/
-  background-color: transparent;
   max-height: 100%;
 }
 .cardtop {
   width: 24rem;
-  margin-left: 5vw;
-  margin-right: 5vw;
-  padding-top: 8vh;
+  margin: 5%;
+  margin-bottom: 8%;
 }
 .btn-primary {
-  margin-top: 2%;
+  margin-bottom: 5%;
   margin-left: auto;
   margin-right: auto;
   background-color: #8843e4;
@@ -110,10 +162,11 @@ export default {
 }
 .text-con {
   border-radius: 1em;
-  background-color: rgba(255, 255, 255, 0.432);
-  min-height: 40%;
-  margin-top: 60%;
+  background-color: #ffffff6e;
+  min-height: 32%;
+  margin-top: 68%;
   display: table;
+  backdrop-filter: blur(12px);
 }
 .text-con2 {
   display: table-cell;

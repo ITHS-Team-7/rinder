@@ -1,6 +1,9 @@
 <script setup>
 import { RouterLink } from "vue-router";
 
+import { lightTheme, darkTheme } from "picmo";
+import { createPopup } from "@picmo/popup-picker";
+
 import logoBlack from "../assets/images/logo_black.png";
 import logoPink from "../assets/images/logo.png";
 </script>
@@ -8,7 +11,8 @@ import logoPink from "../assets/images/logo.png";
 <template>
   <div
     id="header"
-    :class="$store.state.Darkmode ? 'dark' : ''"
+    :class="darkMode ? 'dark' : ''"
+    @someEvent="actionForSomeEvent"
   >
     <nav class="navbar navbar-expand-lg">
       <div class="container-fluid">
@@ -88,74 +92,7 @@ export default {
     },
     ToggleDarkmode() {
       this.$store.commit("ToggleDarkmode");
-
-      let path = this.$route.name;
-      const body = document.querySelector("body");
-      // clear any styles
-      body.style = "";
-      console.log("Header.vue:", path);
-
-      if (this.$store.state.Darkmode) {
-        switch (path) {
-          case "home":
-          case "terms":
-          case "login":
-            // default bg-image from main.css
-            break;
-          case "about":
-            body.style.backgroundImage = "none";
-            body.style.backgroundColor = "#222";
-            break;
-          case "chat":
-            body.style.backgroundImage = "none";
-            body.style.backgroundColor = "#222";
-            break;
-          case "newchat":
-            body.style.backgroundImage = "none";
-            body.style.backgroundColor = "#222";
-            break;
-          case "contact":
-            body.style.backgroundImage = "none";
-            body.style.backgroundColor = "#222";
-            break;
-
-          default:
-            console.log("Header.vue $route watch - unknown page " + path);
-
-            break;
-        }
-      } else {
-        switch (path) {
-          case "home":
-          case "terms":
-          case "login":
-            // default bg-image from main.css
-            break;
-          case "about":
-            body.style.backgroundImage = "none";
-            body.style.backgroundColor = "#ffe1e8";
-            break;
-          case "chat":
-            body.style.backgroundImage = "none";
-            body.style.backgroundColor = "#ffe1e8";
-            break;
-          case "newchat":
-            body.style.backgroundImage = "none";
-            body.style.backgroundColor = "#ffe1e8";
-            break;
-          case "contact":
-            body.style.backgroundImage = "none";
-            body.style.backgroundColor = "#ffe1e8";
-            break;
-
-          default:
-            console.log("Header.vue $route watch - unknown page " + path);
-
-            break;
-        }
-      }
-
-    }
+    },
   },
   computed: {
     logoFileName() {
@@ -175,65 +112,33 @@ export default {
       // clear any styles
       body.style = "";
       console.log(path);
+      switch (path) {
+        case "home":
+        case "terms":
+        case "login":
+          // default bg-image from main.css
+          break;
+        case "about":
+          body.style.backgroundImage = "none";
+          body.style.backgroundColor = "#ffe1e8";
+          break;
+        case "chat":
+          body.style.backgroundImage = "none";
+          body.style.backgroundColor = "#ffe1e8";
+          break;
+        case "newchat":
+          body.style.backgroundImage = "none";
+          body.style.backgroundColor = "#ffe1e8";
+          break;
+        case "contact":
+          body.style.backgroundImage = "none";
+          body.style.backgroundColor = "#ffe1e8";
+          break;
 
-      if (this.$store.state.Darkmode) {
-        switch (path) {
-          case "home":
-          case "terms":
-          case "login":
-            // default bg-image from main.css
-            break;
-          case "about":
-            body.style.backgroundImage = "none";
-            body.style.backgroundColor = "#222";
-            break;
-          case "chat":
-            body.style.backgroundImage = "none";
-            body.style.backgroundColor = "#222";
-            break;
-          case "newchat":
-            body.style.backgroundImage = "none";
-            body.style.backgroundColor = "#222";
-            break;
-          case "contact":
-            body.style.backgroundImage = "none";
-            body.style.backgroundColor = "#222";
-            break;
+        default:
+          console.log("Header.vue $route watch - unknown page " + path);
 
-          default:
-            console.log("Header.vue $route watch - unknown page " + path);
-
-            break;
-        }
-      } else {
-        switch (path) {
-          case "home":
-          case "terms":
-          case "login":
-            // default bg-image from main.css
-            break;
-          case "about":
-            body.style.backgroundImage = "none";
-            body.style.backgroundColor = "#ffe1e8";
-            break;
-          case "chat":
-            body.style.backgroundImage = "none";
-            body.style.backgroundColor = "#ffe1e8";
-            break;
-          case "newchat":
-            body.style.backgroundImage = "none";
-            body.style.backgroundColor = "#ffe1e8";
-            break;
-          case "contact":
-            body.style.backgroundImage = "none";
-            body.style.backgroundColor = "#ffe1e8";
-            break;
-
-          default:
-            console.log("Header.vue $route watch - unknown page " + path);
-
-            break;
-        }
+          break;
       }
     },
   },
