@@ -66,14 +66,6 @@ export default {
       this.turnOffDarkMode();
     }
   },
-
-  darkMode() {
-    if (this.darkMode === true && isloggedin() === null) {
-      this.turnOnDarkMode();
-    } else if (isloggedin() === null) {
-      this.turnOffDarkMode();
-    }
-  },
 };
 </script>
 <style scoped>

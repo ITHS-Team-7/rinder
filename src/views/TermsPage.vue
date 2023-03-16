@@ -1,5 +1,5 @@
 <script setup>
-import Terms from "../components/Terms.vue";
+import Terms from "../components/TermsComponent.vue";
 </script>
 
 <template>

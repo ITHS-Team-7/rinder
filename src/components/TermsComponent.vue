@@ -1,7 +1,3 @@
-<script setup>
-import { RouterLink } from "vue-router";
-</script>
-
 <template>
   <div class="center terms">
     <div class="main-container">

@@ -1,7 +1,7 @@
 <script setup>
 import { RouterView } from "vue-router";
-import Header from "./components/Header.vue";
-import Footer from "./components/Footer.vue";
+import Header from "./components/HeaderComponent.vue";
+import Footer from "./components/FooterComponent.vue";
 
 // TODO: add vue store
 // users, darkMode, loggedInUser etc...
