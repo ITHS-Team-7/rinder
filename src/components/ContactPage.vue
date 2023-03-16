@@ -24,14 +24,12 @@ export default {
       const body = document.querySelector("body");
       const text = document.querySelector(".infoClass");
       body.style.backgroundColor = "#000000";
-      text.style.backgroundColor = "#000000";
       text.style.color = "#ffe1e8";
     },
     turnOffDarkMode() {
       const body = document.querySelector("body");
       const text = document.querySelector(".infoClass");
       body.style.backgroundColor = "#ffe1e8";
-      text.style.backgroundColor = "#ffe1e8";
       text.style.color = "#252525";
     },
     mounted() {
@@ -107,7 +105,6 @@ export default {
     },
   },
 };
-
 </script>
 
 <template>
@@ -259,6 +256,7 @@ form {
       "ett"
       "tva";
     margin-top: 1em;
+    margin-bottom: 5rem;
   }
 
   #ett {
