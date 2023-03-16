@@ -12,8 +12,8 @@ export default {
     gender() {
       return this.$store.state.gender;
     },
-    islogedin() {
-      return this.$store.state.islogedin;
+    isloggedin() {
+      return this.$store.state.isloggedin;
     },
   },
 };

@@ -4,7 +4,7 @@ import ChatComponent from "../components/ChatComponent.vue";
 
 <template>
   <chat-component
-    v-if="islogedin"
+    v-if="isloggedin"
     :openChatUsernameOnLoad="$route.params.userName"
     :openLastChatOnLoad="false"
   ></chat-component>
@@ -16,8 +16,8 @@ import ChatComponent from "../components/ChatComponent.vue";
 <script>
 export default {
   computed: {
-    islogedin() {
-      return this.$store.state.islogedin;
+    isloggedin() {
+      return this.$store.state.isloggedin;
     },
   },
 };
