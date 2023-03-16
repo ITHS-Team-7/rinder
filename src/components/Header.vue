@@ -8,8 +8,7 @@ import logoPink from "../assets/images/logo.png";
 <template>
   <div
     id="header"
-    :class="darkMode ? 'dark' : ''"
-    @someEvent="actionForSomeEvent"
+    :class="$store.state.Darkmode ? 'dark' : ''"
   >
     <nav class="navbar navbar-expand-lg">
       <div class="container-fluid">
@@ -64,7 +63,7 @@ import logoPink from "../assets/images/logo.png";
           </ul>
           <div
             class="clickableIconContainer"
-            @click.stop="$store.commit('ToggleDarkmode')"
+            @click="ToggleDarkmode()"
           >
             <font-awesome-icon icon="fa-solid fa-sun" />
           </div>
@@ -80,17 +79,83 @@ export default {
     return {
       showMobileMenu: false,
       bodyBgColor: "#ffe1e8",
-      bodyDarkModeBgColor: "#000",
-      darkMode: false,
+      bodyDarkModeBgColor: "#000"
     };
   },
   methods: {
     showMenu() {
       this.showMobileMenu = !this.showMobileMenu;
     },
-    toggleDarkMode() {
-      this.darkMode = !this.darkMode;
-    },
+    ToggleDarkmode() {
+      this.$store.commit("ToggleDarkmode");
+
+      let path = this.$route.name;
+      const body = document.querySelector("body");
+      // clear any styles
+      body.style = "";
+      console.log("Header.vue:", path);
+
+      if (this.$store.state.Darkmode) {
+        switch (path) {
+          case "home":
+          case "terms":
+          case "login":
+            // default bg-image from main.css
+            break;
+          case "about":
+            body.style.backgroundImage = "none";
+            body.style.backgroundColor = "#222";
+            break;
+          case "chat":
+            body.style.backgroundImage = "none";
+            body.style.backgroundColor = "#222";
+            break;
+          case "newchat":
+            body.style.backgroundImage = "none";
+            body.style.backgroundColor = "#222";
+            break;
+          case "contact":
+            body.style.backgroundImage = "none";
+            body.style.backgroundColor = "#222";
+            break;
+
+          default:
+            console.log("Header.vue $route watch - unknown page " + path);
+
+            break;
+        }
+      } else {
+        switch (path) {
+          case "home":
+          case "terms":
+          case "login":
+            // default bg-image from main.css
+            break;
+          case "about":
+            body.style.backgroundImage = "none";
+            body.style.backgroundColor = "#ffe1e8";
+            break;
+          case "chat":
+            body.style.backgroundImage = "none";
+            body.style.backgroundColor = "#ffe1e8";
+            break;
+          case "newchat":
+            body.style.backgroundImage = "none";
+            body.style.backgroundColor = "#ffe1e8";
+            break;
+          case "contact":
+            body.style.backgroundImage = "none";
+            body.style.backgroundColor = "#ffe1e8";
+            break;
+
+          default:
+            console.log("Header.vue $route watch - unknown page " + path);
+
+            break;
+        }
+      }
+
+    }
   },
   computed: {
     logoFileName() {
@@ -110,33 +175,65 @@ export default {
       // clear any styles
       body.style = "";
       console.log(path);
-      switch (path) {
-        case "home":
-        case "terms":
-        case "login":
-          // default bg-image from main.css
-          break;
-        case "about":
-          body.style.backgroundImage = "none";
-          body.style.backgroundColor = "#ffe1e8";
-          break;
-        case "chat":
-          body.style.backgroundImage = "none";
-          body.style.backgroundColor = "#ffe1e8";
-          break;
-        case "newchat":
-          body.style.backgroundImage = "none";
-          body.style.backgroundColor = "#ffe1e8";
-          break;
-        case "contact":
-          body.style.backgroundImage = "none";
-          body.style.backgroundColor = "#ffe1e8";
-          break;
 
-        default:
-          console.log("Header.vue $route watch - unknown page " + path);
+      if (this.$store.state.Darkmode) {
+        switch (path) {
+          case "home":
+          case "terms":
+          case "login":
+            // default bg-image from main.css
+            break;
+          case "about":
+            body.style.backgroundImage = "none";
+            body.style.backgroundColor = "#222";
+            break;
+          case "chat":
+            body.style.backgroundImage = "none";
+            body.style.backgroundColor = "#222";
+            break;
+          case "newchat":
+            body.style.backgroundImage = "none";
+            body.style.backgroundColor = "#222";
+            break;
+          case "contact":
+            body.style.backgroundImage = "none";
+            body.style.backgroundColor = "#222";
+            break;
 
-          break;
+          default:
+            console.log("Header.vue $route watch - unknown page " + path);
+
+            break;
+        }
+      } else {
+        switch (path) {
+          case "home":
+          case "terms":
+          case "login":
+            // default bg-image from main.css
+            break;
+          case "about":
+            body.style.backgroundImage = "none";
+            body.style.backgroundColor = "#ffe1e8";
+            break;
+          case "chat":
+            body.style.backgroundImage = "none";
+            body.style.backgroundColor = "#ffe1e8";
+            break;
+          case "newchat":
+            body.style.backgroundImage = "none";
+            body.style.backgroundColor = "#ffe1e8";
+            break;
+          case "contact":
+            body.style.backgroundImage = "none";
+            body.style.backgroundColor = "#ffe1e8";
+            break;
+
+          default:
+            console.log("Header.vue $route watch - unknown page " + path);
+
+            break;
+        }
       }
     },
   },
@@ -151,7 +248,7 @@ export default {
 }
 
 .loggedIn span {
-  color: #000;
+  color: var(--textColor);
   font-weight: bold;
 }
 
