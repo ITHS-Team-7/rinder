@@ -18,10 +18,10 @@ export default {
       chart: null,
     };
   },
-  mounted(){
-      this.createChart();
+  mounted() {
+    this.createChart();
   },
-    methods: {
+  methods: {
     createChart() {
       const genderAgeCounts = this.getGenderAgeCounts();
 
@@ -85,9 +85,7 @@ export default {
 };
 </script>
 
-<style scooped>
-
-.graph-container{
+<style scooped>.graph-container{
     padding-top: 7vh;
     padding-bottom: 10vh;
 
@@ -97,6 +95,5 @@ export default {
   .graph-container{
       max-width: 50%;
   }
-
 }
 </style>

@@ -8,7 +8,9 @@ import ChatComponent from "../components/ChatComponent.vue";
     :openChatUsernameOnLoad="$route.params.userName"
     :openLastChatOnLoad="false"
   ></chat-component>
-  <div v-else>You need to sign in in order to chat with other users</div>
+  <div class="con" v-else>
+    You need to sign in in order to chat with other users
+  </div>
 </template>
 
 <script>
@@ -21,4 +23,15 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.con {
+  padding-top: 10vh;
+  text-align: center;
+  font-size: 2.2rem;
+}
+@media screen and (max-width: 800px) {
+  .con {
+    font-size: 1.5rem;
+  }
+}
+</style>

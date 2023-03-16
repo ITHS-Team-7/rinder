@@ -15,7 +15,7 @@ import data from "../assets/data/users.json";
       <div
         v-for="(user, index) in users.slice(102, 105)"
         :key="index"
-        class="card col-sm-4 border-0 cardtop"
+        class="card col-sm-4 border-0 cardtop kort"
       >
         <div class="card border-0 con">
           <img
@@ -38,17 +38,67 @@ import data from "../assets/data/users.json";
 
 <script>
 export default {
+  computed: {
+    darkMode() {
+      return this.$store.state.Darkmode;
+    },
+  },
   data() {
     return {
       users: data,
     };
   },
+  watch: {
+    darkMode() {
+      if (this.darkMode === true) {
+        this.turnOnDarkMode();
+      } else {
+        this.turnOffDarkMode();
+      }
+    },
+  },
+  methods: {
+    checkDarkMode() {
+      if (this.darkMode === true) {
+        this.turnOnDarkMode();
+      } else {
+        this.turnOffDarkMode();
+      }
+    },
+    turnOnDarkMode() {
+      const body = document.querySelector("body");
+      const text = document.querySelector(".abouttext");
+      const cards = document.querySelectorAll(".kort");
+      body.style.backgroundColor = "#000000";
+      text.style.color = "#ffe1e8";
+      cards.forEach((card) => {
+        card.style.backgroundColor = "#000000";
+      });
+    },
+    turnOffDarkMode() {
+      const body = document.querySelector("body");
+      const text = document.querySelector(".abouttext");
+      const cards = document.querySelectorAll(".kort");
+      body.style.backgroundColor = "#ffe1e8";
+      cards.forEach((card) => {
+        card.style.backgroundColor = "#ffe1e8";
+      });
+      text.style.color = "#000000";
+    },
+  },
+  mounted() {
+    const darkMode = localStorage.getItem("Darkmode");
+    if (darkMode === "true") {
+      this.turnOnDarkMode();
+    } else {
+      this.turnOffDarkMode();
+    }
+  },
 };
 </script>
 
-<style>
+<style scoped>
 .card {
-  background-color: #ffe1e8;
   max-height: 100%;
 }
 .con {
