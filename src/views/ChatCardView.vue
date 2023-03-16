@@ -66,6 +66,14 @@ export default {
       this.turnOffDarkMode();
     }
   },
+
+  darkMode() {
+    if (this.darkMode === true) {
+      this.turnOnDarkMode();
+    } else {
+      this.turnOffDarkMode();
+    }
+  },
 };
 </script>
 <style scoped>

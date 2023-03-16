@@ -59,7 +59,7 @@ import logoPink from "../assets/images/logo.png";
             </li>
             <li class="loggedIn" v-if="isloggedin">
               <RouterLink class="nav-link" to=""
-                ><span @click="$store.commit('Login', false)">Richard</span>
+                ><span @click="loggout()">Richard</span>
                 <img
                   class="rounded-circle"
                   src="../assets/images/Richard.png"
@@ -95,6 +95,10 @@ export default {
     },
     ToggleDarkmode() {
       this.$store.commit("ToggleDarkmode");
+    },
+    loggout() {
+      this.$store.commit("Login", false);
+      this.$router.push({ name: "login" });
     },
   },
   computed: {
