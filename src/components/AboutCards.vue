@@ -101,6 +101,12 @@ export default {
 .card {
   max-height: 100%;
 }
+.card-text{
+    color: white;
+}
+.card-title{
+    color: white;
+}
 .con {
   max-width: 175px;
 }

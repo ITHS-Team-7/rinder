@@ -103,7 +103,7 @@ export default {
     logoFileName() {
       // Check the route and return the appropriate logo file name
       return this.$route.name === "about" || this.$route.name === "chat"
-        ? logoBlack
+        ? logoPink
         : logoPink;
     },
     isloggedin() {
