@@ -51,9 +51,9 @@ import logoPink from "../assets/images/logo.png";
                 >Chat
               </RouterLink>
             </li>
-            <li v-if="isloggedin">
+            <li class="loggedIn" v-if="isloggedin">
               <RouterLink class="nav-link" to=""
-                >Richard
+                ><span @click="$store.commit('Login', false)">Richard</span>
                 <img
                   class="rounded-circle"
                   src="../assets/images/Richard.png"
@@ -62,20 +62,16 @@ import logoPink from "../assets/images/logo.png";
               </RouterLink>
             </li>
             <li v-else>
-              <RouterLink class="nav-link" to="/login"
-                >Log in
-                <img
-                  class="arrow"
-                  src="../assets/images/arrow-right.svg"
-                  width="30"
-                />
-              </RouterLink>
+              <RouterLink class="nav-link" to="/login">Log in </RouterLink>
             </li>
           </ul>
+          <div
+            class="clickableIconContainer"
+            @click="ToggleDarkmode()"
+          >
+            <font-awesome-icon icon="fa-solid fa-sun" />
+          </div>
         </div>
-      </div>
-      <div class="clickableIconContainer" @click="ToggleDarkmode()">
-        <font-awesome-icon icon="fa-solid fa-sun" />
       </div>
     </nav>
   </div>
@@ -87,8 +83,7 @@ export default {
     return {
       showMobileMenu: false,
       bodyBgColor: "#ffe1e8",
-      bodyDarkModeBgColor: "#000",
-      darkMode: false,
+      bodyDarkModeBgColor: "#000"
     };
   },
   methods: {
@@ -155,6 +150,19 @@ export default {
   background: rgb(37, 37, 37);
   background: linear-gradient(180deg, #252525 0%, rgba(0, 0, 0, 0) 100%);
   margin: 0;
+}
+
+.loggedIn span {
+  color: var(--textColor);
+  font-weight: bold;
+}
+
+.loggedIn img {
+  margin-left: 0.7rem;
+}
+
+.navbar-nav {
+  align-items: baseline;
 }
 
 .navbar-nav .nav-link {

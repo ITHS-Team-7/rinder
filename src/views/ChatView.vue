@@ -34,4 +34,7 @@ export default {
     font-size: 1.5rem;
   }
 }
+#chat {
+  margin: 5rem auto 0 auto;
+}
 </style>

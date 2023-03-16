@@ -13,7 +13,7 @@ export default createStore({
     },
     Login(state, isloggedin) {
       state.isloggedin = isloggedin;
-      sessionStorage.setItem("islogedin", isloggedin);
+      sessionStorage.setItem("isloggedin", isloggedin);
     },
     ToggleDarkmode(state) {
       state.Darkmode = !state.Darkmode;
@@ -21,3 +21,4 @@ export default createStore({
     },
   },
 });
+
