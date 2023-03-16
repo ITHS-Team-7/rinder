@@ -159,6 +159,7 @@ export default {
   width: 100vw;
   justify-content: center;
   display: flex;
+  margin-top: 1rem;
 }
 .text-con {
   border-radius: 1em;
