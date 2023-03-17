@@ -254,8 +254,7 @@ export default {
       showActiveChatProfileInfo: false,
       // TODO: move body bg color change to $route watch() when vue store is ready
       bodyBgColor: "#ffe1e8",
-      bodyBgColorDark: "#8843e4",
-      //darkMode: this.$store.state.Darkmode,
+      bodyBgColorDark: "#8843e4"
     };
   },
   methods: {
@@ -531,14 +530,6 @@ export default {
     },
   },
   created() {
-    /*
-    const body = document.querySelector("body");
-    body.style.backgroundColor = this.darkMode
-      ? this.bodyBgColorDark
-      : this.bodyBgColor;
-
-     */
-
     if (this.openChatUsernameOnLoad) {
       this.openChat(this.openChatUsernameOnLoad);
     } else if (this.openLastChatOnLoad && this.loggedInUser.chats.length) {
@@ -590,16 +581,6 @@ export default {
   },
   emits: [],
 };
-
-/*
-// Returns url of an avatar based on the users gender
-function getAvatarUrl(userName) {
-  const user = getUser(userName);
-  const nameInitials = user.firstName[0] + user.lastName[0]
-  //return 'https://ui-avatars.com/api/?background=0D8ABC&color=fff&size=128&name=' + nameInitials;
-  return `https://xsgames.co/randomusers/avatar.php?g=${user.gender.toLowerCase()}&name=${nameInitials}`
-}
- */
 
 function getUser(userName) {
   const user = users.find(
