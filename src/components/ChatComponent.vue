@@ -9,17 +9,7 @@ import { createPopup } from "@picmo/popup-picker";
 </script>
 
 <template>
-  <!-- TODO: divide chatComponent into further components -->
-  <!-- TODO: use em instead of rem where appropriate -->
-  <!-- TODO: find better icons cuz fontawesome icons suck -->
-  <!-- TODO: listen/emit some event -->
-  <!-- TODO: use localStorage/sessionStorage for saving settings and chats -->
-  <!-- TODO: move users.json to /public/data/ -->
-  <div
-    id="chat"
-    :class="$store.state.Darkmode ? 'dark' : ''"
-    @someEvent="actionForSomeEvent"
-  >
+  <div id="chat" :class="$store.state.Darkmode ? 'dark' : ''">
     <div id="chatSelectContainer">
       <div v-if="ableToOpenNewChat" id="openNewChat">
         <input
@@ -56,9 +46,6 @@ import { createPopup } from "@picmo/popup-picker";
           </ul>
         </template>
       </div>
-      <!--<div id="openNewChat" v-else>
-          No new users available to add...
-        </div>-->
       <div
         v-for="(chat, index) in loggedInUser.chats"
         :key="index"
@@ -247,15 +234,10 @@ export default {
     return {
       activeChatUser: null,
       showActiveChatSettings: false,
-      // TODO: replace this with actual logged in user, get it from vue store
       loggedInUser: users[0],
       chatMessageInput: "",
       showNewChatSection: false,
-      showActiveChatProfileInfo: false,
-      // TODO: move body bg color change to $route watch() when vue store is ready
-      bodyBgColor: "#ffe1e8",
-      bodyBgColorDark: "#8843e4",
-      //darkMode: this.$store.state.Darkmode,
+      showActiveChatProfileInfo: false
     };
   },
   methods: {
@@ -531,14 +513,6 @@ export default {
     },
   },
   created() {
-    /*
-    const body = document.querySelector("body");
-    body.style.backgroundColor = this.darkMode
-      ? this.bodyBgColorDark
-      : this.bodyBgColor;
-
-     */
-
     if (this.openChatUsernameOnLoad) {
       this.openChat(this.openChatUsernameOnLoad);
     } else if (this.openLastChatOnLoad && this.loggedInUser.chats.length) {
@@ -590,16 +564,6 @@ export default {
   },
   emits: [],
 };
-
-/*
-// Returns url of an avatar based on the users gender
-function getAvatarUrl(userName) {
-  const user = getUser(userName);
-  const nameInitials = user.firstName[0] + user.lastName[0]
-  //return 'https://ui-avatars.com/api/?background=0D8ABC&color=fff&size=128&name=' + nameInitials;
-  return `https://xsgames.co/randomusers/avatar.php?g=${user.gender.toLowerCase()}&name=${nameInitials}`
-}
- */
 
 function getUser(userName) {
   const user = users.find(
